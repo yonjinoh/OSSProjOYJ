@@ -3,6 +3,6 @@
 
 Class : OSSProj  
 Name : Oh YeonJin  
-Date : 2024.03.27
-Subject : Git and Github
+Date : 2024.03.27  
+Subject : Git and Github  
 Practice : Github pull request
