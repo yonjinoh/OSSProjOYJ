@@ -484,7 +484,8 @@
 
 ### 2.5  추진일정  
 
-![간트 차트 이미지](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/144208568/37fd1422-5368-4ae7-bc3e-45ebec6a53c2)
+![간트차트](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/144078388/922bc7fa-eb37-44c0-b950-7ab8bad8c15e)
+
 <br></br>
 
 ### 2.6 참고문헌  
