@@ -99,10 +99,11 @@
     유클리드 거리 계산 방식은 벡터 간의 절대적인 거리에 초점을 맞추고 그 값이 작을수록 유사성이 높다고 판단함.
     
 
-![112791929](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/144208568/a90447a6-1bf2-4dd7-a49e-0b8602c0d294)  
-[ShareMate](https://github.com/ShareMate)
+**도메인 참고 프로젝트 - 아주대학교의 “쉐어메이트” Application**  
 
-**도메인 참고 프로젝트 - 아주대학교의 “쉐어메이트” Application**
+![112791929](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/144208568/a90447a6-1bf2-4dd7-a49e-0b8602c0d294)  
+[ShareMate](https://github.com/ShareMate)  
+
 
 **(0) “쉐어메이트” 어플리케이션 소개**
 
