@@ -83,7 +83,7 @@
 
 #### (2) 선행기술 및 사례 분석  
 
-**설계 구조 참고 프로젝트 분석**  
+**설계 구조 참고 프로젝트 - 방탈출 매칭 앱 "펀칭"**  
 [GitHub - CSID-DGU/2022-2-OSSP1-Exit-1: 방탈출 메이트 매칭 App](https://github.com/CSID-DGU/2022-2-OSSP1-Exit-1)  
 
 
