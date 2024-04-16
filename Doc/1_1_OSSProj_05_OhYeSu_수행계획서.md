@@ -162,7 +162,7 @@
 
 **(2) 본 프로젝트에서 추구하고자 하는 차별점 및 개선점**
 
-![image (2)](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/144208568/d2e6a944-b85c-403c-a04b-c97772cdbd73)
+![image (2)](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/144208568/d2e6a944-b85c-403c-a04b-c97772cdbd73)  
 <쉐어메이트, 끼리끼리 도메인 및 기능 비교표>
 
 - “펀칭”의 기술적인 시스템 구조와 “쉐어메이트”의 기능들을 참고하되 본 프로젝트에서는 아래과 같은 차별점 및 개선점을 추구하고자 한다.
