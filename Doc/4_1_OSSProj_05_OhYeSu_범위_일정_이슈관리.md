@@ -2,7 +2,8 @@
 
 ## 범위/일정 관리  
 
-![간트차트](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/144078388/922bc7fa-eb37-44c0-b950-7ab8bad8c15e)
+![image](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/144078388/10e9fb91-e8cd-491e-bece-132a512c47d9)
+
 
 ## 이슈 관리  
 
