@@ -537,11 +537,11 @@
 - **DB 명세서**
 [KIRIKIRI_DB 명세서.pdf](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/files/15218855/KIRIKIRI_DB.pdf)
 
-![DB 명세서1](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/7b14f04c-9013-4de4-92a2-f7388e373fdc)  
+    ![DB 명세서1](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/7b14f04c-9013-4de4-92a2-f7388e373fdc)  
 
-![DB명세서2](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/79b6154d-3c91-46d9-a3d4-8b3adb99bcc6)  
+    ![DB명세서2](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/79b6154d-3c91-46d9-a3d4-8b3adb99bcc6)  
 
-![DB명세서3](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/3b07998c-d237-4cfc-b27c-66fdf6d05ee6)
+    ![DB명세서3](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/3b07998c-d237-4cfc-b27c-66fdf6d05ee6)
 
 </br>
 
