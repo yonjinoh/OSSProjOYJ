@@ -352,7 +352,7 @@
 
 **7) 최종 결과물 플로우 차트**  
 
-  ![전체 플로우 차트](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/144208568/49ebc63f-1686-4912-9954-731ad52abcda)
+  ![화면 흐름도](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/81df98c4-4d91-4539-ad86-b9bed0b534e3)
 
 <br></br>
 
