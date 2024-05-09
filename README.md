@@ -69,5 +69,7 @@
 ##
 ### 회의록 및 이슈관리 
 [범위/일정/이슈 관리](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/Doc/4_1_OSSProj_05_OhYeSu_%EB%B2%94%EC%9C%84_%EC%9D%BC%EC%A0%95_%EC%9D%B4%EC%8A%88%EA%B4%80%EB%A6%AC.md)
+<br/>
 [회의록](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/Doc/4_2_OSSProj_05_OhYeSu_%ED%9A%8C%EC%9D%98%EB%A1%9D.md)
-
+<br/>
+[칸반보드](노션링크)
