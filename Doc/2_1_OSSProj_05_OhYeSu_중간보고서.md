@@ -662,8 +662,8 @@
 
 ### 2.5  추진일정  
 
-* 세부 작업에 대한 간트챠트  
-* 세부 작업 별 구성원의 역할  
+![간트차트](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/cff7d702-283e-4dd6-b734-ac8005ef0d1c)
+![간트차트(1)](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/9bdcf7a4-ac5f-46b4-b10d-3d5a03a92460)
 
 ### 2.6 팀원 역할  
 
