@@ -72,4 +72,4 @@
 <br/>
 [회의록](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/Doc/4_2_OSSProj_05_OhYeSu_%ED%9A%8C%EC%9D%98%EB%A1%9D.md)
 <br/>
-[칸반보드](노션링크)
+[칸반보드](https://meadow-cast-ab6.notion.site/4ebfd02a62dd428aad0df3da42971d07?pvs=4)
