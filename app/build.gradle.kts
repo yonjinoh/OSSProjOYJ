@@ -38,6 +38,7 @@ android {
     }
     buildFeatures {
         compose = true
+        dataBinding = true // 데이터 바인딩 활성화
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
@@ -61,6 +62,7 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.constraintlayout)
     implementation("androidx.appcompat:appcompat:1.3.0")
+    implementation ("com.google.android.material:material:1.4.0")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
