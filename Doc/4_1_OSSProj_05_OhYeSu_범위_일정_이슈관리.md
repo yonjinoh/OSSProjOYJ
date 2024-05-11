@@ -2,7 +2,9 @@
 
 ## 범위/일정 관리  
 
-![image](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/144078388/10e9fb91-e8cd-491e-bece-132a512c47d9)
+![간트차트](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/144078388/a54f816f-0d2c-41b9-9253-e3b7765cbfcf)
+
+[프로젝트 칸반보드](https://meadow-cast-ab6.notion.site/4ebfd02a62dd428aad0df3da42971d07)
 
 
 ## 이슈 관리  
