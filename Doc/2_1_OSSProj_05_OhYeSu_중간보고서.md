@@ -340,7 +340,7 @@
 <br></br>
 
 **5) 유스케이스**
-    ![시스템 구조도](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/4116f87a-9c9f-4d5e-9ee6-65ac08932f7c) 
+    ![유스케이스 drawio (1)](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/6c739eb4-e87d-411c-a6b8-0af5a0188ca2)
 <br></br>
 
 **6) 시퀀스다이어그램**
@@ -561,6 +561,12 @@
     ![DB명세서2](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/79b6154d-3c91-46d9-a3d4-8b3adb99bcc6)  
 
     ![DB명세서3](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/3b07998c-d237-4cfc-b27c-66fdf6d05ee6)
+
+</br>
+
+- **ERD**
+
+![Kiri (2)](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/bd28a217-6ed0-4875-9a4e-d42b7c7277b9)
 
 </br>
 
