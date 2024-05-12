@@ -38,21 +38,13 @@
 <img src="https://img.shields.io/badge/Github-181717?style=for-the-badge&logo=Github&logoColor=white"> <img src="https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=Notion&logoColor=white"> <img src="https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=Slack&logoColor=white"> <img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=Figma&logoColor=white">
 
 
-
-
-
-
-
-
-
-
-
-
-
 <br/>
 
 ## 4. 프로젝트 전체 구조
 ![시스템 구조도](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/bc6d45b7-436e-44be-81b9-0487dd78977d)  
+
+## 5. ERD
+![Kiri (2)](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/bd28a217-6ed0-4875-9a4e-d42b7c7277b9)
 
 <br/>
 
@@ -65,6 +57,7 @@
 (배포 후 작성)
 
 <br/>
+
 
 ##
 ### 회의록 및 이슈관리 
