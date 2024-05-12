@@ -340,7 +340,7 @@
 <br></br>
 
 **5) 유스케이스**
-    ![유스케이스 drawio (1)](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/6c739eb4-e87d-411c-a6b8-0af5a0188ca2)
+    ![유스케이스 drawio (2)](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/35a1149a-8587-482c-b4f1-cf4f6bcf7e8c)
 <br></br>
 
 **6) 시퀀스다이어그램**
@@ -668,8 +668,8 @@
 
 ### 2.5  추진일정  
 
-![간트차트](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/cff7d702-283e-4dd6-b734-ac8005ef0d1c)
-![간트차트(1)](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/9bdcf7a4-ac5f-46b4-b10d-3d5a03a92460)
+![image](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/10fa5b9c-999d-417f-9bdd-7fcbc1184ac4)
+![image](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/dc5f7c5f-c776-4abe-a53f-af8d1220f7bd)
 
 ### 2.6 팀원 역할  
 
