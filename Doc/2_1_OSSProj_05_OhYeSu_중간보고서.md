@@ -571,6 +571,7 @@
 </br>
 
 - **API 명세서**
+[API 명세서](https://meadow-cast-ab6.notion.site/API-ba20f04456da4df4b0f3a824b6be7885?pvs=4)  
 ![API 명세서](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/e0891dc0-93e7-4048-99c6-2760a9c25646)
 
 <br></br>
