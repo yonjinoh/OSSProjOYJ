@@ -340,6 +340,7 @@
 <br></br>
 
 **5) 유스케이스**
+<br></br>
     ![유스케이스 drawio (2)](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/35a1149a-8587-482c-b4f1-cf4f6bcf7e8c)
 <br></br>
 
