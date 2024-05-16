@@ -6,27 +6,29 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <!--메인화면 메뉴 하단바-->
-
+    <!--메인화면 내용-->
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/main_container"
-        android:name="com.example.mytestapp.RoomieFragment"
+        android:name="com.example.mytestapp.HomeFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toTopOf="@+id/bnv_main"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        tools:layout="@layout/fragment_roomie"/>
+        tools:layout="@layout/fragment_home"/>
 
+    <!--메인화면 메뉴 하단바-->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bnv_main"
         android:layout_width="match_parent"
         android:layout_height="65dp"
         app:itemIconSize="24dp"
-        android:background="#ECEFF1"
+        android:background="#FFFAFA"
         app:itemIconTint="@drawable/menu_selector_color"
-        app:labelVisibilityMode="unlabeled"
+        app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/item_menu" />
 
 

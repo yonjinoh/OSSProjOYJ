@@ -36,9 +36,11 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    // 바인딩 활성화 추가 (데이터, 뷰)
     buildFeatures {
         compose = true
-        dataBinding = true // 데이터 바인딩 활성화
+        dataBinding = true
+        viewBinding =  true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
@@ -61,8 +63,10 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.constraintlayout)
+    // 추가한 부분
     implementation("androidx.appcompat:appcompat:1.3.0")
     implementation ("com.google.android.material:material:1.4.0")
+    implementation ("de.hdodenhof:circleimageview:3.1.0")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
