@@ -12,6 +12,10 @@
     <color name="realblack">#FF000000</color>
     <color name="realwhite">#FFFFFFFF</color>
     <color name="orange_main">#E99311</color>
+    <color name="light_orange">#FFF7EA</color> <!--    추가한 색-->
+    <color name="light_gray">#F2F7FB</color>
+    <color name="chat_green">#20A090</color>
+    <color name="gray">#D3D3D3</color>
 
 
     <!--텍스트-->
