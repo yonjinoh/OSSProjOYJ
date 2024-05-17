@@ -1,5 +1,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+        android:id="@+id/matching_user"
+        android:title="@string/matching_user" />
+    <item
         android:id="@+id/action_block"
         android:title="@string/block_user" />
 
