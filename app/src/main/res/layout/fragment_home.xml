@@ -4,7 +4,7 @@
     android:id="@+id/container2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFCC80"
+    android:background="@color/light_orange"
     >
 
     <LinearLayout
@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/pretendard_bold"
             android:text="소개소개글"
-            android:textColor="@color/text_white"
+            android:textColor="@color/text_main"
             android:textSize="50sp" />
 
         <TextView
@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/pretendard_bold"
             android:text="소개소개글"
-            android:textColor="@color/text_white"
+            android:textColor="@color/text_main"
             android:textSize="50sp" />
         <TextView
             android:layout_width="wrap_content"
@@ -38,7 +38,7 @@
             android:fontFamily="@font/pretendard_bold"
             android:text="끼리끼리"
             android:textStyle="bold"
-            android:textColor="@color/text_white"
+            android:textColor="@color/text_main"
             android:textSize="50sp" />
     </LinearLayout>
 
