@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mytestapp.adapters.MessagesAdapter
+import com.example.mytestapp.model.request.ChatMessage
 import com.example.mytestapp.R
 import retrofit2.Call
 import retrofit2.Callback
@@ -28,7 +29,7 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var adapter: MessagesAdapter
     private lateinit var messageInput: EditText
     private lateinit var recyclerView: RecyclerView
-    private lateinit var chatService: ChatService
+    private lateinit var chatService: matchingService
     private lateinit var currentUserId: String  // 현재 로그인한 사용자의 ID를 저장
     private lateinit var targetUserId: String  // 채팅 상대방의 ID를 저장
 

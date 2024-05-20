@@ -1,4 +1,4 @@
-package com.example.mytestapp.chat
+package com.example.mytestapp.model.request
 
 data class BlockData(
     val userId: String,
