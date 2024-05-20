@@ -1,5 +1,8 @@
-package com.example.mytestapp.chat
+package com.example.mytestapp.service
 
+import com.example.mytestapp.model.request.BlockData
+import com.example.mytestapp.model.request.ChatMessage
+import com.example.mytestapp.model.request.ReportData
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
