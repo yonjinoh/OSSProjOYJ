@@ -1,4 +1,3 @@
-<!--기존엔 없던 내용이라 필요할지는 모르겠음-->
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -6,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".matching.MatchingING">
+    tools:context=".match.MatchingING">
+    <!--추후 구현-->
 
 
     <ImageView

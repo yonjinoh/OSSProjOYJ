@@ -5,17 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.mytestapp.databinding.FragmentRoomieBinding
+import com.example.mytestapp.databinding.FragmentHomeBinding
 
-class RoomieFragment : Fragment() {
-    private var binding: FragmentRoomieBinding? = null
+class HomeFragment : Fragment() {
+    private var binding: FragmentHomeBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentRoomieBinding.inflate(inflater, container, false)
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding?.root
     }
 

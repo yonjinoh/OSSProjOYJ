@@ -9,7 +9,8 @@
 
         <variable
             name="roomdata"
-            type="com.example.testapplication.model.response.getroomlistresponse.Data" />
+            type="com.example.MyTestApp.model.response.getroomlistresponse.Data" />
+        <!--추후 구현-->
 
     </data>
 

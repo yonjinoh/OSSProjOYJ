@@ -22,5 +22,7 @@
     <color name="text_main">#131314</color>
     <color name="gray_light">#b5b8ba</color>
     <color name="text_white">#ffffff</color>
+    <color name="error">#D9534F</color>
+    <color name="gray_dark">#494a4b</color>
 
 </resources>
