@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.mytestapp.MainActivity
 import com.example.mytestapp.R
+import com.example.mytestapp.profile.ProfileOption1Activity
 
 class MyPageFragment : Fragment() {
 
