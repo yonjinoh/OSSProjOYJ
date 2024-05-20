@@ -40,7 +40,7 @@ android {
     buildFeatures {
         compose = true
         dataBinding = true
-        viewBinding =  true
+        viewBinding = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
@@ -52,8 +52,15 @@ android {
     }
 }
 
-dependencies {
+// 연진 추가
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
 
+dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -63,21 +70,15 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.constraintlayout)
-    // 추가한 부분
+    //추가한 부분
     implementation("androidx.appcompat:appcompat:1.3.0")
-    implementation ("com.google.android.material:material:1.4.0")
-
-    implementation ("de.hdodenhof:circleimageview:3.1.0")
-
+    implementation("com.google.android.material:material:1.4.0")
+    implementation("de.hdodenhof:circleimageview:3.1.0")
+    implementation("androidx.recyclerview:recyclerview:1.2.1")
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation ("androidx.drawerlayout:drawerlayout:1.1.1")
-
-
-    implementation ("com.google.android.material:material:1.4.0")
-
-    implementation ("androidx.recyclerview:recyclerview:1.2.1")
     implementation(libs.androidx.activity)
-
-    //implementation(libs.androidx.recyclerview)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -87,4 +88,3 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 }
-

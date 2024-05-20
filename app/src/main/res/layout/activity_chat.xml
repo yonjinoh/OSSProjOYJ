@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,12 +6,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/realwhite"
-    tools:context=".chat.ChatActivity">
+    tools:context=".Chat.ChatActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -48,7 +46,6 @@
                 android:layout_height="30dp"
                 android:src="@drawable/menu"
                 app:tint="@color/realblack" />
-
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -64,7 +61,8 @@
             app:layout_constraintBottom_toTopOf="@+id/chat_inputBox"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout"
             app:layout_constraintVertical_bias="0.0"
-            tools:layout_editor_absoluteX="1dp" />
+            tools:layout_editor_absoluteX="1dp"
+            tools:ignore="MissingConstraints" />
 
         <LinearLayout
             android:id="@+id/chat_inputBox"
@@ -85,9 +83,8 @@
 
                 <EditText
                     android:id="@+id/chat_input"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
                     android:layout_weight="1"
                     android:background="#00ff0000"
                     android:ems="10"
@@ -95,21 +92,20 @@
                     android:minHeight="48dp"
                     android:scrollHorizontally="false" />
 
-
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/massage_send"
+                    android:id="@+id/message_send"
                     android:layout_width="45dp"
                     android:layout_height="45dp"
                     android:layout_gravity="center_vertical"
                     android:padding="3dp"
                     android:src="@drawable/ic_send"
-                    tools:ignore="MissingClass" />
+                    tools:ignore="MissingClass"
+                    android:clickable="true"
+                    android:focusable="true" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
-
         </LinearLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.navigation.NavigationView
@@ -117,10 +113,5 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="end"
-        android:background="@color/realwhite"
-        app:headerLayout="@layout/layout_navigation_header" />
-    <!--
-    app:menu="@menu/chat_side_menu" << 추가해서 메뉴로 활용가능.
-    하려면 drawer를 custom 해야함
-    -->
+        android:background="@color/realwhite" />
 </androidx.drawerlayout.widget.DrawerLayout>
