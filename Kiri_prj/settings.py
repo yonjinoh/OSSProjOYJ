@@ -25,11 +25,13 @@ SECRET_KEY = 'django-insecure-ttqah)3dl(795v%q%ux0=@!o+abh!7tf%8cv9ep7sm&2s$k#*)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# KSH: 모든 호스트 장고 접속 가능
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
 
+# KSH: Kiri_app ~ channels 추가
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -37,6 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'Kiri_app',
+    'rest_framework',
+    'drf_yasg',
+    'channels'
 ]
 
 MIDDLEWARE = [
@@ -74,9 +80,22 @@ WSGI_APPLICATION = 'Kiri_prj.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # }
+
+    "default": {
+
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'qwer',
+        'USER': 'root',
+        'PASSWORD':'9878',
+        'HOST': '127.0.0.1',
+        'PORT':'3306',
+        'OPTIONS':{
+            'init_command' : "SET sql_mode='STRICT_TRANS_TABLES'"
+        }
     }
 }
 
@@ -120,4 +139,11 @@ STATIC_URL = 'static/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#실시간 채팅을 위한 추가
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',
+    },
+}
