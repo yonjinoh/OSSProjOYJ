@@ -15,8 +15,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
+# KSH: api urls.py를 사용하기 위해 include 추가
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("",include('Kiri_app.urls')), #api/urls.py 사용
 ]
