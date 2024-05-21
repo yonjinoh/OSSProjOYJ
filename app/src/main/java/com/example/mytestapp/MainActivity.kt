@@ -1,46 +1,63 @@
 package com.example.mytestapp
 
+import MyPageFragment
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.mytestapp.ui.theme.MyTestAppTheme
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentContainerView
+import com.example.mytestapp.chat.ChatFragment
+import com.example.mytestapp.databinding.ActivityMainBinding
+import com.example.mytestapp.match.MatchingFragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
+    private val frame: FragmentContainerView by lazy { // activity_main의 화면 부분
+        findViewById(R.id.main_container)
+    }
+
+    private val bottomNagivationView: BottomNavigationView by lazy { // 하단 네비게이션 바
+        findViewById(R.id.bnv_main)
+    }
+    private lateinit var binding1: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            MyTestAppTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting("Android")
+        setContentView(R.layout.activity_main)
+        binding1 = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding1.root)
+
+        val userid = intent.getStringExtra("userid")
+
+        if (frame == null) {
+            supportFragmentManager.beginTransaction()
+                .add(frame.id, ChatFragment())
+                .commit()
+        }
+        replaceFragment(HomeFragment()) // 기본 화면이 홈 화면
+
+        bottomNagivationView.setOnNavigationItemSelectedListener {item ->
+            when(item.itemId) {
+                R.id.nav_home -> {
+                    replaceFragment(HomeFragment())
+                    true
                 }
+                R.id.nav_roomate -> {
+                    replaceFragment(MatchingFragment())
+                    true
+                }
+                R.id.nav_chat -> {
+                    replaceFragment(ChatFragment())
+                    true
+                }
+                R.id.nav_mypage -> {
+                    replaceFragment(MyPageFragment())
+                    true
+                }
+                else -> false
             }
         }
     }
-}
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    MyTestAppTheme {
-        Greeting("Android")
+    fun replaceFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction().replace(frame.id, fragment).commit()
     }
 }

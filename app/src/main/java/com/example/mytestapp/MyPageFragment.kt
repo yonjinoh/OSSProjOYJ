@@ -1,59 +1,64 @@
-package com.example.mytestapp
-
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
+import androidx.fragment.app.Fragment
+import com.example.mytestapp.R
+import com.example.mytestapp.profile.ProfileGenderActivity
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [MyPageFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class MyPageFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_mypage, container, false)
+        val view = inflater.inflate(R.layout.fragment_mypage, container, false)
+
+        // 받아온 데이터 추출
+        val name = arguments?.getString("name")
+        val studentId = arguments?.getString("studentId")
+
+        // 학번과 이름을 표시할 TextView 찾기
+        val studentIdTextView = view.findViewById<TextView>(R.id.student_id)
+        val nameTextView = view.findViewById<TextView>(R.id.Name)
+
+        // 학번과 이름 설정
+        studentIdTextView.text = studentId
+        nameTextView.text = name
+
+        // 프로필 수정 버튼 클릭 시
+        view.findViewById<Button>(R.id.editProfileButton).setOnClickListener {
+            // TODO: 프로필 수정 버튼 클릭 시 동작 구현
+            // ProfileOption1Activity로 이동
+            val intent = Intent(requireContext(), ProfileGenderActivity::class.java)
+            startActivity(intent)
+        }
+
+        // 차단 목록 관리 버튼 클릭 시
+        view.findViewById<Button>(R.id.blockListButton).setOnClickListener {
+            // TODO: 차단 목록 관리 버튼 클릭 시 동작 구현
+            // 차단 목록 액티비티를 열거나 프래그먼트 내에서 차단 목록을 관리하는 기능
+
+        }
+
+        // 로그아웃 버튼 클릭 시
+        view.findViewById<Button>(R.id.logout).setOnClickListener {
+            // 로그아웃 처리
+            logout()
+        }
+
+        return view
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment MyPageFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            MyPageFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    private fun logout() {
+        // 로그아웃 처리를 수행. 로그인 상태를 초기화하고 로그인 화면으로 이동
+//        val intent = Intent(requireContext(), LoginActivity::class.java)
+//        startActivity(intent)
+//        requireActivity().finish() // 현재 액티비티 종료
+        requireActivity().supportFragmentManager.popBackStack()
     }
 }
