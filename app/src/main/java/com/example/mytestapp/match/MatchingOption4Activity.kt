@@ -1,4 +1,4 @@
-package com.example.mytestapp.profile
+package com.example.mytestapp.match
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,12 +10,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.mytestapp.MainActivity
 import com.example.mytestapp.R
 
-class ProfileOption4Activity : AppCompatActivity() {
+class MatchingOption4Activity : AppCompatActivity() {
 
-    private lateinit var cleaningSensitivityRadioGroup: RadioGroup
-    private lateinit var noiseSensitivityRadioGroup: RadioGroup
-    private lateinit var firstSleepTimeRadioGroup: RadioGroup
-    private lateinit var secondSleepTimeRadioGroup: RadioGroup
     private lateinit var firstUptimeRadioGroup: RadioGroup
     private lateinit var secondUptimeRadioGroup: RadioGroup
 
@@ -24,10 +20,6 @@ class ProfileOption4Activity : AppCompatActivity() {
         setContentView(R.layout.activity_profile_option_4)
 
         // 라디오 그룹 초기화
-        cleaningSensitivityRadioGroup = findViewById(R.id.cleaning_sensitivity_radio_group)
-        noiseSensitivityRadioGroup = findViewById(R.id.noise_sensitivity_radio_group)
-        firstSleepTimeRadioGroup = findViewById(R.id.first_sleeptime_radio_group)
-        secondSleepTimeRadioGroup = findViewById(R.id.second_sleep_time_radio_group)
         firstUptimeRadioGroup = findViewById(R.id.first_uptime_radio_group)
         secondUptimeRadioGroup = findViewById(R.id.second_uptime_radio_group)
 
@@ -45,28 +37,25 @@ class ProfileOption4Activity : AppCompatActivity() {
         }
 
         btnPrev.setOnClickListener {
-            // 이전 화면으로 이동 (ProfileOption3Activity)
-            val intent = Intent(this, ProfileOption3Activity::class.java)
+            // 이전 화면으로 이동 (MatchingOption3Activity)
+            val intent = Intent(this, MatchingOption3Activity::class.java)
             startActivity(intent)
             finish()
         }
 
         btnFinish.setOnClickListener {
             // 프로필 완성 버튼 클릭 시, 선택된 값을 가져와서 처리
-            val cleaningSensitivity = getSelectedRadioButtonValue(cleaningSensitivityRadioGroup)
-            val noiseSensitivity = getSelectedRadioButtonValue(noiseSensitivityRadioGroup)
-            val sleepTime = getSelectedRadioButtonValue(firstSleepTimeRadioGroup, secondSleepTimeRadioGroup)
             val uptime = getSelectedRadioButtonValue(firstUptimeRadioGroup, secondUptimeRadioGroup)
 
-            if (cleaningSensitivity == "선택되지 않음" ||
-                noiseSensitivity == "선택되지 않음" ||
-                sleepTime == "선택되지 않음" ||
-                uptime == "선택되지 않음") {
+            if (uptime == "선택되지 않음") {
                 // 필수 정보를 선택하지 않았을 경우에 대한 처리
                 Toast.makeText(this, "모든 선택지를 입력해주세요.", Toast.LENGTH_SHORT).show()
-            }else {
-                // 프로필 생성이 완료되었음을 알리는 토스트 메시지 출력
-                Toast.makeText(this, "프로필 생성이 완료되었습니다.", Toast.LENGTH_SHORT).show()
+            } else {
+                // 선택한 값들을 다음 액티비티로 전달하고 해당 액티비티로 이동
+                val intent = Intent(this, MatchingOptionTotalActivity::class.java)
+                // 여기에 선택한 값들을 intent에 추가하는 코드 추가해야 함
+                startActivity(intent)
+                finish()
             }
         }
     }

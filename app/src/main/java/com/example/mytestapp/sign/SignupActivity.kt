@@ -68,7 +68,8 @@ class SignupActivity : AppCompatActivity() {
                     signuprequest(
                         Id.text.toString(),
                         Password.text.toString(),
-                        Name.text.toString()
+                        Name.text.toString(),
+                        StudentId.text.toString()
                     )
                 ).enqueue(object : Callback<signupresponse> {
                     override fun onResponse(

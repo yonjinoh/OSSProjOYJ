@@ -9,11 +9,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mytestapp.MainActivity
 import com.example.mytestapp.databinding.ActivityLoginBinding
-import com.example.mytestapp.model.request.loginrequest     //구현 필요
-import com.example.mytestapp.model.response.loginresponse   //구현 필요
-import retrofit2.Call       //구현 필요
-import retrofit2.Callback       //구현 필요
-import retrofit2.Response       //구현 필요
+import com.example.mytestapp.model.request.loginrequest     //구현 완료
+import com.example.mytestapp.model.response.loginresponse   //구현 완료
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class LoginActivity : AppCompatActivity() {
