@@ -31,7 +31,7 @@ class AppUser(models.Model):
 # KSH : 채팅방 모델 정의
 class ChatRoom(models.Model):
     user1 = models.ForeignKey(AppUser, related_name='chatrooms_user1', on_delete=models.CASCADE)
-    # User - 매치 결과의 유저로 수정 필요
+    # User - 매치 결과의 유저로 수정 필요0
     user2 = models.ForeignKey(User, related_name='chatrooms_user2', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
