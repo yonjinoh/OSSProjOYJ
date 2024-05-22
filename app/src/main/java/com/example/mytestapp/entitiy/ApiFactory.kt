@@ -1,7 +1,7 @@
 package com.example.mytestapp.entitiy
 
 
-import com.example.mytestapp.BuildConfig
+//import com.example.mytestapp.BuildConfig  // 일단 주석 처리
 import com.example.mytestapp.service.*
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.json.Json
