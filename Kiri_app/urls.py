@@ -4,7 +4,7 @@ from rest_framework import routers, permissions
 from . import views #views.py import
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
-from .views import  RoomViewSet, ChatViewSet, UserViewSet
+from .views import ChatRoomListViewSet, ChatViewSet, UserViewSet
 
 #API 명세서 자동 생성 drf-yasg
 #swagger 정보 설정, 관련 엔드 포인트 추가
@@ -27,10 +27,10 @@ router = routers.DefaultRouter()
 #DefaultRouter를 설정
 router.register('AppUser', views.UserViewSet)
 # #itemviewset 과 item이라는 router 등록
-router.register('Room', views.RoomViewSet)
-# #Chat router 추가
+router.register('ChatRoom', views.ChatRoomListViewSetSet)
+# KSH: 채팅방 라우터 추가
 router.register('Chat', views.ChatViewSet)
-# router.register('signup', ap)
+# KSH: 채팅 라우터 추가
 
 # KSH: ProfileViewSet 추가
 router.register('Profile', views.ProfileViewSet)
@@ -58,6 +58,9 @@ if settings.DEBUG:
         path('signup/', views.UserViewSet.signup, name='user-signup'),
         path('login/', views.UserViewSet.login_api, name='user-login'),
         path('get_user_id/', views.UserViewSet.get_user_id, name='get-user-id'),
+        
+        
+        # 채팅방 리스트 링크, 채팅 내역 저장 링크, 채팅 내역 불러오기 링크 필요
         path('roomcreate/', views.RoomViewSet.roomcreate, name='user-roomcreate'),
         path('roomsearch/', views.RoomViewSet.roomsearch, name='roomsearch'),
         path('getroomlist/', views.RoomViewSet.getroomlist, name='getroomlist'),

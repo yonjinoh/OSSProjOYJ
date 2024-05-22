@@ -8,23 +8,9 @@ from django.utils import timezone
 
 
 
-#Room 모델 정의
-class Room(models.Model):
-    roomID = models.AutoField(primary_key = True)
-    title = models.CharField(max_length = 45, default = '')
-    roomIntro = models.TextField(max_length = 200, null=True)
-    date = models.CharField(max_length = 45)
-    region = models.CharField(max_length = 45, default = '')
-    genre = models.IntegerField(default = 0)
-    difficulty = models.FloatField(default = 0)
-    fear = models.FloatField(default = 0)
-    activity = models.FloatField(default = 0)
-    #필드 정의 (방의 속성을 나타냄)
 
-    def __str__(self):
-        return str(self.roomID)
 
-    #AppUser 모델 정의
+#AppUser 모델 정의
 class AppUser(models.Model):
     userID = models.AutoField(primary_key = True)
     id = models.CharField(max_length = 45, unique = True)
@@ -40,16 +26,28 @@ class AppUser(models.Model):
 
     def __str__(self):
         return self.name
-#Chat 모델 정의
-class Chat(models.Model):
-    chatID = models.IntegerField()
-    senderID = models.ForeignKey(AppUser, on_delete=models.CASCADE,related_name='chats')
-    content = models.TextField()
-    createAT = models.DateTimeField()
-    roomId = models.ForeignKey(Room, on_delete=models.CASCADE,related_name='chats')
+
+
+# KSH : 채팅방 모델 정의
+class ChatRoom(models.Model):
+    user1 = models.ForeignKey(AppUser, related_name='chatrooms_user1', on_delete=models.CASCADE)
+    # User - 매치 결과의 유저로 수정 필요
+    user2 = models.ForeignKey(User, related_name='chatrooms_user2', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.chatID
+        return f"ChatRoom between {self.user1.username} and {self.user2.username}"
+
+# KSH : 채팅 모델 정의
+class Chat(models.Model):
+    chatroom = models.ForeignKey(ChatRoom, on_delete=models.CASCADE, related_name='chats')
+    sender = models.ForeignKey(AppUser, on_delete=models.CASCADE, related_name='senders')
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Chat {self.id} in {self.chatroom.id}"
+
 
 
 # KSH: Profile 모델 정의 추가
@@ -139,7 +137,7 @@ class Report(models.Model):
 
 # KSH: Block 모델 정의 추가
 class Block (models.Model):
-    blockId = models.AutoField(primarg_key = True)
+    blockId = models.AutoField(primary_key = True)
     timestamp = models.DateTimeField(default = timezone.now)
     blockerId = models.ForeignKey(AppUser, on_delete=models.CASCADE, related_name='blocks')
     # Chat 모델에서 포린키 가져와야함 수정 필요
