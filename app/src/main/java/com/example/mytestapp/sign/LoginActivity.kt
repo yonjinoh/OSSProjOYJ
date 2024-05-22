@@ -1,6 +1,6 @@
 package com.example.mytestapp.sign
 
-import CriminalServicePool      //구현 필요
+import com.example.mytestapp.entitiy.KiriServicePool
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -18,7 +18,7 @@ import retrofit2.Response
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
-    private val LoginService = CriminalServicePool.loginService
+    private val LoginService = KiriServicePool.loginService
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,7 +37,7 @@ class LoginActivity : AppCompatActivity() {
 
         binding.loginBtn.setOnClickListener {
             if (ID.text.isNotEmpty() && Password.text.isNotEmpty()) {
-                LoginService.signin(
+                LoginService.login(
                     loginrequest(
                         ID.text.toString(),
                         Password.text.toString()
