@@ -1,12 +1,13 @@
 package com.example.mytestapp
 
+import MyPageFragment
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
 import com.example.mytestapp.chat.ChatFragment
 import com.example.mytestapp.databinding.ActivityMainBinding
-import com.example.mytestapp.matching.MatchingFragment
+import com.example.mytestapp.match.MatchingFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {

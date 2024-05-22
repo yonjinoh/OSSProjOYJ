@@ -36,7 +36,6 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    // 바인딩 활성화 추가 (데이터, 뷰)
     buildFeatures {
         compose = true
         dataBinding = true
@@ -52,7 +51,6 @@ android {
     }
 }
 
-// 연진 추가
 buildscript {
     repositories {
         google()
@@ -70,15 +68,19 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.constraintlayout)
-    //추가한 부분
+
+    // 추가한 부분
     implementation("androidx.appcompat:appcompat:1.3.0")
     implementation("com.google.android.material:material:1.4.0")
     implementation("de.hdodenhof:circleimageview:3.1.0")
     implementation("androidx.recyclerview:recyclerview:1.2.1")
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation ("androidx.drawerlayout:drawerlayout:1.1.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
+    implementation("androidx.drawerlayout:drawerlayout:1.1.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
+    implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0")
+    implementation("com.squareup.okhttp3:okhttp:4.9.3")
+
     implementation(libs.androidx.activity)
 
     testImplementation(libs.junit)
