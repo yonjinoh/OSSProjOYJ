@@ -20,13 +20,13 @@ object ApiFactory {
     inline fun <reified T> create(): T = retrofit.create<T>(T::class.java)
 }
 
-object CriminalServicePool {
+object KiriServicePool {
     val signupService = ApiFactory.create<SignService>()
     val loginService = ApiFactory.create<SignService>()
-    val createroomService = ApiFactory.create<CreateRoomService>()
-    val searchroomService = ApiFactory.create<SearchRoomService>()
-    val roomlistService = ApiFactory.create<RoomlistService>()
-    val enterroomService = ApiFactory.create<EnterRoomlistService>()
+//    val createroomService = ApiFactory.create<CreateRoomService>()
+//    val searchroomService = ApiFactory.create<SearchRoomService>()
+//    val roomlistService = ApiFactory.create<RoomlistService>()
+//    val enterroomService = ApiFactory.create<EnterRoomlistService>()
 }
 
 

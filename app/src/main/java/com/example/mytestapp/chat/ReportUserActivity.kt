@@ -14,6 +14,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.UUID
 
 class ReportUserActivity : Activity() {
     private lateinit var chatService: ChatService
@@ -79,7 +80,14 @@ class ReportUserActivity : Activity() {
     }
 
     private fun reportUser(reportedId: String, reason: String) {
-        val reportData = ReportData(currentUserId, reportedId, reason)
+        val reportId = UUID.randomUUID().toString()
+        val reportData = ReportData(
+            ReportID = reportId,
+            UserID = currentUserId,
+            Reason = reason,
+            ReporterID = currentUserId,
+            ReportedID = reportedId
+        )
         chatService.reportUser(reportData).enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful) {

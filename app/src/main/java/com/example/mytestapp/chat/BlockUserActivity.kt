@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.PopupMenu
+import android.widget.TextView
 import android.widget.Toast
 import com.example.mytestapp.R
 import com.example.mytestapp.model.request.BlockData
@@ -15,6 +16,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.UUID
 
 class BlockUserActivity : Activity() {
     private lateinit var chatService: ChatService
@@ -64,7 +66,13 @@ class BlockUserActivity : Activity() {
     }
 
     private fun blockUser(blockedId: String) {
-        val blockData = BlockData(currentUserId, blockedId)
+        val blockId = UUID.randomUUID().toString()
+        val blockData = BlockData(
+            BlockID = blockId,
+            UserID = currentUserId,
+            BlockerID = currentUserId,
+            BlockedID = blockedId
+        )
         chatService.blockUser(blockData).enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful) {
