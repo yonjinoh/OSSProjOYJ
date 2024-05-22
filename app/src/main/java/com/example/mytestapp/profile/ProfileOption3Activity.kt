@@ -2,55 +2,47 @@ package com.example.mytestapp.profile
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
 import android.widget.RadioButton
-import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mytestapp.MainActivity
-import com.example.mytestapp.R
-import com.example.mytestapp.profile.ProfileOption4Activity
+import com.example.mytestapp.databinding.ActivityProfileOption3Binding
 
 class ProfileOption3Activity : AppCompatActivity() {
-
-    private lateinit var callingRadioGroup: RadioGroup
-    private lateinit var hotTempRadioGroup: RadioGroup
-    private lateinit var coldTempRadioGroup: RadioGroup
-    private lateinit var drinkingFrequencyRadioGroup: RadioGroup
+    private lateinit var binding: ActivityProfileOption3Binding
+    // 변수 설정
+    private var callingValue: Int = -1
+    private var hotTempValue: Int = -1
+    private var coldTempValue: Int = -1
+    private var drinkingFrequencyValue: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_profile_option_3)
+        binding = ActivityProfileOption3Binding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        // 라디오 버튼 그룹 초기화
-        callingRadioGroup = findViewById(R.id.calling_radio_group)
-        hotTempRadioGroup = findViewById(R.id.hottemp_radio_group)
-        coldTempRadioGroup = findViewById(R.id.coldtemp_radio_group)
-        drinkingFrequencyRadioGroup = findViewById(R.id.drinking_frequency_radio_group)
-
-        // "이전으로" 버튼 클릭 시 ProfileOption2Activity로 이동
-        findViewById<Button>(R.id.btn_prev).setOnClickListener {
+        // 이전 버튼 클릭 시 ProfileOption2Activity로 이동
+        binding.btnPrev.setOnClickListener {
             startActivity(Intent(this, ProfileOption2Activity::class.java))
             finish()
         }
 
-        // "메인으로" 버튼 클릭 시 MainActivity로 이동
-        findViewById<Button>(R.id.btn_back).setOnClickListener {
+        // 메인으로 버튼 클릭 시 MainActivity로 이동
+        binding.btnBack.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
         }
 
-        // "다음으로" 버튼 클릭 시 선택한 값 확인 후 처리
-        findViewById<Button>(R.id.btn_next).setOnClickListener {
+        // 다음 버튼 클릭 시 선택한 값을 확인하고 처리
+        binding.btnNext.setOnClickListener {
             if (isValuesSelected()) {
                 // 선택한 값들을 다음 액티비티로 전달하고 해당 액티비티로 이동
                 val intent = Intent(this, ProfileOption4Activity::class.java)
-                // 각 라디오 버튼에서 선택한 값 전달
-                intent.putExtra("calling", getSelectedRadioButtonValue(callingRadioGroup))
-                intent.putExtra("hotTemp", getSelectedRadioButtonValue(hotTempRadioGroup))
-                intent.putExtra("coldTemp", getSelectedRadioButtonValue(coldTempRadioGroup))
-                intent.putExtra("drinkingFrequency", getSelectedRadioButtonValue(drinkingFrequencyRadioGroup))
+                intent.putExtra("calling", callingValue)
+                intent.putExtra("hotTemp", hotTempValue)
+                intent.putExtra("coldTemp", coldTempValue)
+                intent.putExtra("drinkingFrequency", drinkingFrequencyValue)
                 startActivity(intent)
                 finish()
             } else {
@@ -58,23 +50,27 @@ class ProfileOption3Activity : AppCompatActivity() {
                 Toast.makeText(this, "모든 선택지를 입력해주세요.", Toast.LENGTH_SHORT).show()
             }
         }
-    }
 
-    // 선택된 값이 모두 있는지 확인하는 함수
-    private fun isValuesSelected(): Boolean {
-        return (getSelectedRadioButtonValue(callingRadioGroup) != -1 &&
-                getSelectedRadioButtonValue(hotTempRadioGroup) != -1 &&
-                getSelectedRadioButtonValue(coldTempRadioGroup) != -1 &&
-                getSelectedRadioButtonValue(drinkingFrequencyRadioGroup) != -1)
-    }
-
-    // 선택된 라디오 버튼의 값을 반환하는 함수
-    private fun getSelectedRadioButtonValue(radioGroup: RadioGroup): Int {
-        val checkedRadioButtonId = radioGroup.checkedRadioButtonId
-        if (checkedRadioButtonId != -1) {
-            val radioButton = findViewById<RadioButton>(checkedRadioButtonId)
-            return radioButton.text.toString().toInt()
+        // 각 라디오 버튼 그룹에 대한 리스너 설정 및 선택된 값 저장
+        binding.callingRadioGroup.setOnCheckedChangeListener { group, checkedId ->
+            callingValue = findViewById<RadioButton>(checkedId).text.toString().toInt()
         }
-        return -1 // 선택된 라디오 버튼이 없는 경우
+
+        binding.hottempRadioGroup.setOnCheckedChangeListener { group, checkedId ->
+            hotTempValue = findViewById<RadioButton>(checkedId).text.toString().toInt()
+        }
+
+        binding.coldtempRadioGroup.setOnCheckedChangeListener { group, checkedId ->
+            coldTempValue = findViewById<RadioButton>(checkedId).text.toString().toInt()
+        }
+
+        binding.drinkingFrequencyRadioGroup.setOnCheckedChangeListener { group, checkedId ->
+            drinkingFrequencyValue = findViewById<RadioButton>(checkedId).text.toString().toInt()
+        }
+    }
+
+    private fun isValuesSelected(): Boolean {
+        // 모든 값이 선택되었는지 확인을 위한 함수
+        return (callingValue != -1 && hotTempValue != -1 && coldTempValue != -1 && drinkingFrequencyValue != -1)
     }
 }

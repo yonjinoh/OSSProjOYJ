@@ -64,6 +64,9 @@ class ProfileOption4Activity : AppCompatActivity() {
                 uptime == "선택되지 않음") {
                 // 필수 정보를 선택하지 않았을 경우에 대한 처리
                 Toast.makeText(this, "모든 선택지를 입력해주세요.", Toast.LENGTH_SHORT).show()
+            }else {
+                // 프로필 생성이 완료되었음을 알리는 토스트 메시지 출력
+                Toast.makeText(this, "프로필 생성이 완료되었습니다.", Toast.LENGTH_SHORT).show()
             }
         }
     }

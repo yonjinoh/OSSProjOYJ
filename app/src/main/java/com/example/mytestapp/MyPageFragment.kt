@@ -6,9 +6,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import com.example.mytestapp.MainActivity
 import com.example.mytestapp.R
-import com.example.mytestapp.profile.ProfileOption1Activity
+import com.example.mytestapp.profile.ProfileGenderActivity
 
 class MyPageFragment : Fragment() {
 
@@ -35,7 +34,7 @@ class MyPageFragment : Fragment() {
         view.findViewById<Button>(R.id.editProfileButton).setOnClickListener {
             // TODO: 프로필 수정 버튼 클릭 시 동작 구현
             // ProfileOption1Activity로 이동
-            val intent = Intent(requireContext(), ProfileOption1Activity::class.java)
+            val intent = Intent(requireContext(), ProfileGenderActivity::class.java)
             startActivity(intent)
         }
 
