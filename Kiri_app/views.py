@@ -365,7 +365,7 @@ class BlockViewSet(viewsets.ModelViewSet):
                     return Response({'success': True}, status=status.HTTP_200_OK)
                 except Block.DoesNotExist:
                     return Response({'success': False}, status=status.HTTP_404_NOT_FOUND)
-            else:g
+            else:
                 return Response({'success': False}, status=status.HTTP_400_BAD_REQUEST)
     @api_view(['GET'])
     def getblocklist(request):
