@@ -365,5 +365,15 @@ class BlockViewSet(viewsets.ModelViewSet):
                     return Response({'success': True}, status=status.HTTP_200_OK)
                 except Block.DoesNotExist:
                     return Response({'success': False}, status=status.HTTP_404_NOT_FOUND)
-            else:
+            else:g
                 return Response({'success': False}, status=status.HTTP_400_BAD_REQUEST)
+    @api_view(['GET'])
+    def getblocklist(request):
+        blockerId = request.query_params.get('blockerId')  # 쿼리 파라미터에서 'blockerId'를 가져옵니다.
+
+        if blockerId:
+            block_list = Block.objects.filter(blockerId=blockerId)
+            serializer = BlockSerializer(block_list, many=True)  # 시리얼라이저를 사용하여 쿼리셋을 JSON으로 변환합니다.
+            return Response({'block_list': serializer.data}, status=status.HTTP_200_OK)  # 변환된 데이터를 응답합니다.
+        else:
+            return Response({'success': False}, status=status.HTTP_400_BAD_REQUEST)
