@@ -1,6 +1,7 @@
 package com.example.mytestapp.sign
 
-import CriminalServicePool          //구현 필요
+//import CriminalServicePool          //구현 필요
+import com.example.mytestapp.entitiy.KiriServicePool
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
@@ -16,7 +17,7 @@ import retrofit2.Callback       //구현 필요
 class SignupActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
 
-    private val SignupService = CriminalServicePool.signupService
+    private val SignupService = KiriServicePool.signupService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

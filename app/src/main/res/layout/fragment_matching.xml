@@ -32,7 +32,7 @@
             android:layout_weight="1"
             android:fontFamily="@font/pretendard"
             android:gravity="center"
-            android:text="채팅 목록"
+            android:text="매칭 목록"
             android:textColor="@color/text_main"
             android:textSize="18sp"
             android:textStyle="bold" />
