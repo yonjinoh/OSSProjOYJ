@@ -22,3 +22,4 @@ interface ChatService {
     @POST("report")
     fun reportUser(@Body reportData: ReportData): Call<Void>
 }
+
