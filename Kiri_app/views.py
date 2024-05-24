@@ -20,7 +20,8 @@ import numpy as np,random
 
 
 # from django.contrib.auth import authenticate
-#확인
+
+
 class UserViewSet(viewsets.ModelViewSet):
     queryset = AppUser.objects.all()
     serializer_class = UserSerializer
@@ -31,24 +32,21 @@ class UserViewSet(viewsets.ModelViewSet):
         id = request.data.get('id')
         password = request.data.get('password')
         name = request.data.get('name')
-        # 학번 추가
-        studentid = request.data.get('studentId')
-        #회원가입시 아이디, 비번, 이름 등록
+        # 학번, 성별 추가
+        studentId = request.data.get('studentId')
+        gender = request.data.get('gender')
 
-        # studentid 추가
-        if id and password and name and studentid:
+        # studentid, gender 추가
+        if id and password and name and studentId and gender:
             try:
-                # Check if a user with the provided username already exists
+                # 회원 정보가 존재하는지 체크
                 existing_user = AppUser.objects.get(id = id)
                 return Response({'success': 'False'}, status=status.HTTP_400_BAD_REQUEST)
             except AppUser.DoesNotExist:
-                # Create a new user
+                # 회원 새로 생성
                 user_count = AppUser.objects.count() + 1
-                # studentid 추가
-                user = AppUser.objects.create(userID = user_count,id = id, password=password, name = name, studentId = studentid)
-                room_count = Room.objects.count()
-                roomID = '0' * room_count
-                user.roomID = roomID
+                # studentId, gender 추가
+                user = AppUser.objects.create(userID = user_count,id = id, password=password, name = name, studentId = studentId, gender = gender)
                 user.save()
                 return Response({'success': True}, status=status.HTTP_201_CREATED)
         else:
@@ -136,8 +134,11 @@ class ProfileViewSet(viewsets.ModelViewSet):
         cleanliness = request.data.get('cleanliness')
         noiseSens = request.data.get('noiseSens')
         sleepSche = request.data.get('sleepSche')
+        upSche = request.data.get('upSche')
 
-        if userId and Embti and Smbti and Tmbti and Jmbti and firstLesson and smoke and sleepHabit and grade and shareNeeds and inComm and heatSens and coldSens and drinkFreq and cleanliness and noiseSens and sleepSche:
+        if (userId and Embti and Smbti and Tmbti and Jmbti and firstLesson and smoke and sleepHabit
+                and grade and shareNeeds and inComm and heatSens and coldSens and drinkFreq
+                and cleanliness and noiseSens and sleepSche and upSche):
 
             user_count = Profile.objects.count() + 1
             user_profile = Profile.objects.create(profileId = user_count, userId = userId,
@@ -156,7 +157,8 @@ class ProfileViewSet(viewsets.ModelViewSet):
                                                   drinkFreq = drinkFreq,
                                                   cleanliness = cleanliness,
                                                   noiseSens = noiseSens,
-                                                  sleepSche = sleepSche)
+                                                  sleepSche = sleepSche,
+                                                  upSchel = upSche)
             user_profile.save()
 
             user = AppUser.objects.get(userID = userId)
@@ -188,8 +190,11 @@ class ProfileViewSet(viewsets.ModelViewSet):
         cleanliness = request.data.get('cleanliness')
         noiseSens = request.data.get('noiseSens')
         sleepSche = request.data.get('sleepSche')
+        upSche = request.data.get('upSche')
 
-        if userId and Embti and Smbti and Tmbti and Jmbti and firstLesson and smoke and sleepHabit and grade and shareNeeds and inComm and heatSens and coldSens and drinkFreq and cleanliness and noiseSens and sleepSche:
+        if (userId and Embti and Smbti and Tmbti and Jmbti and firstLesson and smoke and sleepHabit
+                and grade and shareNeeds and inComm and heatSens and coldSens and drinkFreq
+                and cleanliness and noiseSens and sleepSche and upSche):
 
             user_profile = Profile.objects.get(userId = userId)
             user_profile.Embti = Embti
@@ -208,6 +213,7 @@ class ProfileViewSet(viewsets.ModelViewSet):
             user_profile.cleanliness = cleanliness
             user_profile.noiseSens = noiseSens
             user_profile.sleepSche = sleepSche
+            user_profile.upSche = upSche
             user_profile.save()
 
             return Response({'success': True}, status=status.HTTP_200_OK)
@@ -223,11 +229,14 @@ class UserPrefViewSet(viewsets.ModelViewSet):
     def userprefcreate(request):
         UuserId = request.data.get('UuserId')
 
-        Umbti = request.data.get('Umbti')
+        UEmbti = request.data.get('UEmbti')
+        USmbti = request.data.get('USmbti')
+        UTmbti = request.data.get('UTmbti')
+        UJmbti = request.data.get('UJmbti')
+
         UfirstLesson = request.data.get('UfirstLesson')
         Usmoke = request.data.get('Usmoke')
         UsleepHabit = request.data.get('UsleepHabit')
-        Ugrade = request.data.get('Ugrade')
         Ugrade = request.data.get('Ugrade')
         UshareNeeds = request.data.get('UshareNeeds')
         UinComm = request.data.get('UinComm')
@@ -237,11 +246,16 @@ class UserPrefViewSet(viewsets.ModelViewSet):
         Ucleanliness = request.data.get('Ucleanliness')
         UnoiseSens = request.data.get('UnoiseSens')
         UsleepSche = request.data.get('UsleepSche')
+        UupSche = request.data.get('UupSche')
 
-        if UuserId and Umbti and UfirstLesson and Usmoke and UsleepHabit and Ugrade and UshareNeeds and UinComm and UheatSens and UcoldSens and UdrinkFreq and Ucleanliness and UnoiseSens and UsleepSche:
+        if (UuserId and UEmbti and USmbti and UTmbti and UJmbti and UfirstLesson and Usmoke
+                and UsleepHabit and Ugrade and UshareNeeds and UinComm and UheatSens and UcoldSens
+                and UdrinkFreq and Ucleanliness and UnoiseSens and UsleepSche and UupSche):
+
             user_count = UserPref.objects.count() + 1
             user_pref = UserPref.objects.create(prefId = user_count, UuserId = UuserId,
-                                                Umbti = Umbti,
+                                                UEmbti = UEmbti, USmbti = USmbti,
+                                                UTmbti = UTmbti, UJmbti = UJmbti,
                                                 UfirstLesson = UfirstLesson,
                                                 Usmoke = Usmoke,
                                                 UsleepHabit = UsleepHabit,
@@ -253,7 +267,8 @@ class UserPrefViewSet(viewsets.ModelViewSet):
                                                 UdrinkFreq = UdrinkFreq,
                                                 Ucleanliness = Ucleanliness,
                                                 UnoiseSens = UnoiseSens,
-                                                UsleepSche = UsleepSche)
+                                                UsleepSche = UsleepSche,
+                                                UupSche = UupSche)
             user_pref.save()
 
             user = AppUser.objects.get(userID = UuserId)
@@ -268,7 +283,11 @@ class UserPrefViewSet(viewsets.ModelViewSet):
     def userprefupdate(request):
         UuserId = request.data.get('UuserId')
 
-        Umbti = request.data.get('Umbti')
+        UEmbti = request.data.get('UEmbti')
+        USmbti = request.data.get('USmbti')
+        UTmbti = request.data.get('UTmbti')
+        UJmbti = request.data.get('UJmbti')
+
         UfirstLesson = request.data.get('UfirstLesson')
         Usmoke = request.data.get('Usmoke')
         UsleepHabit = request.data.get('UsleepHabit')
@@ -281,10 +300,19 @@ class UserPrefViewSet(viewsets.ModelViewSet):
         Ucleanliness = request.data.get('Ucleanliness')
         UnoiseSens = request.data.get('UnoiseSens')
         UsleepSche = request.data.get('UsleepSche')
+        UupSche = request.data.get('UupSche')
 
-        if UuserId and Umbti and UfirstLesson and Usmoke and UsleepHabit and Ugrade and UshareNeeds and UinComm and UheatSens and UcoldSens and UdrinkFreq and Ucleanliness and UnoiseSens and UsleepSche:
+
+        if (UuserId and UEmbti and USmbti and UTmbti and UJmbti and UfirstLesson and Usmoke
+                and UsleepHabit and Ugrade and UshareNeeds and UinComm and UheatSens and UcoldSens
+                and UdrinkFreq and Ucleanliness and UnoiseSens and UsleepSche and UupSche):
+
             user_pref = UserPref.objects.get(UuserId = UuserId)
-            user_pref.Umbti = Umbti
+            user_pref.UEmbti = UEmbti
+            user_pref.USmbti = USmbti
+            user_pref.UTmbti = UTmbti
+            user_pref.UJmbti = UJmbti
+
             user_pref.UfirstLesson = UfirstLesson
             user_pref.Usmoke = Usmoke
             user_pref.UsleepHabit = UsleepHabit
@@ -297,6 +325,8 @@ class UserPrefViewSet(viewsets.ModelViewSet):
             user_pref.Ucleanliness = Ucleanliness
             user_pref.UnoiseSens = UnoiseSens
             user_pref.UsleepSche = UsleepSche
+            user_pref.UupSche = UupSche
+
             user_pref.save()
 
             return Response({'success': True}, status=status.HTTP_200_OK)
@@ -308,6 +338,42 @@ class UserPrefViewSet(viewsets.ModelViewSet):
 class MatchViewSet(viewsets.ModelViewSet):
     queryset = Match.objects.all()
     serializer_class = MatchSerializer
+
+    @api_view(['POST'])
+    def matching(request):
+        userId = request.data.get('userId')
+    
+        try:
+            # 현재 사용자를 가져옴
+            user = AppUser.objects.get(userID=userId)
+    
+            # 조건에 맞는 사용자 리스트 가져옴
+            user_list = AppUser.objects.exclude(userID=userId).filter(
+                gender=user.gender,
+                isProfile=True,
+                isUserPref=True,
+                isRestricted=False
+            )
+        
+        except AppUser.DoesNotExist:
+            # 예외 처리 (예: 사용자 ID가 유효하지 않은 경우)
+            user_list = []
+    
+        # user_list를 반환하거나 다음 작업을 수행
+
+        # 매칭 알고리즘 추가 필요함
+
+        user_pref = UserPref.objects.get(UuserId=userId)
+
+
+
+        return user_list
+
+
+
+
+
+
 
 
 
@@ -367,3 +433,13 @@ class BlockViewSet(viewsets.ModelViewSet):
                     return Response({'success': False}, status=status.HTTP_404_NOT_FOUND)
             else:
                 return Response({'success': False}, status=status.HTTP_400_BAD_REQUEST)
+    @api_view(['GET'])
+    def getblocklist(request):
+        blockerId = request.query_params.get('blockerId')  # 쿼리 파라미터에서 'blockerId'를 가져옵니다.
+
+        if blockerId:
+            block_list = Block.objects.filter(blockerId=blockerId)
+            serializer = BlockSerializer(block_list, many=True)  # 시리얼라이저를 사용하여 쿼리셋을 JSON으로 변환합니다.
+            return Response({'block_list': serializer.data}, status=status.HTTP_200_OK)  # 변환된 데이터를 응답합니다.
+        else:
+            return Response({'success': False}, status=status.HTTP_400_BAD_REQUEST)
