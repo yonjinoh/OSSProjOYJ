@@ -21,6 +21,20 @@ interface SignService {
     ): Call<loginresponse>
 }
 
+interface ProfileService{
+    @POST("profile/")
+    fun profile(
+        @Body request: profilerequest
+    ): Call<profileresponse>
+}
+
+interface RoommateService{
+    @POST("roommate/")
+    fun roommate(
+        @Body request: roommaterequest
+    ): Call<roommateresponse>
+}
+
 // 채팅
 //interface ChatService {
 //
