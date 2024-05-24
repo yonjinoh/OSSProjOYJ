@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
 
-        <variable
-            name="roomdata"
-            type="com.example.mytestapp.model.response.getroomlistresponse.Data" />
-        <!--추후 구현-->
 
-    </data>
+<!--        <variable-->
+<!--            name="roomdata"-->
+<!--            type="com.example.MyTestApp.model.response.getroomlistresponse.Data" />-->
+<!--        &lt;!&ndash;추후 구현&ndash;&gt;-->
+
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/items"
