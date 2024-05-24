@@ -25,8 +25,8 @@ class AppUser(models.Model):
     isProfile = models.BooleanField(default = False) # 사용자 정보 입력 여부
     isUserPref = models.BooleanField(default = False) # 선호도 정보 입력 여부
     isRestricted = models.BooleanField(default = False) # 플랫폼 차단 여부 추가 (False: 차단 안됨, True: 차단됨)
-
-
+    # 매칭 현황 추가
+    matchStatus = models.CharField(max_length = 45, default = 'pending')
 
     def __str__(self):
         return self.name
@@ -113,7 +113,6 @@ class Match(models.Model):
     matchId = models.AutoField(primary_key = True)
     userId = models.ForeignKey(AppUser, on_delete=models.CASCADE, related_name='matchings')
     matchScore = models.FloatField()
-    matchStatus = models.CharField(max_length = 45, default = 'pending')
     createdAt = models.DateTimeField(default = timezone.now)
     updateAt = models.DateTimeField(default = timezone.now)
     # related_name 참조 변경 필요

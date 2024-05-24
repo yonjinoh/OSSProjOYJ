@@ -339,6 +339,42 @@ class MatchViewSet(viewsets.ModelViewSet):
     queryset = Match.objects.all()
     serializer_class = MatchSerializer
 
+    @api_view(['POST'])
+    def matching(request):
+        userId = request.data.get('userId')
+    
+        try:
+            # 현재 사용자를 가져옴
+            user = AppUser.objects.get(userID=userId)
+    
+            # 조건에 맞는 사용자 리스트 가져옴
+            user_list = AppUser.objects.exclude(userID=userId).filter(
+                gender=user.gender,
+                isProfile=True,
+                isUserPref=True,
+                isRestricted=False
+            )
+        
+        except AppUser.DoesNotExist:
+            # 예외 처리 (예: 사용자 ID가 유효하지 않은 경우)
+            user_list = []
+    
+        # user_list를 반환하거나 다음 작업을 수행
+
+        # 매칭 알고리즘 추가 필요함
+
+        user_pref = UserPref.objects.get(UuserId=userId)
+
+
+
+        return user_list
+
+
+
+
+
+
+
 
 
 
