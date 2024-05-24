@@ -78,6 +78,6 @@ if settings.DEBUG:
         path('reportuser/', views.ReportViewSet.reportuser, name='reportuser'),
         # KSH: BlockViewSet 추가
         path('blockuser/', views.BlockViewSet.blockuser, name='blockuser'),
-
+        path('getblocklist/', views.BlockViewSet.getblocklist, name='getblocklist'),
     ]
 
