@@ -9,7 +9,7 @@
             type="com.example.mytestapp.model.request.MatchingProfile" />
         <variable
             name="viewModel"
-            type="com.example.mytestapp.viewmodel.YourViewModel" />
+            type="com.example.mytestapp.viewmodel.KiriViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,6 +20,7 @@
         android:clickable="true"
         android:focusable="true"
         android:onClick="@{() -> viewModel.onProfileClicked(profile)}">
+
 
         <!-- 사용자의 이미지 -->
         <ImageView

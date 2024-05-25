@@ -1,16 +1,18 @@
-// YourViewModel.kt
 package com.example.mytestapp.viewmodel
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.example.mytestapp.model.request.ChatHistory
+import com.example.mytestapp.model.request.MatchingProfile
 
-class YourViewModel : ViewModel() {
-    private val _selectedChatRoom = MutableLiveData<ChatHistory>()
-    val selectedChatRoom: LiveData<ChatHistory> get() = _selectedChatRoom
+class KiriViewModel(application: Application) : AndroidViewModel(application) {
 
-    fun onRoomClicked(chatHistory: ChatHistory) {
-        _selectedChatRoom.value = chatHistory
+    private val _selectedProfile = MutableLiveData<MatchingProfile>()
+    val selectedProfile: LiveData<MatchingProfile>
+        get() = _selectedProfile
+
+    fun onProfileClicked(profile: MatchingProfile) {
+        _selectedProfile.value = profile
     }
 }

@@ -1,4 +1,4 @@
-package com.example.mytestapp.matching
+package com.example.mytestapp.match
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

@@ -350,6 +350,7 @@ class MatchViewSet(viewsets.ModelViewSet):
             # 조건에 맞는 사용자 리스트 가져옴
             user_list = AppUser.objects.exclude(userID=userId).filter(
                 gender=user.gender,
+                matchStatus='pending',
                 isProfile=True,
                 isUserPref=True,
                 isRestricted=False
