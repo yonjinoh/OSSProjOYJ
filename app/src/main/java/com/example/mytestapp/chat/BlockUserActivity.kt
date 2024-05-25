@@ -3,10 +3,6 @@ package com.example.mytestapp.chat
 import android.app.Activity
 import android.app.AlertDialog
 import android.os.Bundle
-import android.view.View
-import android.widget.ImageView
-import android.widget.PopupMenu
-import android.widget.TextView
 import android.widget.Toast
 import com.example.mytestapp.R
 import com.example.mytestapp.model.request.BlockData
@@ -23,16 +19,19 @@ class BlockUserActivity : Activity() {
     private lateinit var currentUserId: String
     private lateinit var targetUserId: String
 
+    // targetUserId를 Intent로부터 받아오기
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
 
+        targetUserId = intent.getStringExtra("targetUserId") ?: "unknown"
+
         initializeComponents()
+        confirmBlockUser(targetUserId)
     }
 
     private fun initializeComponents() {
         currentUserId = "currentUserId"
-        targetUserId = "targetUserId"
 
         val retrofit = Retrofit.Builder()
             .baseUrl("http://yourserver.com/api/")
@@ -41,30 +40,17 @@ class BlockUserActivity : Activity() {
         chatService = retrofit.create(ChatService::class.java)
     }
 
-    fun onMoreOptionsClicked(view: View?) {
-        val popup = PopupMenu(this, view)
-        popup.inflate(R.menu.chat_menu)
-        popup.setOnMenuItemClickListener { item ->
-            when (item.itemId) {
-                R.id.action_block -> {
-                    confirmBlockUser(targetUserId)
-                    true
-                }
-                else -> false
-            }
-        }
-        popup.show()
-    }
-
+    // 사용자를 차단할지 묻는 다이얼로그를 표시하고, '예'를 선택하면 blockUser 메서드를 호출
     private fun confirmBlockUser(blockedId: String) {
         AlertDialog.Builder(this)
             .setTitle("사용자 차단")
-            .setMessage("정말로 이 사용자를 차단하시겠습니까?")
+            .setMessage("정말로 해당 사용자를 차단하시겠습니까?")
             .setPositiveButton("예") { _, _ -> blockUser(blockedId) }
             .setNegativeButton("아니오") { dialog, _ -> dialog.dismiss() }
             .show()
     }
 
+    // blockUser 메서드에서 서버에 차단 요청을 보내고, 성공 시 차단 완료 메시지를 표시
     private fun blockUser(blockedId: String) {
         val blockId = UUID.randomUUID().toString()
         val blockData = BlockData(
@@ -76,7 +62,14 @@ class BlockUserActivity : Activity() {
         chatService.blockUser(blockData).enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful) {
-                    showCompletionDialog("차단 완료", "해당 사용자가 차단되었습니다.")
+                    AlertDialog.Builder(this@BlockUserActivity)
+                        .setTitle("차단 완료")
+                        .setMessage("해당 사용자가 차단되었습니다.")
+                        .setPositiveButton("확인") { dialog, _ ->
+                            dialog.dismiss()
+                            finish()
+                        }
+                        .show()
                 } else {
                     Toast.makeText(this@BlockUserActivity, "차단에 실패했습니다", Toast.LENGTH_SHORT).show()
                 }
@@ -86,20 +79,5 @@ class BlockUserActivity : Activity() {
                 Toast.makeText(this@BlockUserActivity, "에러: ${t.message}", Toast.LENGTH_LONG).show()
             }
         })
-    }
-
-    private fun showCompletionDialog(title: String, message: String) {
-        val view = layoutInflater.inflate(R.layout.activity_chat_completion, null)
-        val completionMessage = view.findViewById<TextView>(R.id.completion_message)
-        completionMessage.text = message
-        val dialog = AlertDialog.Builder(this)
-            .setView(view)
-            .setCancelable(false)
-            .create()
-        view.findViewById<View>(R.id.close_button).setOnClickListener { v: View? ->
-            dialog.dismiss()
-            finish()
-        }
-        dialog.show()
     }
 }

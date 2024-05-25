@@ -20,7 +20,6 @@ interface SignService {
     ): Call<loginresponse>
 }
 
-<<<<<<< HEAD
 interface ProfileService{
     @POST("profile/")
     fun profile(
@@ -35,22 +34,7 @@ interface RoommateService{
     ): Call<roommateresponse>
 }
 
-// 채팅
-//interface ChatService {
-//
-//    @GET("messages")
-//    fun getMessages(): Call<List<ChatMessage>>
-//
-//    @POST("messages")
-//    fun postMessage(@Body message: ChatMessage): Call<ChatMessage>
-//
-//    @POST("block")
-//    fun blockUser(@Body blockData: BlockData): Call<Void>
-//
-//    @POST("report")
-//    fun reportUser(@Body reportData: ReportData): Call<Void>
-//}
-=======
+
 interface ChatService {
     @GET("messages/")
     fun getMessages(): Call<List<ChatMessage>>
@@ -63,5 +47,14 @@ interface ChatService {
 
     @POST("report/")
     fun reportUser(@Body reportData: ReportData): Call<Void>
+
+    @GET("api/chathistory/")
+    fun getChatHistory(): Call<List<ChatHistory>>
+
 }
->>>>>>> 45e3a0353b78ff1d9d732d7c52b58082c5842799
+
+interface MatchingService {
+    @GET("matching-profiles")
+    fun getMatchingProfiles(): Call<List<MatchingProfile>>
+}
+

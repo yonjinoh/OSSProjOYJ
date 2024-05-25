@@ -13,10 +13,10 @@
         android:theme="@style/Theme.MyTestApp"
         tools:targetApi="31">
         <activity
-            android:name=".chat.ChatActivity"
+            android:name=".chat.ReportUserActivity"
             android:exported="false" />
         <activity
-            android:name=".chat.ReportUserActivity"
+            android:name=".chat.ChatActivity"
             android:exported="false" />
         <activity
             android:name=".chat.BlockUserActivity"
