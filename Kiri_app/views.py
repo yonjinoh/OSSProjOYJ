@@ -398,7 +398,7 @@ class MatchViewSet(viewsets.ModelViewSet):
     # KSH : 매칭결과 조회 기능 추가
     @api_view(['GET'])
     def getmatchresult(request):
-        userId = request.query_params.get('userId')
+        userId = request.data.get('userId')
 
         try:
             match_result = Match.objects.get(userId=userId)
@@ -429,7 +429,8 @@ class MatchViewSet(viewsets.ModelViewSet):
     @api_view(['POST'])
     def matchrequest(request):
         userId = request.data.get('userId')
-        MuserId = ChatRoom.objects.get('user2') # 매칭 상대를 MuserId로 정의
+        Muser = ChatRoom.objects.get(user1=userId)
+        MuserId = Muser.user2
 
         try:
             match_result = Match.objects.get(userId=userId)
@@ -449,7 +450,8 @@ class MatchViewSet(viewsets.ModelViewSet):
     @api_view(['POST'])
     def matchaccept(request):
         userId = request.data.get('userId')
-        MuserId = ChatRoom.objects.get('user2') # 매칭 상대를 MuserId로 정의
+        Muser = ChatRoom.objects.get(user1=userId)
+        MuserId = Muser.user2
 
         try:
             match_result = Match.objects.get(userId=userId)
@@ -469,7 +471,8 @@ class MatchViewSet(viewsets.ModelViewSet):
     @api_view(['POST'])
     def matchreject(request):
         userId = request.data.get('userId')
-        MuserId = ChatRoom.objects.get('user2')
+        Muser = ChatRoom.objects.get(user1=userId)
+        MuserId = Muser.user2
 
         try:
             match_result = Match.objects.get(userId=userId)
@@ -511,11 +514,15 @@ class ReportViewSet(viewsets.ModelViewSet):
         reporterId = request.data.get('reporterId')
         reason = request.data.get('reason')
         timestamp = request.data.get('timestamp')
-        reportedId = request.data.get('reportedId')
+
+        reportedId = ChatRoom.objects.get('reportedId')
+        reportedId = reportedId.user2
 
         if reporterId and reason and timestamp and reportedId:
             report_count = Report.objects.count() + 1
-            report = Report.objects.create(reportId = report_count, reporterId = reporterId, reason = reason, timestamp = timestamp, reportedId = reportedId)
+            report = Report.objects.create(reportId = report_count, reporterId = reporterId,
+                                           reason = reason, timestamp = timestamp,
+                                           reportedId = reportedId)
             report.save()
             return Response({'success': True}, status=status.HTTP_201_CREATED)
         else:
@@ -534,7 +541,9 @@ class BlockViewSet(viewsets.ModelViewSet):
         if request.method == 'POST':
             timestamp = request.data.get('timestamp')
             blockerId = request.data.get('blockerId')
-            blockedId = request.data.get('blockedId')
+
+            blockedId = ChatRoom.objects.get('blockedId')
+            blockedId = blockedId.user2
 
             if timestamp and blockerId and blockedId:
                 block_count = Block.objects.count() + 1
@@ -559,11 +568,18 @@ class BlockViewSet(viewsets.ModelViewSet):
     # KSH : 차단목록 조회 기능 추가
     @api_view(['GET'])
     def getblocklist(request):
-        blockerId = request.query_params.get('blockerId')  # 쿼리 파라미터에서 'blockerId'를 가져옵니다.
+        blockerId = request.data.get('blockerId')
 
-        if blockerId:
-            block_list = Block.objects.filter(blockerId=blockerId)
-            serializer = BlockSerializer(block_list, many=True)  # 시리얼라이저를 사용하여 쿼리셋을 JSON으로 변환합니다.
-            return Response({'block_list': serializer.data}, status=status.HTTP_200_OK)  # 변환된 데이터를 응답합니다.
-        else:
-            return Response({'success': False}, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            block_list = Block.objects.filter(blockerId = blockerId)
+
+            block_user_list = []
+            for block in block_list:
+                block_user = AppUser.objects.get(userID = block.blockedId)
+                block_user_list.append(block_user)
+
+            return Response({'block_list': block_user_list}, status=status.HTTP_200_OK)
+
+        # 차단한 유저가 없을 때 우선 404로 처리하였음
+        except Block.DoesNotExist:
+            return Response({'success': False}, status=status.HTTP_404_NOT_FOUND)

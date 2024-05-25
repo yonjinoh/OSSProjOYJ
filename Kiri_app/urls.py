@@ -27,7 +27,7 @@ router = routers.DefaultRouter()
 #DefaultRouter를 설정
 router.register('AppUser', views.UserViewSet)
 # #itemviewset 과 item이라는 router 등록
-router.register('ChatRoom', views.ChatRoomListViewSetSet)
+router.register('ChatRoom', views.ChatRoomListViewSet)
 # KSH: 채팅방 라우터 추가
 router.register('Chat', views.ChatViewSet)
 # KSH: 채팅 라우터 추가
@@ -36,6 +36,8 @@ router.register('Chat', views.ChatViewSet)
 router.register('Profile', views.ProfileViewSet)
 # KSH: UserPrefViewSet 추가
 router.register('UserPref', views.UserPrefViewSet)
+# KSH: MatchViewSet 추가
+router.register('Match', views.MatchViewSet)
 
 
 # KSH: ReportViewSet 추가
@@ -61,10 +63,6 @@ if settings.DEBUG:
         
         
         # 채팅방 리스트 링크, 채팅 내역 저장 링크, 채팅 내역 불러오기 링크 필요
-        path('roomcreate/', views.RoomViewSet.roomcreate, name='user-roomcreate'),
-        path('roomsearch/', views.RoomViewSet.roomsearch, name='roomsearch'),
-        path('getroomlist/', views.RoomViewSet.getroomlist, name='getroomlist'),
-        path('enterroomlist/', views.RoomViewSet.enterroomlist, name='enterroomlist'),
 
         # KSH: ProfileViewSet 추가
         path('profilecreate/', views.ProfileViewSet.profilecreate, name='profilecreate'),
@@ -72,6 +70,13 @@ if settings.DEBUG:
         # KSH: UserPrefViewSet 추가
         path('userprefcreate/', views.UserPrefViewSet.userprefcreate, name='userprefcreate'),
         path('userprefupdate/', views.UserPrefViewSet.userprefupdate, name='userprefupdate'),
+
+        # KSH: MatchViewSet 추가
+        path('matching/', views.MatchViewSet.matching, name='matching'),
+        path('getmatchresult/', views.MatchViewSet.getmatchresult, name='getmatchresult'),
+        path('matchrequest/', views.MatchViewSet.matchrequest, name='matchrequest'),
+        path('matchaccept/', views.MatchViewSet.matchaccept, name='matchaccept'),
+        path('matchreject/', views.MatchViewSet.matchreject, name='matchreject'),
 
 
         # KSH: ReportViewSet 추가
