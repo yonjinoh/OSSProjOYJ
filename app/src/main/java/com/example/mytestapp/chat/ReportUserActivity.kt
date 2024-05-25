@@ -4,7 +4,6 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.*
 import com.example.mytestapp.R
 import com.example.mytestapp.model.request.ReportData
@@ -25,33 +24,21 @@ class ReportUserActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
 
+        targetUserId = intent.getStringExtra("targetUserId") ?: "unknown"
+
         initializeComponents()
     }
 
     private fun initializeComponents() {
         currentUserId = "currentUserId"
-        targetUserId = "targetUserId"
 
         val retrofit = Retrofit.Builder()
             .baseUrl("http://yourserver.com/api/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         chatService = retrofit.create(ChatService::class.java)
-    }
 
-    fun onMoreOptionsClicked(view: View?) {
-        val popup = PopupMenu(this, view)
-        popup.inflate(R.menu.chat_menu)
-        popup.setOnMenuItemClickListener { item ->
-            when (item.itemId) {
-                R.id.action_report -> {
-                    showReportReasonDialog(targetUserId)
-                    true
-                }
-                else -> false
-            }
-        }
-        popup.show()
+        showReportReasonDialog(targetUserId)
     }
 
     private fun showReportReasonDialog(reportedId: String) {
@@ -61,10 +48,21 @@ class ReportUserActivity : Activity() {
         view.findViewById<Button>(R.id.buttonSubmit).setOnClickListener {
             val radioGroup = view.findViewById<RadioGroup>(R.id.radioGroupReasons)
             val selectedId = radioGroup.checkedRadioButtonId
+
+            if (selectedId == -1) {
+                Toast.makeText(this, "신고 사유를 선택해주세요", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
             val radioButton = view.findViewById<RadioButton>(selectedId)
             val reason = radioButton.text.toString()
             confirmReportUser(reportedId, reason)
             dialog.dismiss()
+        }
+
+        view.findViewById<Button>(R.id.buttonCancel).setOnClickListener {
+            dialog.dismiss()
+            finish()
         }
 
         dialog.show()
@@ -91,7 +89,15 @@ class ReportUserActivity : Activity() {
         chatService.reportUser(reportData).enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful) {
-                    showCompletionDialog("신고 완료", "해당 사용자가 신고되었습니다.")
+                    // '신고 완료'와 '해당 사용자가 신고되었습니다.'를 여기서 직접 사용
+                    AlertDialog.Builder(this@ReportUserActivity)
+                        .setTitle("신고 완료")
+                        .setMessage("해당 사용자가 신고되었습니다.")
+                        .setPositiveButton("확인") { dialog, _ ->
+                            dialog.dismiss()
+                            finish()
+                        }
+                        .show()
                 } else {
                     Toast.makeText(this@ReportUserActivity, "신고에 실패했습니다", Toast.LENGTH_SHORT).show()
                 }
@@ -101,20 +107,5 @@ class ReportUserActivity : Activity() {
                 Toast.makeText(this@ReportUserActivity, "에러: ${t.message}", Toast.LENGTH_LONG).show()
             }
         })
-    }
-
-    private fun showCompletionDialog(title: String, message: String) {
-        val view = layoutInflater.inflate(R.layout.activity_chat_completion, null)
-        val completionMessage = view.findViewById<TextView>(R.id.completion_message)
-        completionMessage.text = message
-        val dialog = AlertDialog.Builder(this)
-            .setView(view)
-            .setCancelable(false)
-            .create()
-        view.findViewById<View>(R.id.close_button).setOnClickListener { v: View? ->
-            dialog.dismiss()
-            finish()
-        }
-        dialog.show()
     }
 }

@@ -7,11 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.children
 import androidx.fragment.app.Fragment
-import com.example.mytestapp.R
 //import com.example.mytestapp.create_room.CreateRoomLocalActivity
 import com.example.mytestapp.databinding.FragmentHomeBinding
 import com.example.mytestapp.match.MatchingOption1Activity
-import com.example.mytestapp.profile.ProfileGenderActivity
 
 class HomeFragment: Fragment(), View.OnClickListener  {
     private var _binding: FragmentHomeBinding? = null

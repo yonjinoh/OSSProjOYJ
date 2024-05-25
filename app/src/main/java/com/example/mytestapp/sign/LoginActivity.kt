@@ -27,7 +27,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
-        val ID = binding.loginID
+        val UserID = binding.UserID
         val Password = binding.loginPassword
 
         binding.signupBtn.setOnClickListener {
@@ -36,10 +36,10 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.loginBtn.setOnClickListener {
-            if (ID.text.isNotEmpty() && Password.text.isNotEmpty()) {
+            if (UserID.text.isNotEmpty() && Password.text.isNotEmpty()) {
                 LoginService.login(
                     loginrequest(
-                        ID.text.toString(),
+                        UserID.text.toString(),
                         Password.text.toString()
                     )
                 ).enqueue(object : Callback<loginresponse> {
@@ -71,7 +71,7 @@ class LoginActivity : AppCompatActivity() {
 
                 })
             } else {
-                if (ID.text.isEmpty()) {
+                if (UserID.text.isEmpty()) {
                     Toast.makeText(applicationContext, "아이디를 입력해주세요", Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(applicationContext, "비밀번호를 입력해주세요", Toast.LENGTH_SHORT).show()

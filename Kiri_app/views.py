@@ -11,6 +11,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from django.http.response import HttpResponse
 from rest_framework.response import Response
+from django.utils import timezone
 from django.contrib import auth
 
 from django.contrib.auth.models import User
@@ -113,6 +114,7 @@ class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
 
+    # KSH : 사용자 정보 생성 기능
     @api_view(['POST'])
     def profilecreate(request):
         userId = request.data.get('userId')
@@ -169,6 +171,7 @@ class ProfileViewSet(viewsets.ModelViewSet):
         else:
             return Response({'success': False}, status=status.HTTP_400_BAD_REQUEST)
 
+    # KSH : 사용자 정보 수정 기능
     @api_view(['PATCH'])
     def profileupdate(request):
         userId = request.data.get('userId')
@@ -225,6 +228,7 @@ class UserPrefViewSet(viewsets.ModelViewSet):
     queryset = UserPref.objects.all()
     serializer_class = UPrefSerializer
 
+    # KSH : 사용자 선호도 정보 생성 기능
     @api_view(['POST'])
     def userprefcreate(request):
         UuserId = request.data.get('UuserId')
@@ -278,7 +282,8 @@ class UserPrefViewSet(viewsets.ModelViewSet):
             return Response({'success': True}, status=status.HTTP_201_CREATED)
         else:
             return Response({'success': False}, status=status.HTTP_400_BAD_REQUEST)
-
+    
+    # KSH : 사용자 선호도 정보 수정 기능
     @api_view(['PATCH'])
     def userprefupdate(request):
         UuserId = request.data.get('UuserId')
@@ -338,6 +343,159 @@ class UserPrefViewSet(viewsets.ModelViewSet):
 class MatchViewSet(viewsets.ModelViewSet):
     queryset = Match.objects.all()
     serializer_class = MatchSerializer
+    
+    # KSH : 매칭+매칭결과 저장 알고리즘
+    @api_view(['POST'])
+    def matching(request):
+        userId = request.data.get('userId')
+
+        # 현재 사용자를 가져옴
+        user = AppUser.objects.get(userID=userId)
+
+        # 조건에 맞는 사용자 리스트 가져옴
+        user_list = AppUser.objects.exclude(userID=userId).filter(
+            gender=user.gender,
+            matchStatus='pending',
+            isProfile=True,
+            isUserPref=True,
+            isRestricted=False
+        )
+
+        # 매칭 알고리즘 추가 필요함
+        '''matching 
+        
+                algorithm'''
+
+
+        match_resultlist = []
+
+        if match_resultlist:
+            try:
+                existing_match_result = Match.objects.get(userId=userId)
+                existing_match_result.updateAt = timezone.now()
+                existing_match_result.userId1 = match_resultlist[0]
+                existing_match_result.userId2 = match_resultlist[1]
+                existing_match_result.userId3 = match_resultlist[2]
+                existing_match_result.userId4 = match_resultlist[3]
+                existing_match_result.userId5 = match_resultlist[4]
+                existing_match_result.save()
+
+                return Response({'success': True}, status=status.HTTP_200_OK)
+            except Match.DoesNotExist:
+                match_count = Match.objects.count() + 1
+                match_result = Match.objects.create(matchId=match_count, userId=userId,
+                                             createdAt=timezone.now, updateAt=timezone.now,
+                                             userId1=match_resultlist[0], userId2=match_resultlist[1],
+                                             userId3=match_resultlist[2], userId4=match_resultlist[3],
+                                             userId5=match_resultlist[4])
+                match_result.save()
+
+                return Response({'success': True}, status=status.HTTP_201_CREATED)
+        else:
+            return Response({'success': False}, status=status.HTTP_400_BAD_REQUEST)
+
+
+    # KSH : 매칭결과 조회 기능 추가
+    @api_view(['GET'])
+    def getmatchresult(request):
+        userId = request.query_params.get('userId')
+
+        try:
+            match_result = Match.objects.get(userId=userId)
+
+            user1 = AppUser.objects.get(userID=match_result.userId1)
+            user2 = AppUser.objects.get(userID=match_result.userId2)
+            user3 = AppUser.objects.get(userID=match_result.userId3)
+            user4 = AppUser.objects.get(userID=match_result.userId4)
+            user5 = AppUser.objects.get(userID=match_result.userId5)
+
+            # 반환 정보 수정 필요
+            response_data = {
+                'user1': {'name': user1.name, 'studentId': user1.studentId},
+                'user2': {'name': user2.name, 'studentId': user2.studentId},
+                'user3': {'name': user3.name, 'studentId': user3.studentId},
+                'user4': {'name': user4.name, 'studentId': user4.studentId},
+                'user5': {'name': user5.name, 'studentId': user5.studentId}
+            }
+
+            return Response({'match_result': response_data}, status=status.HTTP_200_OK)
+
+        except Match.DoesNotExist:
+            return Response({'success': False}, status=status.HTTP_404_NOT_FOUND)
+        except AppUser.DoesNotExist:
+            return Response({'success': False}, status=status.HTTP_404_NOT_FOUND)
+
+    # KSH : 매칭 요청 기능 추가
+    @api_view(['POST'])
+    def matchrequest(request):
+        userId = request.data.get('userId')
+        MuserId = ChatRoom.objects.get('user2') # 매칭 상대를 MuserId로 정의
+
+        try:
+            match_result = Match.objects.get(userId=userId)
+            match_result.matchStatus = 'matching'
+
+            Mmatch_result = Match.objects.get(userId=MuserId)
+            Mmatch_result.matchStatus = 'matching'
+
+            match_result.save()
+            Mmatch_result.save()
+
+            return Response({'success': True}, status=status.HTTP_200_OK)
+        except Match.DoesNotExist:
+            return Response({'success': False}, status=status.HTTP_404_NOT_FOUND)
+
+    # KSH : 매칭 수락 기능 추가
+    @api_view(['POST'])
+    def matchaccept(request):
+        userId = request.data.get('userId')
+        MuserId = ChatRoom.objects.get('user2') # 매칭 상대를 MuserId로 정의
+
+        try:
+            match_result = Match.objects.get(userId=userId)
+            match_result.matchStatus = 'accepted'
+
+            Mmatch_result = Match.objects.get(userId=MuserId)
+            Mmatch_result.matchStatus = 'accepted'
+
+            match_result.save()
+            Mmatch_result.save()
+
+            return Response({'success': True}, status=status.HTTP_200_OK)
+        except Match.DoesNotExist:
+            return Response({'success': False}, status=status.HTTP_404_NOT_FOUND)
+
+    # KSH : 매칭 거절 기능 추가
+    @api_view(['POST'])
+    def matchreject(request):
+        userId = request.data.get('userId')
+        MuserId = ChatRoom.objects.get('user2')
+
+        try:
+            match_result = Match.objects.get(userId=userId)
+            match_result.matchStatus = 'pending'
+
+            Mmatch_result = Match.objects.get(userId=MuserId)
+            Mmatch_result.matchStatus = 'pending'
+
+            match_result.save()
+            Mmatch_result.save()
+
+            return Response({'success': True}, status=status.HTTP_200_OK)
+        except Match.DoesNotExist:
+            return Response({'success': False}, status=status.HTTP_404_NOT_FOUND)
+
+
+
+
+
+       
+
+
+
+
+
+
 
 
 
@@ -346,7 +504,8 @@ class MatchViewSet(viewsets.ModelViewSet):
 class ReportViewSet(viewsets.ModelViewSet):
     queryset = Report.objects.all()
     serializer_class = ReportSerializer
-
+    
+    # KSH : 유저 신고 기능 추가
     @api_view(['POST'])
     def reportuser(request):
         reporterId = request.data.get('reporterId')
@@ -397,6 +556,7 @@ class BlockViewSet(viewsets.ModelViewSet):
                     return Response({'success': False}, status=status.HTTP_404_NOT_FOUND)
             else:
                 return Response({'success': False}, status=status.HTTP_400_BAD_REQUEST)
+    # KSH : 차단목록 조회 기능 추가
     @api_view(['GET'])
     def getblocklist(request):
         blockerId = request.query_params.get('blockerId')  # 쿼리 파라미터에서 'blockerId'를 가져옵니다.

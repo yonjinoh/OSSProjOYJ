@@ -25,8 +25,8 @@ class AppUser(models.Model):
     isProfile = models.BooleanField(default = False) # 사용자 정보 입력 여부
     isUserPref = models.BooleanField(default = False) # 선호도 정보 입력 여부
     isRestricted = models.BooleanField(default = False) # 플랫폼 차단 여부 추가 (False: 차단 안됨, True: 차단됨)
-
-
+    # 매칭 현황 추가
+    matchStatus = models.CharField(max_length = 45, default = 'pending')
 
     def __str__(self):
         return self.name
@@ -34,9 +34,10 @@ class AppUser(models.Model):
 
 # KSH : 채팅방 모델 정의
 class ChatRoom(models.Model):
-    user1 = models.ForeignKey(AppUser, related_name='chatrooms_user1', on_delete=models.CASCADE)
-    # User - 매치 결과의 유저로 수정 필요0
-    user2 = models.ForeignKey(User, related_name='chatrooms_user2', on_delete=models.CASCADE)
+    roomID = models.AutoField(primary_key = True)
+    user1 = models.ForeignKey(AppUser, related_name='chatroom_user', on_delete=models.CASCADE)
+    # User - 매치 결과의 유저로 수정 필요
+    user2 = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -112,15 +113,16 @@ class UserPref(models.Model):
 class Match(models.Model):
     matchId = models.AutoField(primary_key = True)
     userId = models.ForeignKey(AppUser, on_delete=models.CASCADE, related_name='matchings')
+    # matchScore 필요한가?
     matchScore = models.FloatField()
-    matchStatus = models.CharField(max_length = 45, default = 'pending')
     createdAt = models.DateTimeField(default = timezone.now)
     updateAt = models.DateTimeField(default = timezone.now)
     # related_name 참조 변경 필요
-    userId1 = models.ForeignKey(AppUser, on_delete=models.CASCADE, related_name='matchings1')
-    userId2 = models.ForeignKey(AppUser, on_delete=models.CASCADE, related_name='matchings2')
-    userId3 = models.ForeignKey(AppUser, on_delete=models.CASCADE, related_name='matchings3')
-
+    userId1 = models.IntegerField()
+    userId2 = models.IntegerField()
+    userId3 = models.IntegerField()
+    userId4 = models.IntegerField()
+    userId5 = models.IntegerField()
 
     def __str__(self):
         return self.matchId
