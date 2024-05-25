@@ -127,10 +127,6 @@ class Match(models.Model):
     def __str__(self):
         return self.matchId
 
-# KSH: Message 모델 정의 추가
-
-# KSH: ChatHistory 모델 정의 추가
-
 
 
 # KSH: Report 모델 정의 추가
@@ -139,9 +135,9 @@ class Report(models.Model):
     reporterId = models.ForeignKey(AppUser, on_delete=models.CASCADE, related_name='reports')
     reason = models.TextField()
     timestamp = models.DateTimeField(default = timezone.now)
-    # reporterId = models.ForeignKey(AppUser, on_delete=models.CASCADE, related_name='reporters')
     # Chat 모델에서 포린키 가져와야함 수정 필요
-    # reportedId = models.ForeignKey(AppUser, on_delete=models.CASCADE, related_name='reporters')
+    reportedId = models.ForeignKey(ChatRoom, on_delete=models.CASCADE, related_name='reporters')
+
 
     def __str__(self):
         return self.reportId
@@ -153,7 +149,7 @@ class Block (models.Model):
     timestamp = models.DateTimeField(default = timezone.now)
     blockerId = models.ForeignKey(AppUser, on_delete=models.CASCADE, related_name='blocks')
     # Chat 모델에서 포린키 가져와야함 수정 필요
-    blockedId = models.ForeignKey(AppUser, on_delete=models.CASCADE, related_name='blockers')
+    blockedId = models.ForeignKey(ChatRoom, on_delete=models.CASCADE, related_name='blockers')
 
 
 
