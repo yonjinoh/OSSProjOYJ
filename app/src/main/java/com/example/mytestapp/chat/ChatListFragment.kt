@@ -18,7 +18,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class ChatListFragment : Fragment() {
+class ChatHistoryFragment : Fragment() {
 
     private lateinit var chatRecyclerView: RecyclerView
     private lateinit var chatAdapter: ChatHistoryAdapter
@@ -28,7 +28,7 @@ class ChatListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_chat, container, false)
+        return inflater.inflate(R.layout.fragment_chat, container, false) // 올바른 레이아웃 파일 참조
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

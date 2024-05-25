@@ -32,4 +32,13 @@ interface ChatService {
 
     @POST("report/")
     fun reportUser(@Body reportData: ReportData): Call<Void>
+
+    @GET("api/chathistory/")
+    fun getChatHistory(): Call<List<ChatHistory>>
+
+}
+
+interface MatchingService {
+    @GET("matching-profiles")
+    fun getMatchingProfiles(): Call<List<MatchingProfile>>
 }
