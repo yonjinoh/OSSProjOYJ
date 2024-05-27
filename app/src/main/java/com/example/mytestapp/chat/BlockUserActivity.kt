@@ -13,6 +13,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.UUID
+import com.example.mytestapp.model.response.BlockResponse
 
 class BlockUserActivity : Activity() {
     private lateinit var chatService: ChatService
@@ -59,8 +60,8 @@ class BlockUserActivity : Activity() {
             BlockerID = currentUserId,
             BlockedID = blockedId
         )
-        chatService.blockUser(blockData).enqueue(object : Callback<Void> {
-            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+        chatService.blockUser(blockData).enqueue(object : Callback<BlockResponse> {
+            override fun onResponse(call: Call<BlockResponse>, response: Response<BlockResponse>) {
                 if (response.isSuccessful) {
                     AlertDialog.Builder(this@BlockUserActivity)
                         .setTitle("차단 완료")
