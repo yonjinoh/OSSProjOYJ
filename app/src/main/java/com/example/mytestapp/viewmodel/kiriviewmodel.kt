@@ -6,8 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.mytestapp.model.request.MatchingProfile
 
-class KiriViewModel(application: Application) : AndroidViewModel(application) {
-
+class KiriViewModel(application: Application?) : AndroidViewModel(application!!) {
     private val _selectedProfile = MutableLiveData<MatchingProfile>()
     val selectedProfile: LiveData<MatchingProfile>
         get() = _selectedProfile

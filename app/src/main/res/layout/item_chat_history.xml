@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View" />
         <variable
             name="history"
             type="com.example.mytestapp.model.request.ChatHistory" />
@@ -19,7 +20,7 @@
         android:background="@drawable/stroke_bottom_gray"
         android:clickable="true"
         android:focusable="true"
-        android:onClick="@{() -> viewModel.onRoomClicked(history)}">
+        android:onClick="@{() -> viewModel.onProfileClicked(history)}">
 
         <!-- 사용자의 이미지 -->
         <ImageView
@@ -35,7 +36,6 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <!-- 사용자의 이름 -->
-        <!--이름을 @{roomdata.userName}와 같은 데이터 형식으로 변경필요        -->
         <TextView
             android:id="@+id/text_user_name"
             android:layout_width="0dp"
@@ -50,7 +50,6 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <!-- 사용자의 특성 -->
-        <!--특성부분 @{roomdata.userTrait}식으로 변경필요 -->
         <TextView
             android:id="@+id/text_user_trait"
             android:layout_width="0dp"
@@ -69,7 +68,7 @@
             android:layout_height="100dp"
             android:layout_marginEnd="20dp"
             android:src="@drawable/red_circle"
-            android:visibility="@{history.hasNewMessages ? View.VISIBLE : View.GONE}"
+            android:visibility="@{history.hasNewMessages ? android.view.View.VISIBLE : android.view.View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintMarginEnd="16dp"
