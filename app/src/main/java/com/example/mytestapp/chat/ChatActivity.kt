@@ -32,6 +32,7 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var sendButton: Button
     private lateinit var imageMenu: ImageView
     private lateinit var drawerLayout: DrawerLayout
+    private lateinit var btnBack: Button
     private lateinit var currentUserId: String
     private lateinit var targetUserId: String
     private lateinit var targetUserName: String
@@ -39,7 +40,7 @@ class ChatActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_chat) // 레이아웃 설정
+        setContentView(R.layout.activity_chat)
 
         // Intent로부터 상대방의 이름과 ID를 가져옴
         targetUserId = intent.getStringExtra("targetUserId") ?: "Unknown User"
@@ -58,6 +59,7 @@ class ChatActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.chat_recyclerView)  // RecycleerView 찾기
         imageMenu = findViewById(R.id.imageMenu)
         drawerLayout = findViewById(R.id.drawerLayout)
+        btnBack = findViewById(R.id.btn_back) // 뒤로가기 버튼 찾기
 
         val textTitle = findViewById<TextView>(R.id.textTitle) // 채팅방 제목 TextView 찾기
         textTitle.text = targetUserName // 상대방의 이름으로 제목 설정
@@ -78,6 +80,11 @@ class ChatActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(this, "메시지를 입력하세요", Toast.LENGTH_SHORT).show()
             }
+        }
+
+        // 뒤로가기 버튼 리스너 설정
+        btnBack.setOnClickListener {
+            finish() // 현재 액티비티 종료하고 이전 화면으로 돌아감
         }
 
         // 메뉴 버튼을 위한 method

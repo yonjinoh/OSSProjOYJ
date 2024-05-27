@@ -38,7 +38,7 @@ class ChatHistoryAdapter(
 
     override fun onBindViewHolder(holder: ChatHistoryViewHolder, position: Int) {
         val currentItem = chatHistoryList[position]
-        holder.userNameTextView.text = currentItem.userID // 적절히 설정
+        holder.userNameTextView.text = currentItem.userName // 적절히 설정
         holder.lastMessageTextView.text = currentItem.lastMessage
     }
 

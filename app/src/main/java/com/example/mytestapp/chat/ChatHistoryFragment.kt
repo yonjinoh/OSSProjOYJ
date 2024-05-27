@@ -5,12 +5,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mytestapp.R
 import com.example.mytestapp.adapters.ChatHistoryAdapter
 import com.example.mytestapp.model.request.ChatHistory
+import com.example.mytestapp.model.request.signuprequest
 import com.example.mytestapp.service.ChatService
 import retrofit2.Call
 import retrofit2.Callback
@@ -41,7 +43,7 @@ class ChatHistoryFragment : Fragment() {
                 // 채팅 방 클릭 시 ChatActivity 시작
                 val intent = Intent(requireContext(), ChatActivity::class.java)
                 intent.putExtra("targetUserId", chatHistory.userID)
-                intent.putExtra("targetUserName", "User Name") // userName을 적절히 설정
+                intent.putExtra("targetUserName", chatHistory.userName) // userName을 적절히 설정
                 startActivity(intent)
             }
         })
@@ -51,13 +53,20 @@ class ChatHistoryFragment : Fragment() {
 
         // Retrofit 설정
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://your-django-server.com/")
+            .baseUrl("http://your-django-server.com/") // 실제 서버 주소로 변경
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
         chatService = retrofit.create(ChatService::class.java)
 
         loadChatHistory()
+
+        // 뒤로가기 버튼 설정
+        val btnBack: Button = view.findViewById(R.id.btn_back)
+        btnBack.setOnClickListener {
+            // 뒤로가기 버튼 클릭 시 현재 프래그먼트를 종료
+            requireActivity().supportFragmentManager.popBackStack()
+        }
     }
 
     private fun loadChatHistory() {
@@ -65,7 +74,7 @@ class ChatHistoryFragment : Fragment() {
             override fun onResponse(call: Call<List<ChatHistory>>, response: Response<List<ChatHistory>>) {
                 if (response.isSuccessful) {
                     val chatHistoryList = response.body() ?: emptyList()
-                    chatAdapter.updateChatHistory(chatHistoryList)
+                    loadUserNames(chatHistoryList)
                 } else {
                     // Handle the error
                 }
@@ -75,5 +84,32 @@ class ChatHistoryFragment : Fragment() {
                 // Handle the failure
             }
         })
+    }
+
+    private fun loadUserNames(chatHistoryList: List<ChatHistory>) {
+        val updatedChatHistoryList = mutableListOf<ChatHistory>()
+        for (chatHistory in chatHistoryList) {
+            chatService.getUser(chatHistory.userID).enqueue(object : Callback<signuprequest> {
+                override fun onResponse(call: Call<signuprequest>, response: Response<signuprequest>) {
+                    if (response.isSuccessful) {
+                        val user = response.body()
+                        val userName = user?.Name ?: "Unknown User"
+                        // Update chat history with user name
+                        val updatedChatHistory = chatHistory.copy(userName = userName)
+                        updatedChatHistoryList.add(updatedChatHistory)
+
+                        if (updatedChatHistoryList.size == chatHistoryList.size) {
+                            chatAdapter.updateChatHistory(updatedChatHistoryList)
+                        }
+                    } else {
+                        // Handle the error
+                    }
+                }
+
+                override fun onFailure(call: Call<signuprequest>, t: Throwable) {
+                    // Handle the failure
+                }
+            })
+        }
     }
 }
