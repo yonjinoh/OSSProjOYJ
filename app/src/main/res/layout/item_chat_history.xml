@@ -67,12 +67,11 @@
             android:layout_width="10dp"
             android:layout_height="100dp"
             android:layout_marginEnd="20dp"
+            android:layout_marginTop="16dp"
             android:src="@drawable/red_circle"
-            android:visibility="@{history.hasNewMessages ? android.view.View.VISIBLE : android.view.View.GONE}"
+            android:visibility="@{history.hasNewMessages ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintMarginEnd="16dp"
-            app:layout_constraintMarginTop="16dp"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
