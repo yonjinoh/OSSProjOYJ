@@ -6,6 +6,8 @@ import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
+
 
 interface SignService {
 
@@ -43,15 +45,18 @@ interface ChatService {
     fun postMessage(@Body message: ChatMessage): Call<ChatMessage>
 
     @POST("block/")
-    fun blockUser(@Body blockData: BlockData): Call<Void>
+    fun blockUser(@Body blockData: BlockData): Call<BlockResponse>
 
     @POST("report/")
-    fun reportUser(@Body reportData: ReportData): Call<Void>
+    fun reportUser(@Body reportData: ReportData): Call<ReportResponse>
 
-    @GET("api/chathistory/")
+    @GET("api/chat/history/")
     fun getChatHistory(): Call<List<ChatHistory>>
 
+    @GET("api/user/{userId}")
+    fun getUser(@Path("userId") userId: String): Call<signuprequest>
 }
+
 
 interface MatchingService {
     @GET("matching-profiles")
