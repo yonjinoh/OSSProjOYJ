@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.example.mytestapp.databinding.ActivityMainBinding
-import com.example.mytestapp.chat.ChatFragment
+import com.example.mytestapp.chat.ChatHistoryFragment
 import com.example.mytestapp.match.MatchingFragment
 import com.example.mytestapp.model.request.signuprequest
 import com.example.mytestapp.model.request.loginrequest
@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.nav_chat -> {
-                    replaceFragment(ChatFragment())
+                    replaceFragment(ChatHistoryFragment())
                     true
                 }
                 R.id.nav_mypage -> {

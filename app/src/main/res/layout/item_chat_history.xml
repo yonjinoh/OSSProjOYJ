@@ -9,7 +9,7 @@
             type="com.example.mytestapp.model.request.ChatHistory" />
         <variable
             name="viewModel"
-            type="com.example.mytestapp.viewmodel.YourViewModel" />
+            type="com.example.mytestapp.viewmodel.KiriViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

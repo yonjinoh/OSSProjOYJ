@@ -370,7 +370,9 @@ class MatchViewSet(viewsets.ModelViewSet):
         # OYJ : 매칭 알고리즘 추가
         # 이진 필드와 연속 필드를 정의
         binary_fields = ['Embti', 'Smbti', 'Tmbti', 'Jmbti', 'firstLesson', 'smoke', 'sleepHabit', 'shareNeeds', 'inComm', 'heatSens', 'coldSens', 'drinkFreq', 'cleanliness', 'noiseSens']
-        continuous_fields = ['grade', 'sleepSche', 'upSche']
+        continuous_fields = ['grade', 'sleepSche', 'upSche',]
+
+
 
         # 자카드 유사도를 계산하는 함수
         def calculate_jaccard_similarity(user_pref, profile, binary_fields):
