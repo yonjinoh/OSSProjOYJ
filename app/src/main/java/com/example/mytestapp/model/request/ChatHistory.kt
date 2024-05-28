@@ -1,9 +1,7 @@
 package com.example.mytestapp.model.request
 
-
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.w3c.dom.Text
 
 @Serializable
 data class ChatHistory(
@@ -20,5 +18,7 @@ data class ChatHistory(
     @SerialName("hasNewMessages")
     val hasNewMessages: Boolean,
     @SerialName("AccessedTime")
-    val accessedTime: String = System.currentTimeMillis().toString() // 기본값으로 현재 시간을 사용
+    val accessedTime: String = System.currentTimeMillis().toString(),
+    @SerialName("accessedByName") // 백엔드에서 처리된 사용자 이름
+    val accessedByName: String
 )
