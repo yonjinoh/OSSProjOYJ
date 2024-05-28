@@ -4,12 +4,9 @@ import MyPageFragment
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import com.example.mytestapp.databinding.ActivityMainBinding
 import com.example.mytestapp.chat.ChatHistoryFragment
+import com.example.mytestapp.databinding.ActivityMainBinding
 import com.example.mytestapp.match.MatchingFragment
-import com.example.mytestapp.model.request.signuprequest
-import com.example.mytestapp.model.request.loginrequest
-import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding

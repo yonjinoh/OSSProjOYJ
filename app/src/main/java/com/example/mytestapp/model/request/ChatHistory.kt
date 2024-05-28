@@ -18,6 +18,7 @@ data class ChatHistory(
     @SerialName("hasNewMessages")
     val hasNewMessages: Boolean,
     @SerialName("AccessedTime")
-    val accessedTime: String = System.currentTimeMillis().toString(), // 기본값으로 현재 시간을 사용
-    val userName: String = "" //signuprequest에서 불러와서 정의함
+    val accessedTime: String = System.currentTimeMillis().toString(),
+    @SerialName("accessedByName") // 백엔드에서 처리된 사용자 이름
+    val accessedByName: String
 )

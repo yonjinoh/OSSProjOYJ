@@ -10,7 +10,7 @@
             type="com.example.mytestapp.model.request.ChatHistory" />
         <variable
             name="viewModel"
-            type="com.example.mytestapp.viewmodel.KiriViewModel" />
+            type="com.example.mytestapp.viewmodel.ChatHistoryViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -42,14 +42,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="20dp"
-            android:text="@{history.userID}"
+            android:text="@{history.accessedByName}"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/image_user"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- 사용자의 특성 -->
+        <!-- 마지막 메시지 -->
         <TextView
             android:id="@+id/text_user_trait"
             android:layout_width="0dp"
@@ -65,7 +65,7 @@
         <ImageView
             android:id="@+id/new_message_indicator"
             android:layout_width="10dp"
-            android:layout_height="100dp"
+            android:layout_height="10dp"
             android:layout_marginEnd="20dp"
             android:layout_marginTop="16dp"
             android:src="@drawable/red_circle"
