@@ -13,6 +13,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.UUID
+import com.example.mytestapp.model.response.BlockResponse
 
 class BlockUserActivity : Activity() {
     private lateinit var chatService: ChatService
@@ -59,23 +60,28 @@ class BlockUserActivity : Activity() {
             BlockerID = currentUserId,
             BlockedID = blockedId
         )
-        chatService.blockUser(blockData).enqueue(object : Callback<Void> {
-            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+        chatService.blockUser(blockData).enqueue(object : Callback<BlockResponse> {
+            override fun onResponse(call: Call<BlockResponse>, response: Response<BlockResponse>) {
                 if (response.isSuccessful) {
-                    AlertDialog.Builder(this@BlockUserActivity)
-                        .setTitle("차단 완료")
-                        .setMessage("해당 사용자가 차단되었습니다.")
-                        .setPositiveButton("확인") { dialog, _ ->
-                            dialog.dismiss()
-                            finish()
-                        }
-                        .show()
+                    val blockResponse = response.body()
+                    if (blockResponse != null && blockResponse.success) {
+                        AlertDialog.Builder(this@BlockUserActivity)
+                            .setTitle("차단 완료")
+                            .setMessage("해당 사용자가 차단되었습니다.")
+                            .setPositiveButton("확인") { dialog, _ ->
+                                dialog.dismiss()
+                                finish()
+                            }
+                            .show()
+                    } else {
+                        Toast.makeText(this@BlockUserActivity, "차단에 실패했습니다: ${blockResponse?.error}", Toast.LENGTH_SHORT).show()
+                    }
                 } else {
                     Toast.makeText(this@BlockUserActivity, "차단에 실패했습니다", Toast.LENGTH_SHORT).show()
                 }
             }
 
-            override fun onFailure(call: Call<Void>, t: Throwable) {
+            override fun onFailure(call: Call<BlockResponse>, t: Throwable) {
                 Toast.makeText(this@BlockUserActivity, "에러: ${t.message}", Toast.LENGTH_LONG).show()
             }
         })

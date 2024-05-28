@@ -1,7 +1,10 @@
 package com.example.mytestapp.match
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mytestapp.R
@@ -14,24 +17,30 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class MatchingActivity : AppCompatActivity() {
+class MatchingFragment : Fragment() {
 
     private lateinit var matchingRecyclerView: RecyclerView
     private lateinit var matchingAdapter: MatchingAdapter
     private lateinit var matchingService: MatchingService
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.fragment_matching)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_matching, container, false)
+    }
 
-        matchingRecyclerView = findViewById(R.id.rv_matching_list)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        matchingRecyclerView = view.findViewById(R.id.rv_matching_list)
 
         matchingAdapter = MatchingAdapter(emptyList(), object : MatchingAdapter.OnItemClickListener {
             override fun onItemClick(profile: MatchingProfile) {
                 // 클릭 이벤트 처리
             }
         })
-        matchingRecyclerView.layoutManager = LinearLayoutManager(this)
+        matchingRecyclerView.layoutManager = LinearLayoutManager(context)
         matchingRecyclerView.adapter = matchingAdapter
 
         // Retrofit 설정

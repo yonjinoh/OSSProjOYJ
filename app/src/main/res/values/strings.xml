@@ -21,6 +21,7 @@
     <string name="chat_room_title">chatRoomTitle</string>
     <string name="chat_input_hint">  채팅을 입력해주세요</string>
     <string name="send_button_description">Send</string>
+    <string name="hint_other_reason">기타 사유를 입력하세요</string>
 
 
 </resources>
