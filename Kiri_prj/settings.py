@@ -141,6 +141,9 @@ STATIC_URL = 'static/'
 
 # DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
+ASGI_APPLICATION = 'Kiri_prj.asgi.application'
+
 #실시간 채팅을 위한 추가
 CHANNEL_LAYERS = {
     'default': {

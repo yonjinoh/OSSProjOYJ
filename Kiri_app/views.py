@@ -19,6 +19,10 @@ from django.contrib.auth import authenticate,login
 from django.contrib.sessions.models import Session
 import numpy as np,random
 
+from scipy.spatial.distance import euclidean
+from sklearn.metrics import jaccard_score
+from .models import AppUser, Match, Profile, UserPref
+
 
 # from django.contrib.auth import authenticate
 
@@ -99,12 +103,89 @@ class ChatRoomListViewSet(viewsets.ModelViewSet):
     queryset = ChatRoom.objects.all()
     serializer_class = ChatRoomSerializer
 
+    @api_view(['POST'])
+    def chatroomcreate(request):
+        userID = request.data.get('userID')
+        userID2 = request.data.get('userID2')
+        userID2name = AppUser.objects.get(userID = userID2).name
+
+        AccessedTime = request.data.get('AccessedTime')
+        recentMessage = request.data.get('recentMessage')
+
+        if userID and userID2 and userID2name and AccessedTime and recentMessage:
+            room_count = ChatRoom.objects.count() + 1
+            chatroom = ChatRoom.objects.create(HistoryID = room_count, userID = userID,
+                                               userID2 = userID2, userID2name = userID2name,
+                                               AccessedTime = AccessedTime,
+                                               recentMessage = recentMessage)
+            chatroom.save()
+            return Response({'success': True}, status=status.HTTP_201_CREATED)
+
+        else:
+            return Response({'success': False}, status=status.HTTP_400_BAD_REQUEST)
+
+    @api_view(['GET'])
+    def chatroomlist(request):
+        chatroom_list = ChatRoom.objects.filter(userID = request.data.get('userID'))
+        serializer = ChatRoomSerializer(chatroom_list, many=True)
+        return Response(serializer.data)
+
+
+
+
 # 채팅 내역 저장 - 보낼때마다 저장
 # 채팅 내역 불러오기
 
 class ChatViewSet(viewsets.ModelViewSet):
     queryset = Chat.objects.all()
     serializer_class = ChatSerializer
+
+    @api_view(['POST'])
+    def savemessage(request):
+        CHistoryID = request.data.get('CHistoryID')
+        senderID = request.data.get('senderID')
+
+        try:
+            chatroom = ChatRoom.objects.get(senderID=senderID)
+            receiverID = chatroom.userID2
+        except ChatRoom.DoesNotExist:
+            return Response({'success': False, 'error': 'ChatRoom not found'}, status=status.HTTP_400_BAD_REQUEST)
+
+        content = request.data.get('content')
+        timestamp = request.data.get('timestamp')
+
+        if CHistoryID and senderID and receiverID and content and timestamp:
+            chat_count = Chat.objects.count() + 1
+            chat = Chat.objects.create(messageID = chat_count, CHistoryID = CHistoryID,
+                                       senderID = senderID, receiverID = receiverID,
+                                       content = content, timestamp = timestamp)
+            chat.save()
+
+            chatroom = ChatRoom.objects.filter(HistoryID = CHistoryID)
+            chatroom.update(AccessedTime=timestamp, recentMessage=content)
+            chatroom.save()
+
+            return_chat = Chat.objects.filter(timestamp = timestamp)
+
+            # 새로운 메세지 저장시, 채팅방의 AccessedTime과 recentMessage도 업데이트
+            # 새로운 메세지 자체도 반환
+            return Response({'success': True, 'chat': ChatSerializer(return_chat, many=True).data},
+                            status=status.HTTP_201_CREATED)
+        else:
+            return Response({'success': False}, status=status.HTTP_400_BAD_REQUEST)
+
+    @api_view(['GET'])
+    def getchathistory(request):
+        CHistoryID = request.data.get('CHistoryID')
+        if CHistoryID is None:
+            return Response({'success': False}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            chat_history = Chat.objects.filter(CHistoryID = CHistoryID).order_by('timestamp')
+            serializer = ChatSerializer(chat_history, many=True)
+            return Response(serializer.data)
+        except Chat.DoesNotExist:
+            return Response({'success': False}, status=status.HTTP_404_NOT_FOUND)
 
 
 
@@ -351,6 +432,8 @@ class MatchViewSet(viewsets.ModelViewSet):
 
         # 현재 사용자를 가져옴
         user = AppUser.objects.get(userID=userId)
+        # 사용자의 선호도를 가져옴
+        user_pref = UserPref.objects.get(UuserId=userId)
 
         # 조건에 맞는 사용자 리스트 가져옴
         user_list = AppUser.objects.exclude(userID=userId).filter(
@@ -361,13 +444,46 @@ class MatchViewSet(viewsets.ModelViewSet):
             isRestricted=False
         )
 
-        # 매칭 알고리즘 추가 필요함
-        '''matching 
-        
-                algorithm'''
+        # OYJ : 매칭 알고리즘 추가
+        # 이진 필드와 연속 필드를 정의
+        binary_fields = ['Embti', 'Smbti', 'Tmbti', 'Jmbti', 'firstLesson', 'smoke', 'sleepHabit', 'shareNeeds', 'inComm', 'heatSens', 'coldSens']
+        continuous_fields = ['grade', 'drinkFreq', 'cleanliness', 'noiseSens', 'sleepSche', 'upSche',]
+
+        Ubinary_fields = ['UEmbti', 'USmbti', 'UTmbti', 'UJmbti', 'UfirstLesson', 'Usmoke', 'UsleepHabit', 'UshareNeeds', 'UinComm', 'UheatSens', 'UcoldSens']
+        Ucontinuous_fields = ['Ugrade', 'UdrinkFreq', 'Ucleanliness', 'UnoiseSens', 'UsleepSche', 'UupSche']
 
 
-        match_resultlist = []
+        # 자카드 유사도를 계산하는 함수
+        def calculate_jaccard_similarity(user_pref, profile, Ubinary_fields, binary_fields):
+            user_pref_data = [getattr(user_pref, field) for field in Ubinary_fields]  # user_pref 객체의 binary_fields 필드 값을 가져옴
+            profile_data = [getattr(profile, field) for field in binary_fields]  # profile 객체의 binary_fields 필드 값을 가져옴
+            return jaccard_score(user_pref_data, profile_data)
+
+        # 유클리드 유사도를 계산하는 함수
+        def calculate_euclidean_similarity(user_pref, profile, Ucontinuous_fields, continuous_fields):
+            user_pref_data = [getattr(user_pref, field) for field in Ucontinuous_fields]  # user_pref 객체의 continuous_fields 필드 값을 가져옴
+            profile_data = [getattr(profile, field) for field in continuous_fields]  # profile 객체의 continuous_fields 필드 값을 가져옴
+            return euclidean(user_pref_data, profile_data)
+
+        # 사용자 매칭을 수행하는 함수
+        def match_users(user_pref, potential_matches, Ubinary_fields, Ucontinuous_fields,
+                        binary_fields, continuous_fields, weight_binary=0.5, weight_continuous=0.5):
+            similarities = []  # 유사도 저장을 위한 리스트 초기화
+            for match in potential_matches:  # 각 잠재적 매칭 사용자에 대해 반복
+                match_profile = Profile.objects.get(userId=match.userID)  # 잠재적 매칭 사용자의 프로필을 가져옴
+
+                jaccard_sim = calculate_jaccard_similarity(user_pref, match_profile, Ubinary_fields, binary_fields)  # 자카드 유사도를 계산
+                euclidean_sim = calculate_euclidean_similarity(user_pref, match_profile, Ucontinuous_fields, continuous_fields)  # 유클리드 유사도를 계산
+
+                combined_similarity = weight_binary * jaccard_sim + weight_continuous * (1 / (1 + euclidean_sim))  # 자카드 유사도와 유클리드 유사도를 결합
+                similarities.append((match, combined_similarity))  # 유사도를 잠재적 매칭 사용자와 함께 리스트에 추가
+
+            similarities.sort(key=lambda x: x[1], reverse=True)  # 유사도에 따라 내림차순으로 정렬
+            return [match for match, similarity in similarities[:5]]  # 상위 5명의 매칭 사용자를 반환
+
+        # 상위 매칭 사용자를 찾음
+        top_matches = match_users(user_pref, user_list, binary_fields, continuous_fields)
+        match_resultlist = [match.userID for match in top_matches]
 
         if match_resultlist:
             try:
@@ -411,11 +527,11 @@ class MatchViewSet(viewsets.ModelViewSet):
 
             # 반환 정보 수정 필요
             response_data = {
-                'user1': {'name': user1.name, 'studentId': user1.studentId},
-                'user2': {'name': user2.name, 'studentId': user2.studentId},
-                'user3': {'name': user3.name, 'studentId': user3.studentId},
-                'user4': {'name': user4.name, 'studentId': user4.studentId},
-                'user5': {'name': user5.name, 'studentId': user5.studentId}
+                'user1': {'userID': user1.userID, 'name': user1.name, 'studentId': user1.studentId},
+                'user2': {'userID': user2.userID, 'name': user2.name, 'studentId': user2.studentId},
+                'user3': {'userID': user3.userID, 'name': user3.name, 'studentId': user3.studentId},
+                'user4': {'userID': user4.userID, 'name': user4.name, 'studentId': user4.studentId},
+                'user5': {'userID': user5.userID, 'name': user5.name, 'studentId': user5.studentId}
             }
 
             return Response({'match_result': response_data}, status=status.HTTP_200_OK)

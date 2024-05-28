@@ -63,6 +63,12 @@ if settings.DEBUG:
         
         
         # 채팅방 리스트 링크, 채팅 내역 저장 링크, 채팅 내역 불러오기 링크 필요
+        path('chatroomcreate/', views.ChatRoomListViewSet.chatroomcreate, name='chatroomcreate'),
+        path('chatroomlist/', views.ChatRoomListViewSet.chatroomlist, name='chatroomlist'),
+
+        path('savemessage/', views.ChatViewSet.savemessage, name='savemessage'),
+        path('getchathistory/', views.ChatViewSet.getchathistory, name='getchathistory'),
+
 
         # KSH: ProfileViewSet 추가
         path('profilecreate/', views.ProfileViewSet.profilecreate, name='profilecreate'),
