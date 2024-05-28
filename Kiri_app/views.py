@@ -162,8 +162,7 @@ class ChatViewSet(viewsets.ModelViewSet):
             chat.save()
 
             chatroom = ChatRoom.objects.filter(HistoryID = CHistoryID)
-            chatroom.AccessedTime = timestamp
-            chatroom.recentMessage = content
+            chatroom.update(AccessedTime=timestamp, recentMessage=content)
             chatroom.save()
 
             return_chat = Chat.objects.filter(timestamp = timestamp)
@@ -174,6 +173,19 @@ class ChatViewSet(viewsets.ModelViewSet):
                             status=status.HTTP_201_CREATED)
         else:
             return Response({'success': False}, status=status.HTTP_400_BAD_REQUEST)
+
+    @api_view(['GET'])
+    def getchathistory(request):
+        CHistoryID = request.data.get('CHistoryID')
+        if CHistoryID is None:
+            return Response({'success': False}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            chat_history = Chat.objects.filter(CHistoryID = CHistoryID).order_by('timestamp')
+            serializer = ChatSerializer(chat_history, many=True)
+            return Response(serializer.data)
+        except Chat.DoesNotExist:
+            return Response({'success': False}, status=status.HTTP_404_NOT_FOUND)
 
 
 
@@ -434,31 +446,34 @@ class MatchViewSet(viewsets.ModelViewSet):
 
         # OYJ : 매칭 알고리즘 추가
         # 이진 필드와 연속 필드를 정의
-        binary_fields = ['Embti', 'Smbti', 'Tmbti', 'Jmbti', 'firstLesson', 'smoke', 'sleepHabit', 'shareNeeds', 'inComm', 'heatSens', 'coldSens', 'drinkFreq', 'cleanliness', 'noiseSens']
-        continuous_fields = ['grade', 'sleepSche', 'upSche',]
+        binary_fields = ['Embti', 'Smbti', 'Tmbti', 'Jmbti', 'firstLesson', 'smoke', 'sleepHabit', 'shareNeeds', 'inComm', 'heatSens', 'coldSens']
+        continuous_fields = ['grade', 'drinkFreq', 'cleanliness', 'noiseSens', 'sleepSche', 'upSche',]
 
+        Ubinary_fields = ['UEmbti', 'USmbti', 'UTmbti', 'UJmbti', 'UfirstLesson', 'Usmoke', 'UsleepHabit', 'UshareNeeds', 'UinComm', 'UheatSens', 'UcoldSens']
+        Ucontinuous_fields = ['Ugrade', 'UdrinkFreq', 'Ucleanliness', 'UnoiseSens', 'UsleepSche', 'UupSche']
 
 
         # 자카드 유사도를 계산하는 함수
-        def calculate_jaccard_similarity(user_pref, profile, binary_fields):
-            user_pref_data = [getattr(user_pref, field) for field in binary_fields]  # user_pref 객체의 binary_fields 필드 값을 가져옴
+        def calculate_jaccard_similarity(user_pref, profile, Ubinary_fields, binary_fields):
+            user_pref_data = [getattr(user_pref, field) for field in Ubinary_fields]  # user_pref 객체의 binary_fields 필드 값을 가져옴
             profile_data = [getattr(profile, field) for field in binary_fields]  # profile 객체의 binary_fields 필드 값을 가져옴
             return jaccard_score(user_pref_data, profile_data)
 
         # 유클리드 유사도를 계산하는 함수
-        def calculate_euclidean_similarity(user_pref, profile, continuous_fields):
-            user_pref_data = [getattr(user_pref, field) for field in continuous_fields]  # user_pref 객체의 continuous_fields 필드 값을 가져옴
+        def calculate_euclidean_similarity(user_pref, profile, Ucontinuous_fields, continuous_fields):
+            user_pref_data = [getattr(user_pref, field) for field in Ucontinuous_fields]  # user_pref 객체의 continuous_fields 필드 값을 가져옴
             profile_data = [getattr(profile, field) for field in continuous_fields]  # profile 객체의 continuous_fields 필드 값을 가져옴
             return euclidean(user_pref_data, profile_data)
 
         # 사용자 매칭을 수행하는 함수
-        def match_users(user_pref, potential_matches, binary_fields, continuous_fields, weight_binary=0.5, weight_continuous=0.5):
+        def match_users(user_pref, potential_matches, Ubinary_fields, Ucontinuous_fields,
+                        binary_fields, continuous_fields, weight_binary=0.5, weight_continuous=0.5):
             similarities = []  # 유사도 저장을 위한 리스트 초기화
             for match in potential_matches:  # 각 잠재적 매칭 사용자에 대해 반복
                 match_profile = Profile.objects.get(userId=match.userID)  # 잠재적 매칭 사용자의 프로필을 가져옴
 
-                jaccard_sim = calculate_jaccard_similarity(user_pref, match_profile, binary_fields)  # 자카드 유사도를 계산
-                euclidean_sim = calculate_euclidean_similarity(user_pref, match_profile, continuous_fields)  # 유클리드 유사도를 계산
+                jaccard_sim = calculate_jaccard_similarity(user_pref, match_profile, Ubinary_fields, binary_fields)  # 자카드 유사도를 계산
+                euclidean_sim = calculate_euclidean_similarity(user_pref, match_profile, Ucontinuous_fields, continuous_fields)  # 유클리드 유사도를 계산
 
                 combined_similarity = weight_binary * jaccard_sim + weight_continuous * (1 / (1 + euclidean_sim))  # 자카드 유사도와 유클리드 유사도를 결합
                 similarities.append((match, combined_similarity))  # 유사도를 잠재적 매칭 사용자와 함께 리스트에 추가
