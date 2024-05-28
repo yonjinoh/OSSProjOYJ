@@ -19,11 +19,7 @@ class WebSocketManager(
     private val handler = Handler(Looper.getMainLooper())
     private var isConnected = false
 
-    init {
-        connect()
-    }
-
-    private fun connect() {
+    fun connect() {
         val request = Request.Builder().url(url).build()
         webSocket = client.newWebSocket(request, object : WebSocketListener() {
             override fun onOpen(webSocket: WebSocket, response: okhttp3.Response) {
@@ -35,10 +31,10 @@ class WebSocketManager(
                     val jsonObject = JSONObject(text)
                     val chatMessage = ChatMessage(
                         messageId = jsonObject.getString("messageId"),
-                        userId = jsonObject.getString("userId"),
                         receiverId = jsonObject.getString("receiverId"),
                         senderId = jsonObject.getString("senderId"),
                         content = jsonObject.getString("content"),
+                        timestamp = jsonObject.getString("timestamp"),
                         formattedTimestamp = jsonObject.getString("formattedTimestamp"),
                         senderName = jsonObject.getString("senderName")
                     )
@@ -69,7 +65,7 @@ class WebSocketManager(
             if (!isConnected) {
                 connect()
             }
-        }, 5000) // 5초 후 재연결 시도
+        }, 5000)
     }
 
     fun sendMessage(message: String) {

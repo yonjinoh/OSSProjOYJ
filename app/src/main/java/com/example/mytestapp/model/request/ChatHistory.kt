@@ -9,16 +9,12 @@ data class ChatHistory(
     val historyID: String,
     @SerialName("UserID")
     val userID: String,
-    @SerialName("MessageID")
-    val messageID: String,
-    @SerialName("AccessedBy")
-    val accessedBy: String,
-    @SerialName("lastMessage")
-    val lastMessage: String,
-    @SerialName("hasNewMessages")
-    val hasNewMessages: Boolean,
+    @SerialName("UserID2")
+    val userID2: String,
+    @SerialName("UserID2name") // 백엔드에서 처리된 사용자 이름
+    val userID2name: String,
+    @SerialName("recentMessage")
+    val recentMessage: String,
     @SerialName("AccessedTime")
-    val accessedTime: String = System.currentTimeMillis().toString(),
-    @SerialName("accessedByName") // 백엔드에서 처리된 사용자 이름
-    val accessedByName: String
+    val accessedTime: String = System.currentTimeMillis().toString()
 )

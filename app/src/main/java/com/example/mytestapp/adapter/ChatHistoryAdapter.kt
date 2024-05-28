@@ -10,9 +10,9 @@ import com.example.mytestapp.model.request.ChatHistory
 import com.example.mytestapp.viewmodel.ChatHistoryViewModel
 
 class ChatHistoryAdapter(
-    private var chatHistoryList: List<ChatHistory>,
+    private val viewModel: ChatHistoryViewModel,
     private val itemClickListener: OnItemClickListener
-) : RecyclerView.Adapter<ChatHistoryAdapter.ChatHistoryViewHolder>() {
+) : ListAdapter<ChatHistory, ChatHistoryAdapter.ChatHistoryViewHolder>(ChatHistoryDiffCallback()) {
 
     interface OnItemClickListener {
         fun onItemClick(chatHistory: ChatHistory)
@@ -24,23 +24,27 @@ class ChatHistoryAdapter(
     }
 
     override fun onBindViewHolder(holder: ChatHistoryViewHolder, position: Int) {
-        holder.bind(chatHistoryList[position], itemClickListener)
-    }
-
-    override fun getItemCount(): Int = chatHistoryList.size
-
-    fun updateChatHistory(newChatHistoryList: List<ChatHistory>) {
-        chatHistoryList = newChatHistoryList
-        notifyDataSetChanged()
+        holder.bind(getItem(position), viewModel, itemClickListener)
     }
 
     class ChatHistoryViewHolder(private val binding: ItemChatHistoryBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: ChatHistory, clickListener: OnItemClickListener) {
+        fun bind(item: ChatHistory, viewModel: ChatHistoryViewModel, clickListener: OnItemClickListener) {
             binding.history = item
+            binding.viewModel = viewModel
             binding.root.setOnClickListener {
                 clickListener.onItemClick(item)
             }
             binding.executePendingBindings()
+        }
+    }
+
+    class ChatHistoryDiffCallback : DiffUtil.ItemCallback<ChatHistory>() {
+        override fun areItemsTheSame(oldItem: ChatHistory, newItem: ChatHistory): Boolean {
+            return oldItem.historyID == newItem.historyID
+        }
+
+        override fun areContentsTheSame(oldItem: ChatHistory, newItem: ChatHistory): Boolean {
+            return oldItem == newItem
         }
     }
 }

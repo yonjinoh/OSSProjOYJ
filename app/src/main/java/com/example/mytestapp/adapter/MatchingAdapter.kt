@@ -1,55 +1,52 @@
-package com.example.mytestapp.adapters
+package com.example.mytestapp.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mytestapp.R
+import com.example.mytestapp.databinding.ItemMatchingBinding
 import com.example.mytestapp.model.request.MatchingProfile
+import com.example.mytestapp.viewmodel.MatchingViewModel
 
-class MatchingAdapter(
-    private var profiles: List<MatchingProfile>,
-    private val listener: OnItemClickListener
-) : RecyclerView.Adapter<MatchingAdapter.ProfileViewHolder>() {
+class MatchingAdapter(private val viewModel: MatchingViewModel) :
+    ListAdapter<MatchingProfile, MatchingAdapter.MatchingViewHolder>(MatchingDiffCallback()) {
 
-    interface OnItemClickListener {
-        fun onItemClick(profile: MatchingProfile)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MatchingViewHolder {
+        val binding = ItemMatchingBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return MatchingViewHolder(binding)
     }
 
-    inner class ProfileViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val userImageView: ImageView = itemView.findViewById(R.id.image_user)
-        val userNameTextView: TextView = itemView.findViewById(R.id.text_user_name)
-        val matchScoreTextView: TextView = itemView.findViewById(R.id.text_user_trait)
+    override fun onBindViewHolder(holder: MatchingViewHolder, position: Int) {
+        val profile = getItem(position)
+        val userName = when (position % 5) { // 각 아이템의 위치에 따라 UserID 1, 2, 3, 4, 5 중 하나를 선택
+            0 -> profile.user1Name
+            1 -> profile.user2Name
+            2 -> profile.user3Name
+            3 -> profile.user4Name
+            else -> profile.user5Name
+        }
+        holder.bind(viewModel, profile, userName)
+    }
 
-        init {
-            itemView.setOnClickListener {
-                val position = bindingAdapterPosition
-                if (position != RecyclerView.NO_POSITION) {
-                    listener.onItemClick(profiles[position])
-                }
-            }
+    class MatchingViewHolder(private val binding: ItemMatchingBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(viewModel: MatchingViewModel, profile: MatchingProfile, userName: String) {
+            binding.viewModel = viewModel
+            binding.profile = profile
+            binding.userName = userName
+            binding.executePendingBindings()
         }
     }
+}
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProfileViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_matching, parent, false)
-        return ProfileViewHolder(itemView)
+class MatchingDiffCallback : DiffUtil.ItemCallback<MatchingProfile>() {
+    override fun areItemsTheSame(oldItem: MatchingProfile, newItem: MatchingProfile): Boolean {
+        return oldItem.matchID == newItem.matchID
     }
 
-    override fun onBindViewHolder(holder: ProfileViewHolder, position: Int) {
-        val currentItem = profiles[position]
-        // 프로필 데이터에 맞게 설정
-        holder.userNameTextView.text = currentItem.userID // 적절히 설정
-        holder.matchScoreTextView.text = currentItem.matchScore
-        // holder.userImageView.setImageResource(currentItem.profileImage) // 프로필 이미지 설정 (필요시)
-    }
-
-    override fun getItemCount() = profiles.size
-
-    fun updateProfiles(newProfiles: List<MatchingProfile>) {
-        profiles = newProfiles
-        notifyDataSetChanged()
+    override fun areContentsTheSame(oldItem: MatchingProfile, newItem: MatchingProfile): Boolean {
+        return oldItem == newItem
     }
 }
