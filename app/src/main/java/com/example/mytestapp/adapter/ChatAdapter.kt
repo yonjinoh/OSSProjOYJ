@@ -1,4 +1,4 @@
-package com.example.mytestapp.adapter
+package com.example.mytestapp.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,34 +7,37 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mytestapp.databinding.ChatMessageItemBinding
 import com.example.mytestapp.model.request.ChatMessage
 
-class ChatAdapter(private var messages: List<ChatMessage>, private val currentUserId: String) : RecyclerView.Adapter<ChatAdapter.MessageViewHolder>() {
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessageViewHolder {
-        val binding = ChatMessageItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MessageViewHolder(binding)
-    }
-
-    override fun onBindViewHolder(holder: MessageViewHolder, position: Int) {
-        holder.bind(messages[position], currentUserId)
-    }
-
-    override fun getItemCount(): Int {
-        return messages.size
-    }
+class ChatAdapter(
+    private val currentUserId: String,
+    private var messages: List<ChatMessage>
+) : RecyclerView.Adapter<ChatAdapter.ChatMessageViewHolder>() {
 
     fun submitList(newMessages: List<ChatMessage>) {
         messages = newMessages
         notifyDataSetChanged()
     }
 
-    class MessageViewHolder(private val binding: ChatMessageItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(message: ChatMessage, currentUserId: String) {
-            binding.chatMessage = message
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatMessageViewHolder {
+        val binding = ChatMessageItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ChatMessageViewHolder(binding)
+    }
 
-            if (message.senderId == currentUserId) {
+    override fun onBindViewHolder(holder: ChatMessageViewHolder, position: Int) {
+        holder.bind(messages[position], currentUserId)
+    }
+
+    override fun getItemCount(): Int = messages.size
+
+    class ChatMessageViewHolder(private val binding: ChatMessageItemBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(chatMessage: ChatMessage, currentUserId: String) {
+            binding.chatMessage = chatMessage
+
+            if (chatMessage.senderId == currentUserId) {
+                // 발신 메시지일 경우
                 binding.layoutSentMessage.visibility = View.VISIBLE
                 binding.layoutReceivedMessage.visibility = View.GONE
             } else {
+                // 수신 메시지일 경우
                 binding.layoutSentMessage.visibility = View.GONE
                 binding.layoutReceivedMessage.visibility = View.VISIBLE
             }
