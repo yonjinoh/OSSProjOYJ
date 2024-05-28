@@ -33,22 +33,29 @@ class AppUser(models.Model):
 
 
 # KSH : 채팅방 모델 정의
-class ChatRoom(models.Model):
-    roomID = models.AutoField(primary_key = True)
-    user1 = models.ForeignKey(AppUser, related_name='chatroom_user', on_delete=models.CASCADE)
+class ChatRoom(models.Model): #ChatHistory 역할
+    HistoryID = models.AutoField(primary_key = True) # 채팅방 ID 번호
+    userID = models.ForeignKey(AppUser, related_name='chatroom_user', on_delete=models.CASCADE)
     # User - 매치 결과의 유저로 수정 필요
-    user2 = models.IntegerField()
-    created_at = models.DateTimeField(auto_now_add=True)
+    userID2 = models.IntegerField(default = 0)
+    userID2name = models.CharField(max_length = 45, default = '')
+    AccessedTime = models.DateTimeField(auto_now_add=True) # 채팅방 메세지 시간
+    recentMessage = models.TextField(default = "") # 최근 메세지
 
     def __str__(self):
         return f"ChatRoom between {self.user1.username} and {self.user2.username}"
 
 # KSH : 채팅 모델 정의
-class Chat(models.Model):
-    chatroom = models.ForeignKey(ChatRoom, on_delete=models.CASCADE, related_name='chats')
-    sender = models.ForeignKey(AppUser, on_delete=models.CASCADE, related_name='senders')
+class Chat(models.Model): #Message 역할
+    messageID = models.AutoField(primary_key = True)
+    CHistoryID = models.ForeignKey(ChatRoom, on_delete=models.CASCADE, related_name='chats')
+
+    senderID = models.ForeignKey(AppUser, on_delete=models.CASCADE, related_name='senders')
+    receiverID = models.IntegerField()
+
     content = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
 
     def __str__(self):
         return f"Chat {self.id} in {self.chatroom.id}"
@@ -57,22 +64,21 @@ class Chat(models.Model):
 
 # KSH: Profile 모델 정의 추가
 class Profile(models.Model):
-    profileId = models.AutoField(primary_key = True)
+    profileId = models.AutoField(primary_key=True)
     userId = models.ForeignKey(AppUser, on_delete=models.CASCADE, related_name='profiles')
-    # default를 각각 E,S,T,J 로 설정
-    Embti = models.integerField(default = 0)
-    Smbti = models.integerField(default = 0)
-    Tmbti = models.integerField(default = 0)
-    Jmbti = models.integerField(default = 0)
+    Embti = models.IntegerField(default=0)
+    Smbti = models.IntegerField(default=0)
+    Tmbti = models.IntegerField(default=0)
+    Jmbti = models.IntegerField(default=0)
 
-    firstLesson = models.integerFieldField()
-    smoke = models.integerField()
-    sleepHabit = models.integerField()
+    firstLesson = models.IntegerField()
+    smoke = models.IntegerField()
+    sleepHabit = models.IntegerField()
     grade = models.IntegerField()
-    shareNeeds = models.integerField()
-    inComm = models.integerField()
-    heatSens = models.integerField()
-    coldSens = models.integerField()
+    shareNeeds = models.IntegerField()
+    inComm = models.IntegerField()
+    heatSens = models.IntegerField()
+    coldSens = models.IntegerField()
     drinkFreq = models.IntegerField()
     cleanliness = models.IntegerField()
     noiseSens = models.IntegerField()
@@ -84,22 +90,21 @@ class Profile(models.Model):
 
 # KSH: UserPref 모델 정의 추가
 class UserPref(models.Model):
-    prefId = models.AutoField(primary_key = True)
+    prefId = models.AutoField(primary_key=True)
     UuserId = models.ForeignKey(AppUser, on_delete=models.CASCADE, related_name='userprefs')
-    # default를 'E' : True로 설정
-    UEmbti = models.integerField(default = 0)
-    USmbti = models.integerField(default = 0)
-    UTmbti = models.integerField(default = 0)
-    UJmbti = models.integerField(default = 0)
+    UEmbti = models.IntegerField(default=0)
+    USmbti = models.IntegerField(default=0)
+    UTmbti = models.IntegerField(default=0)
+    UJmbti = models.IntegerField(default=0)
 
-    UfirstLesson = models.integerField()
-    Usmoke = models.integerField()
-    UsleepHabit = models.integerField()
+    UfirstLesson = models.IntegerField()
+    Usmoke = models.IntegerField()
+    UsleepHabit = models.IntegerField()
     Ugrade = models.IntegerField()
-    UshareNeeds = models.integerField()
-    UinComm = models.integerField()
-    UheatSens = models.integerField()
-    UcoldSens = models.integerField()
+    UshareNeeds = models.IntegerField()
+    UinComm = models.IntegerField()
+    UheatSens = models.IntegerField()
+    UcoldSens = models.IntegerField()
     UdrinkFreq = models.IntegerField()
     Ucleanliness = models.IntegerField()
     UnoiseSens = models.IntegerField()

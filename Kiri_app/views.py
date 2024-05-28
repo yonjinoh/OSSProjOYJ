@@ -99,12 +99,77 @@ class ChatRoomListViewSet(viewsets.ModelViewSet):
     queryset = ChatRoom.objects.all()
     serializer_class = ChatRoomSerializer
 
+    @api_view(['POST'])
+    def chatroomcreate(request):
+        userID = request.data.get('userID')
+        userID2 = request.data.get('userID2')
+        userID2name = AppUser.objects.get(userID = userID2).name
+
+        AccessedTime = request.data.get('AccessedTime')
+        recentMessage = request.data.get('recentMessage')
+
+        if userID and userID2 and userID2name and AccessedTime and recentMessage:
+            room_count = ChatRoom.objects.count() + 1
+            chatroom = ChatRoom.objects.create(HistoryID = room_count, userID = userID,
+                                               userID2 = userID2, userID2name = userID2name,
+                                               AccessedTime = AccessedTime,
+                                               recentMessage = recentMessage)
+            chatroom.save()
+            return Response({'success': True}, status=status.HTTP_201_CREATED)
+
+        else:
+            return Response({'success': False}, status=status.HTTP_400_BAD_REQUEST)
+
+    @api_view(['GET'])
+    def chatroomlist(request):
+        chatroom_list = ChatRoom.objects.filter(userID = request.data.get('userID'))
+        serializer = ChatRoomSerializer(chatroom_list, many=True)
+        return Response(serializer.data)
+
+
+
+
 # 채팅 내역 저장 - 보낼때마다 저장
 # 채팅 내역 불러오기
 
 class ChatViewSet(viewsets.ModelViewSet):
     queryset = Chat.objects.all()
     serializer_class = ChatSerializer
+
+    @api_view(['POST'])
+    def savemessage(request):
+        CHistoryID = request.data.get('CHistoryID')
+        senderID = request.data.get('senderID')
+
+        try:
+            chatroom = ChatRoom.objects.get(senderID=senderID)
+            receiverID = chatroom.userID2
+        except ChatRoom.DoesNotExist:
+            return Response({'success': False, 'error': 'ChatRoom not found'}, status=status.HTTP_400_BAD_REQUEST)
+
+        content = request.data.get('content')
+        timestamp = request.data.get('timestamp')
+
+        if CHistoryID and senderID and receiverID and content and timestamp:
+            chat_count = Chat.objects.count() + 1
+            chat = Chat.objects.create(messageID = chat_count, CHistoryID = CHistoryID,
+                                       senderID = senderID, receiverID = receiverID,
+                                       content = content, timestamp = timestamp)
+            chat.save()
+
+            chatroom = ChatRoom.objects.filter(HistoryID = CHistoryID)
+            chatroom.AccessedTime = timestamp
+            chatroom.recentMessage = content
+            chatroom.save()
+
+            return_chat = Chat.objects.filter(timestamp = timestamp)
+
+            # 새로운 메세지 저장시, 채팅방의 AccessedTime과 recentMessage도 업데이트
+            # 새로운 메세지 자체도 반환
+            return Response({'success': True, 'chat': ChatSerializer(return_chat, many=True).data},
+                            status=status.HTTP_201_CREATED)
+        else:
+            return Response({'success': False}, status=status.HTTP_400_BAD_REQUEST)
 
 
 
@@ -411,11 +476,11 @@ class MatchViewSet(viewsets.ModelViewSet):
 
             # 반환 정보 수정 필요
             response_data = {
-                'user1': {'name': user1.name, 'studentId': user1.studentId},
-                'user2': {'name': user2.name, 'studentId': user2.studentId},
-                'user3': {'name': user3.name, 'studentId': user3.studentId},
-                'user4': {'name': user4.name, 'studentId': user4.studentId},
-                'user5': {'name': user5.name, 'studentId': user5.studentId}
+                'user1': {'userID': user1.userID, 'name': user1.name, 'studentId': user1.studentId},
+                'user2': {'userID': user2.userID, 'name': user2.name, 'studentId': user2.studentId},
+                'user3': {'userID': user3.userID, 'name': user3.name, 'studentId': user3.studentId},
+                'user4': {'userID': user4.userID, 'name': user4.name, 'studentId': user4.studentId},
+                'user5': {'userID': user5.userID, 'name': user5.name, 'studentId': user5.studentId}
             }
 
             return Response({'match_result': response_data}, status=status.HTTP_200_OK)

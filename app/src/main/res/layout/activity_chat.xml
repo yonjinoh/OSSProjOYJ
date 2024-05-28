@@ -121,4 +121,4 @@
         android:layout_gravity="end"
         android:background="@color/realwhite"
         app:menu="@menu/chat_menu" />
-</androidx.drawerlayout.widget.ConstraintLayout>
+</androidx.drawerlayout.widget.DrawerLayout>
