@@ -9,7 +9,10 @@
             type="com.example.mytestapp.model.request.MatchingProfile" />
         <variable
             name="viewModel"
-            type="com.example.mytestapp.viewmodel.KiriViewModel" />
+            type="com.example.mytestapp.viewmodel.MatchingViewModel" />
+        <variable
+            name="userName"
+            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,8 +22,7 @@
         android:background="@drawable/stroke_bottom_gray"
         android:clickable="true"
         android:focusable="true"
-        android:onClick="@{() -> viewModel.onProfileClicked(profile)}">
-
+        android:onClick="@{(view) -> viewModel.onProfileClicked(view, profile)}">
 
         <!-- 사용자의 이미지 -->
         <ImageView
@@ -42,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="20dp"
-            android:text="@{profile.userID}"
+            android:text="@{userName}"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
