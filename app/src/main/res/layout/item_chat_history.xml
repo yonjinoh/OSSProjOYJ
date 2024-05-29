@@ -20,7 +20,7 @@
         android:background="@drawable/stroke_bottom_gray"
         android:clickable="true"
         android:focusable="true"
-        android:onClick="@{() -> viewModel.onProfileClicked(history)}">
+        android:onClick="@{(view) -> viewModel.onProfileClicked(view.context,history)}">
 
         <!-- 사용자의 이미지 -->
         <ImageView
