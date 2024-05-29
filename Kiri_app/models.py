@@ -48,7 +48,7 @@ class ChatRoom(models.Model): #ChatHistory 역할
 # KSH : 채팅 모델 정의
 class Chat(models.Model): #Message 역할
     messageID = models.AutoField(primary_key = True)
-    CHistoryID = models.ForeignKey(ChatRoom, on_delete=models.CASCADE, related_name='chats')
+    CHistoryID = models.ForeignKey(ChatRoom, on_delete=models.CASCADE, related_name='chats', default = -1)
 
     senderID = models.ForeignKey(AppUser, on_delete=models.CASCADE, related_name='senders')
     receiverID = models.IntegerField()
