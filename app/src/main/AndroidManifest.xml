@@ -14,6 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyTestApp"
         tools:targetApi="31">
+
         <activity
             android:name=".BlockListActivity"
             android:exported="false" />
@@ -61,12 +62,15 @@
         <activity
             android:name=".IntroActivity"
             android:exported="true"
-            android:theme="@style/Theme.AppCompat"> <!-- 수정된 부분: 테마 설정 -->
+            android:theme="@style/Theme.AppCompat.NoActionBar"> <!-- 수정된 부분: 테마 설정 -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".sign.LoginActivity"
+        android:exported="true"
+        android:theme="@style/Theme.MyTestApp" />  <!-- 필요시 테마 설정 -->
     </application>
-
 </manifest>

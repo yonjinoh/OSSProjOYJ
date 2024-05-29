@@ -11,7 +11,7 @@ import retrofit2.Retrofit
 object ApiFactory {
     val retrofit: Retrofit by lazy {
         Retrofit.Builder()
-            .baseUrl("https://127.0.0.1:8000/")
+            .baseUrl("https://ec2-13-124-159-83.ap-northeast-2.compute.amazonaws.com/")
             .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
             .build()
 
