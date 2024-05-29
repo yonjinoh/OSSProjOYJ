@@ -34,12 +34,12 @@ class UserViewSet(viewsets.ModelViewSet):
     #회원가입 시 호출되는 함수
     @api_view(['POST'])
     def signup(request):
-        id = request.data.get('id')
-        password = request.data.get('password')
-        name = request.data.get('name')
+        id = request.data.get('ID')
+        password = request.data.get('Password')
+        name = request.data.get('Name')
         # 학번, 성별 추가
-        studentId = request.data.get('studentId')
-        gender = request.data.get('gender')
+        studentId = request.data.get('studentID')
+        gender = request.data.get('Gender')
 
         # studentid, gender 추가
         if id and password and name and studentId and gender:
@@ -61,8 +61,8 @@ class UserViewSet(viewsets.ModelViewSet):
     #로그인 시 호출되는 함수
     @api_view(['POST'])
     def login_api(request):
-        id = request.data.get('id')
-        password = request.data.get('password')
+        id = request.data.get('ID')
+        password = request.data.get('Password')
 
         if id and password:
             try:
