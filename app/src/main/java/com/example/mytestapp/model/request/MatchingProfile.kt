@@ -10,12 +10,6 @@ data class MatchingProfile(
     val matchID: String,
     @SerialName("UserID")
     val userID: String,
-    @SerialName("MatchScore")
-    val matchScore: String,
-    @SerialName("CreatedAt")
-    val createdAt: String,
-    @SerialName("UpdateAt")
-    val updateAt: String,
     @SerialName("User1ID")
     val user1ID: String,
     @SerialName("User2ID")
@@ -35,7 +29,17 @@ data class MatchingProfile(
     @SerialName("User4Name")
     val user4Name: String,
     @SerialName("User5Name")
-    val user5Name: String
+    val user5Name: String,
+    @SerialName("user1StudentId")
+    val user1StudentId: String,
+    @SerialName("user2StudentId")
+    val user2StudentId: String,
+    @SerialName("user3StudentId")
+    val user3StudentId: String,
+    @SerialName("user4StudentId")
+    val user4StudentId: String,
+    @SerialName("user5StudentId")
+    val user5StudentId: String
 )
 
 

@@ -26,16 +26,24 @@ class MatchingAdapter(private val viewModel: MatchingViewModel) :
             3 -> profile.user4Name
             else -> profile.user5Name
         }
-        holder.bind(viewModel, profile, userName)
+        val userStudentId = when (position % 5) { // 각 아이템의 위치에 따라 UserID 1, 2, 3, 4, 5 중 하나를 선택
+            0 -> profile.user1StudentId
+            1 -> profile.user2StudentId
+            2 -> profile.user3StudentId
+            3 -> profile.user4StudentId
+            else -> profile.user5StudentId
+        }
+        holder.bind(viewModel, profile, userName, userStudentId) // 여기에 네 개의 인수를 전달합니다.
     }
 
     class MatchingViewHolder(private val binding: ItemMatchingBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(viewModel: MatchingViewModel, profile: MatchingProfile, userName: String) {
+        fun bind(viewModel: MatchingViewModel, profile: MatchingProfile, userName: String, userStudentId: String) {
             binding.viewModel = viewModel
             binding.profile = profile
             binding.userName = userName
+            binding.userStudentId = userStudentId
             binding.executePendingBindings()
         }
     }
