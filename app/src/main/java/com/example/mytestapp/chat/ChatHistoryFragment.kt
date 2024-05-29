@@ -1,5 +1,6 @@
 package com.example.mytestapp.chat
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,20 +8,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mytestapp.R
-import com.example.mytestapp.adapters.ChatHistoryAdapter
 import com.example.mytestapp.model.request.ChatHistory
-import com.example.mytestapp.service.KiriService
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.example.mytestapp.adapters.ChatHistoryAdapter
+import com.example.mytestapp.viewmodel.ChatHistoryViewModel
 
 class ChatHistoryFragment : Fragment() {
 
     private lateinit var chatRecyclerView: RecyclerView
     private lateinit var chatAdapter: ChatHistoryAdapter
+    private val chatHistoryViewModel: ChatHistoryViewModel by viewModels()
 
     companion object {
         fun newInstance(): ChatHistoryFragment {
@@ -40,12 +40,12 @@ class ChatHistoryFragment : Fragment() {
 
         chatRecyclerView = view.findViewById(R.id.rv_chat_list)
 
-        chatAdapter = ChatHistoryAdapter(emptyList(), object : ChatHistoryAdapter.OnItemClickListener {
+        chatAdapter = ChatHistoryAdapter(chatHistoryViewModel, object : ChatHistoryAdapter.OnItemClickListener {
             override fun onItemClick(chatHistory: ChatHistory) {
                 // 채팅 방 클릭 시 ChatActivity 시작
                 val intent = Intent(requireContext(), ChatActivity::class.java)
-                intent.putExtra("targetUserId", chatHistory.userID)
-                intent.putExtra("targetUserName", chatHistory.accessedBy)
+                intent.putExtra("targetUserId", chatHistory.userID2)
+                intent.putExtra("targetUserName", chatHistory.userID2name)
                 startActivity(intent)
             }
         })
@@ -53,29 +53,19 @@ class ChatHistoryFragment : Fragment() {
         chatRecyclerView.layoutManager = LinearLayoutManager(context)
         chatRecyclerView.adapter = chatAdapter
 
-        loadChatHistory()
+        // 데이터 로드
+        val sharedPreferences = requireContext().getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+        val currentUserId = sharedPreferences.getString("userId", "") ?: ""
+        chatHistoryViewModel.loadChatHistories(currentUserId)
+
+        chatHistoryViewModel.chatHistories.observe(viewLifecycleOwner) { chatHistories ->
+            chatAdapter.submitList(chatHistories)
+        }
 
         // 뒤로가기 버튼 설정
         val btnBack: Button = view.findViewById(R.id.btn_back)
         btnBack.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
         }
-    }
-
-    private fun loadChatHistory() {
-        KiriService.chatService.getChatHistory().enqueue(object : Callback<List<ChatHistory>> {
-            override fun onResponse(call: Call<List<ChatHistory>>, response: Response<List<ChatHistory>>) {
-                if (response.isSuccessful) {
-                    val chatHistoryList = response.body() ?: emptyList()
-                    chatAdapter.updateChatHistory(chatHistoryList)
-                } else {
-                    // Handle the error
-                }
-            }
-
-            override fun onFailure(call: Call<List<ChatHistory>>, t: Throwable) {
-                // Handle the failure
-            }
-        })
     }
 }

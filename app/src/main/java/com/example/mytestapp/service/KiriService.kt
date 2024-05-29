@@ -46,7 +46,7 @@ interface ChatService {
     @POST("report/")
     fun reportUser(@Body reportData: ReportData): Call<ReportResponse>
 
-    @GET("chathistory/")
+    @GET("chat-history/")
     fun getChatHistory(@Query("user_id") userId: String): Call<List<ChatHistory>>
 }
 
