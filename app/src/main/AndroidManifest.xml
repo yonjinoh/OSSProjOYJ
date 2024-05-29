@@ -60,10 +60,10 @@
             android:exported="false" />
         <activity
             android:name=".IntroActivity"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat"> <!-- 수정된 부분: 테마 설정 -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
