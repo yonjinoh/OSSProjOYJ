@@ -73,7 +73,7 @@ class SignupActivity : AppCompatActivity() {
 
             else {
                 // 선택된 성별 라디오 버튼의 텍스트 가져오기
-                val selectedGender = findViewById<RadioButton>(GenderGroup.checkedRadioButtonId).text.toString()
+                val Gender = findViewById<RadioButton>(GenderGroup.checkedRadioButtonId).text.toString()
 
                 Log.d("signupbutton", "asdf")
                 SignupService.signup(
@@ -82,7 +82,7 @@ class SignupActivity : AppCompatActivity() {
                         Password.text.toString(),
                         Name.text.toString(),
                         StudentID.text.toString(),
-                        selectedGender
+                        Gender
                     )
                 ).enqueue(object : Callback<signupresponse> {
                     override fun onResponse(
