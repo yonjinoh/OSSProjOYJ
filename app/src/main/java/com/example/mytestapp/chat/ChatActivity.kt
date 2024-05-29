@@ -71,7 +71,7 @@ class ChatActivity : AppCompatActivity() {
 
 
         webSocketManager = WebSocketManager(
-            url = "ws://yourserver.com/socket",
+            url = "ws://127.0.0.1/ws/chat/",
             onMessageReceived = { message -> runOnUiThread {
                 chatRoomViewModel.addMessage(message)
             }},
