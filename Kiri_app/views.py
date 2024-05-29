@@ -482,7 +482,7 @@ class MatchViewSet(viewsets.ModelViewSet):
             return [match for match, similarity in similarities[:5]]  # 상위 5명의 매칭 사용자를 반환
 
         # 상위 매칭 사용자를 찾음
-        top_matches = match_users(user_pref, user_list, binary_fields, continuous_fields)
+        top_matches = match_users(user_pref, user_list, Ubinary_fields, Ucontinuous_fields, binary_fields, continuous_fields)
         match_resultlist = [match.userID for match in top_matches]
 
         if match_resultlist:
