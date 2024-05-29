@@ -13,6 +13,9 @@
         <variable
             name="userName"
             type="String" />
+        <variable
+            name="userStudentId"
+            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -57,7 +60,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="@{profile.matchScore}"
+            android:text="@{userStudentId}"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/image_user"
