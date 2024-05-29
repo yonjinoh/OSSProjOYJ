@@ -482,7 +482,7 @@ class MatchViewSet(viewsets.ModelViewSet):
             return [match for match, similarity in similarities[:5]]  # 상위 5명의 매칭 사용자를 반환
 
         # 상위 매칭 사용자를 찾음
-        top_matches = match_users(user_pref, user_list, binary_fields, continuous_fields)
+        top_matches = match_users(user_pref, user_list, Ubinary_fields, Ucontinuous_fields, binary_fields, continuous_fields)
         match_resultlist = [match.userID for match in top_matches]
 
         if match_resultlist:
@@ -526,15 +526,16 @@ class MatchViewSet(viewsets.ModelViewSet):
             user5 = AppUser.objects.get(userID=match_result.userId5)
 
             # 반환 정보 수정 필요
-            response_data = {
-                'user1': {'userID': user1.userID, 'name': user1.name, 'studentId': user1.studentId},
-                'user2': {'userID': user2.userID, 'name': user2.name, 'studentId': user2.studentId},
-                'user3': {'userID': user3.userID, 'name': user3.name, 'studentId': user3.studentId},
-                'user4': {'userID': user4.userID, 'name': user4.name, 'studentId': user4.studentId},
-                'user5': {'userID': user5.userID, 'name': user5.name, 'studentId': user5.studentId}
+
+            response = {
+                'user1ID': user1.userID, 'user1Name': user1.name, 'user1StudentId': user1.studentId,
+                'user2ID': user2.userID, 'user2Name': user2.name, 'user2StudentId': user2.studentId,
+                'user3ID': user3.userID, 'user3Name': user3.name, 'user3StudentId': user3.studentId,
+                'user4ID': user4.userID, 'user4Name': user4.name, 'user4StudentId': user4.studentId,
+                'user5ID': user5.userID, 'user5Name': user5.name, 'user5StudentId': user5.studentId,
             }
 
-            return Response({'match_result': response_data}, status=status.HTTP_200_OK)
+            return Response(response, status=status.HTTP_200_OK)
 
         except Match.DoesNotExist:
             return Response({'success': False}, status=status.HTTP_404_NOT_FOUND)
@@ -605,20 +606,6 @@ class MatchViewSet(viewsets.ModelViewSet):
             return Response({'success': False}, status=status.HTTP_404_NOT_FOUND)
 
 
-
-
-
-       
-
-
-
-
-
-
-
-
-
-
 # KSH : ReportViewSet 추가
 class ReportViewSet(viewsets.ModelViewSet):
     queryset = Report.objects.all()
@@ -681,6 +668,7 @@ class BlockViewSet(viewsets.ModelViewSet):
                     return Response({'success': False}, status=status.HTTP_404_NOT_FOUND)
             else:
                 return Response({'success': False}, status=status.HTTP_400_BAD_REQUEST)
+
     # KSH : 차단목록 조회 기능 추가
     @api_view(['GET'])
     def getblocklist(request):

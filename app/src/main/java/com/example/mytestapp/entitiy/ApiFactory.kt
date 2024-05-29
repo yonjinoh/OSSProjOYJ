@@ -11,7 +11,7 @@ import retrofit2.Retrofit
 object ApiFactory {
     val retrofit: Retrofit by lazy {
         Retrofit.Builder()
-            .baseUrl("https://638c-58-140-213-197.ngrok-free.app/")
+            .baseUrl("https://127.0.0.1:8000/")
             .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
             .build()
 
@@ -23,6 +23,8 @@ object ApiFactory {
 object KiriServicePool {
     val signupService = ApiFactory.create<SignService>()
     val loginService = ApiFactory.create<SignService>()
+    val matchingService = ApiFactory.create<MatchingService>()
+    val chatService = ApiFactory.create<ChatService>()
 //    val createroomService = ApiFactory.create<CreateRoomService>()
 //    val searchroomService = ApiFactory.create<SearchRoomService>()
 //    val roomlistService = ApiFactory.create<RoomlistService>()
