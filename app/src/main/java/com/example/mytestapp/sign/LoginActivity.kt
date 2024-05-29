@@ -1,6 +1,6 @@
 package com.example.mytestapp.sign
 
-import CriminalServicePool      //구현 필요
+import com.example.mytestapp.entitiy.KiriServicePool
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -9,16 +9,16 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mytestapp.MainActivity
 import com.example.mytestapp.databinding.ActivityLoginBinding
-import com.example.mytestapp.model.request.loginrequest     //구현 필요
-import com.example.mytestapp.model.response.loginresponse   //구현 필요
-import retrofit2.Call       //구현 필요
-import retrofit2.Callback       //구현 필요
-import retrofit2.Response       //구현 필요
+import com.example.mytestapp.model.request.loginrequest     //구현 완료
+import com.example.mytestapp.model.response.loginresponse   //구현 완료
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
-    private val LoginService = CriminalServicePool.loginService
+    private val LoginService = KiriServicePool.loginService
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,7 +27,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
-        val ID = binding.loginID
+        val UserID = binding.UserID
         val Password = binding.loginPassword
 
         binding.signupBtn.setOnClickListener {
@@ -36,10 +36,10 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.loginBtn.setOnClickListener {
-            if (ID.text.isNotEmpty() && Password.text.isNotEmpty()) {
-                LoginService.signin(
+            if (UserID.text.isNotEmpty() && Password.text.isNotEmpty()) {
+                LoginService.login(
                     loginrequest(
-                        ID.text.toString(),
+                        UserID.text.toString(),
                         Password.text.toString()
                     )
                 ).enqueue(object : Callback<loginresponse> {
@@ -71,7 +71,7 @@ class LoginActivity : AppCompatActivity() {
 
                 })
             } else {
-                if (ID.text.isEmpty()) {
+                if (UserID.text.isEmpty()) {
                     Toast.makeText(applicationContext, "아이디를 입력해주세요", Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(applicationContext, "비밀번호를 입력해주세요", Toast.LENGTH_SHORT).show()
