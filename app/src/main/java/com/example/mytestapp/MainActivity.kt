@@ -25,6 +25,15 @@ class MainActivity : AppCompatActivity() {
         userName = intent.getStringExtra("username") ?: "unknownName"
         userStudentID = intent.getStringExtra("studentid") ?: "unknownStudentID"
 
+        // SharedPreferences에 사용자 정보 저장
+        val sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE)
+        with(sharedPreferences.edit()) {
+            putString("userId", userID)
+            putString("userName", userName)
+            putString("userStudentId", userStudentID)
+            apply()
+        }
+
         // 기본 프래그먼트 설정
         replaceFragment(HomeFragment())
 

@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -28,9 +30,6 @@
             android:name=".profile.ProfileOption1Activity"
             android:exported="false" />
         <activity
-            android:name=".profile.ProfileGenderActivity"
-            android:exported="false" />
-        <activity
             android:name=".match.MatchingOption4Activity"
             android:exported="false" />
         <activity
@@ -41,9 +40,6 @@
             android:exported="false" />
         <activity
             android:name=".match.MatchingOption1Activity"
-            android:exported="false" />
-        <activity
-            android:name=".match.MatchingOptionTotalActivity"
             android:exported="false" />
         <activity
             android:name=".profile.ProfileOption4Activity"
@@ -63,16 +59,11 @@
             android:name=".sign.SignupActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity2"
-            android:exported="false"
-            android:label="@string/title_activity_main2"
-            android:theme="@style/Theme.MyTestApp" /> <!-- 인트로 화면 때문에 추가한 부분 -->
-        <activity
             android:name=".IntroActivity"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat"> <!-- 수정된 부분: 테마 설정 -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

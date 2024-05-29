@@ -19,6 +19,7 @@ import com.example.mytestapp.R
 import com.example.mytestapp.adapters.ChatAdapter
 import com.example.mytestapp.model.request.ChatMessage
 import com.example.mytestapp.viewmodel.ChatRoomViewModel
+import com.example.mytestapp.matchmaking.MatchmakingActivity
 import com.example.mytestapp.websocket.WebSocketManager
 import org.json.JSONObject
 
@@ -117,6 +118,11 @@ class ChatActivity : AppCompatActivity() {
             popupMenu.inflate(R.menu.chat_menu)
             popupMenu.setOnMenuItemClickListener { item: MenuItem ->
                 when (item.itemId) {
+                    R.id.matching_user -> {
+                        val intent = Intent(this, MatchmakingActivity::class.java)
+                        startActivity(intent)
+                        true
+                    }
                     R.id.action_report -> {
                         val intent = Intent(this, ReportUserActivity::class.java)
                         intent.putExtra("targetUserId", targetUserId)
