@@ -9,8 +9,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mytestapp.MainActivity
 import com.example.mytestapp.databinding.ActivityLoginBinding
-import com.example.mytestapp.model.request.loginrequest     //구현 완료
-import com.example.mytestapp.model.response.loginresponse   //구현 완료
+import com.example.mytestapp.model.request.loginrequest
+import com.example.mytestapp.model.response.loginresponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -18,7 +18,7 @@ import retrofit2.Response
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
-    private val LoginService = KiriServicePool.loginService
+    private val loginService = KiriServicePool.loginService
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,7 +37,7 @@ class LoginActivity : AppCompatActivity() {
 
         binding.loginBtn.setOnClickListener {
             if (UserID.text.isNotEmpty() && Password.text.isNotEmpty()) {
-                LoginService.login(
+                loginService.login(
                     loginrequest(
                         UserID.text.toString(),
                         Password.text.toString()
