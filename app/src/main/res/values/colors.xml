@@ -26,5 +26,5 @@
     <color name="error">#D9534F</color>
     <color name="gray_dark">#494a4b</color>
     <color name="text_gray1">#808080</color>
-
+    <color name="text_gray">#D3D3D3</color>
 </resources>
