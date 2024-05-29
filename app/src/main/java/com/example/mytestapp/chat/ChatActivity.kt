@@ -9,20 +9,22 @@ import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mytestapp.R
-import com.example.mytestapp.adapters.MessagesAdapter
+import com.example.mytestapp.adapters.ChatAdapter
 import com.example.mytestapp.model.request.ChatMessage
+import com.example.mytestapp.viewmodel.ChatRoomViewModel
 import com.example.mytestapp.websocket.WebSocketManager
 import org.json.JSONObject
 
 class ChatActivity : AppCompatActivity() {
 
-    private lateinit var messages: MutableList<ChatMessage>
-    private lateinit var adapter: MessagesAdapter
+    private lateinit var adapter: ChatAdapter
     private lateinit var messageInput: EditText
     private lateinit var recyclerView: RecyclerView
     private lateinit var sendButton: Button
@@ -34,6 +36,8 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var targetUserId: String
     private lateinit var targetUserName: String
     private lateinit var webSocketManager: WebSocketManager
+
+    private val chatRoomViewModel: ChatRoomViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,17 +53,36 @@ class ChatActivity : AppCompatActivity() {
         initializeComponents()
         setupButtonListeners()
 
+        adapter = ChatAdapter(currentUserId, listOf())
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(this)
+
+        chatRoomViewModel.chatMessages.observe(this, Observer { messages ->
+            adapter.submitList(messages)
+            recyclerView.scrollToPosition(messages.size - 1)
+        })
+
+        chatRoomViewModel.errorMessage.observe(this, Observer { errorMessage ->
+            if (errorMessage.isNotEmpty()) {  // 추가: 빈 문자열이 아닌 경우에만 에러 메시지 표시
+                Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
+            }
+        })
+
+
         webSocketManager = WebSocketManager(
             url = "ws://yourserver.com/socket",
             onMessageReceived = { message -> runOnUiThread {
-                messages.add(message)
-                adapter.notifyItemInserted(messages.size - 1)
-                recyclerView.scrollToPosition(messages.size - 1)
+                chatRoomViewModel.addMessage(message)
             }},
             onConnectionFailed = { error -> runOnUiThread {
                 Toast.makeText(this, "WebSocket 연결 실패: $error", Toast.LENGTH_LONG).show()
             }}
         )
+
+        // WebSocket 연결
+        webSocketManager.connect()
+        // 기존 메시지 로드
+        chatRoomViewModel.loadMessages(currentUserId, targetUserId)
     }
 
     private fun initializeComponents() {
@@ -72,11 +95,6 @@ class ChatActivity : AppCompatActivity() {
 
         val textTitle = findViewById<TextView>(R.id.textTitle)
         textTitle.text = targetUserName
-
-        messages = mutableListOf()
-        adapter = MessagesAdapter(messages)
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(this)
     }
 
     private fun setupButtonListeners() {
@@ -119,28 +137,26 @@ class ChatActivity : AppCompatActivity() {
     }
 
     private fun sendMessage(messageText: String) {
-        val messageId = ""
-        val timestamp = System.currentTimeMillis().toString()
-
         val messageData = ChatMessage(
-            messageId = messageId,
-            userId = currentUserId,
-            receiverId = targetUserId,
+            messageId = "",  // 서버에서 생성됨
             senderId = currentUserId,
+            receiverId = targetUserId,
             content = messageText,
-            formattedTimestamp = timestamp,
-            senderName = currentUserName
+            timestamp = "",  // 타임스탬프는 서버에서 생성됨
+            formattedTimestamp = "",  // 서버에서 생성됨
+            senderName = currentUserName  // 현재 사용자의 이름을 사용
         )
 
         val jsonObject = JSONObject().apply {
             put("messageId", messageData.messageId)
-            put("userId", messageData.userId)
-            put("receiverId", messageData.receiverId)
             put("senderId", messageData.senderId)
+            put("receiverId", messageData.receiverId)
             put("content", messageData.content)
+            put("timestamp", messageData.timestamp)
             put("formattedTimestamp", messageData.formattedTimestamp)
             put("senderName", messageData.senderName)
         }
+
         webSocketManager.sendMessage(jsonObject.toString())
     }
 

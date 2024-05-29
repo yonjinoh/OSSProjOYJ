@@ -8,7 +8,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.Query
+
 
 // Retrofit 인터페이스 정의
 interface SignService {
@@ -31,7 +32,10 @@ interface RoommateService {
 
 interface ChatService {
     @GET("messages/")
-    fun getMessages(): Call<List<ChatMessage>>
+    fun getMessages(
+        @Query("currentUserId") currentUserId: String,
+        @Query("targetUserId") targetUserId: String
+    ): Call<List<ChatMessage>>
 
     @POST("messages/")
     fun postMessage(@Body message: ChatMessage): Call<ChatMessage>
@@ -42,16 +46,13 @@ interface ChatService {
     @POST("report/")
     fun reportUser(@Body reportData: ReportData): Call<ReportResponse>
 
-    @GET("chat/history/")
-    fun getChatHistory(): Call<List<ChatHistory>>
-
-    @GET("user/{userId}")
-    fun getUser(@Path("userId") userId: String): Call<signuprequest>
+    @GET("chathistory/")
+    fun getChatHistory(@Query("user_id") userId: String): Call<List<ChatHistory>>
 }
 
 interface MatchingService {
     @GET("matching-profiles")
-    fun getMatchingProfiles(): Call<List<MatchingProfile>>
+    fun getMatchingProfiles(@Query("user_id") userId: String): Call<List<MatchingProfile>>
 }
 
 // Retrofit 인스턴스를 생성하고 서비스 인터페이스를 제공하는 객체 정의
