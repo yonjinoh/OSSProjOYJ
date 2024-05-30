@@ -10,7 +10,6 @@ import okhttp3.WebSocketListener
 import org.json.JSONObject
 
 class WebSocketManager(
-    private val url: String,
     private val onMessageReceived: (ChatMessage) -> Unit,
     private val onConnectionFailed: (String) -> Unit
 ) {
@@ -19,8 +18,13 @@ class WebSocketManager(
     private val handler = Handler(Looper.getMainLooper())
     private var isConnected = false
 
+    companion object {
+        private const val NORMAL_CLOSURE_STATUS = 1000
+        private const val WEBSOCKET_URL = "ws://127.0.0.1/ws/chat/"
+    }
+
     fun connect() {
-        val request = Request.Builder().url(url).build()
+        val request = Request.Builder().url(WEBSOCKET_URL).build()
         webSocket = client.newWebSocket(request, object : WebSocketListener() {
             override fun onOpen(webSocket: WebSocket, response: okhttp3.Response) {
                 isConnected = true
@@ -51,7 +55,7 @@ class WebSocketManager(
             }
 
             override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
-                webSocket.close(1000, null)
+                webSocket.close(NORMAL_CLOSURE_STATUS, null)
             }
 
             override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
@@ -76,7 +80,7 @@ class WebSocketManager(
 
     fun disconnect() {
         if (isConnected) {
-            webSocket.close(1000, "Goodbye")
+            webSocket.close(NORMAL_CLOSURE_STATUS, "Goodbye")
         }
     }
 }

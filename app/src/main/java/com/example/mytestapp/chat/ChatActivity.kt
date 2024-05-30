@@ -64,14 +64,12 @@ class ChatActivity : AppCompatActivity() {
         })
 
         chatRoomViewModel.errorMessage.observe(this, Observer { errorMessage ->
-            if (errorMessage.isNotEmpty()) {  // 추가: 빈 문자열이 아닌 경우에만 에러 메시지 표시
+            if (errorMessage.isNotEmpty()) {
                 Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
             }
         })
 
-
         webSocketManager = WebSocketManager(
-            url = "ws://127.0.0.1/ws/chat/",
             onMessageReceived = { message -> runOnUiThread {
                 chatRoomViewModel.addMessage(message)
             }},
@@ -80,9 +78,7 @@ class ChatActivity : AppCompatActivity() {
             }}
         )
 
-        // WebSocket 연결
         webSocketManager.connect()
-        // 기존 메시지 로드
         chatRoomViewModel.loadMessages(currentUserId, targetUserId)
     }
 
@@ -120,6 +116,8 @@ class ChatActivity : AppCompatActivity() {
                 when (item.itemId) {
                     R.id.matching_user -> {
                         val intent = Intent(this, MatchmakingActivity::class.java)
+                        intent.putExtra("targetUserId", targetUserId)
+                        intent.putExtra("currentUserId", currentUserId)
                         startActivity(intent)
                         true
                     }
@@ -144,13 +142,13 @@ class ChatActivity : AppCompatActivity() {
 
     private fun sendMessage(messageText: String) {
         val messageData = ChatMessage(
-            messageId = "",  // 서버에서 생성됨
+            messageId = "", // 서버에서 생성
             senderId = currentUserId,
             receiverId = targetUserId,
             content = messageText,
-            timestamp = "",  // 타임스탬프는 서버에서 생성됨
-            formattedTimestamp = "",  // 서버에서 생성됨
-            senderName = currentUserName  // 현재 사용자의 이름을 사용
+            timestamp = "", // 서버에서 생성
+            formattedTimestamp = "", // 서버에서 생성
+            senderName = currentUserName
         )
 
         val jsonObject = JSONObject().apply {
