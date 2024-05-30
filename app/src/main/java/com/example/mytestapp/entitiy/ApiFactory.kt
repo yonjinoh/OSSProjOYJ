@@ -27,6 +27,7 @@ object KiriServicePool {
     val RoommateService = ApiFactory.create<RoommateService>()
     val matchingService = ApiFactory.create<MatchingService>()
     val chatService = ApiFactory.create<ChatService>()
+    val userService = ApiFactory.create<UserService>()
 
 //    val createroomService = ApiFactory.create<CreateRoomService>()
 //    val searchroomService = ApiFactory.create<SearchRoomService>()
