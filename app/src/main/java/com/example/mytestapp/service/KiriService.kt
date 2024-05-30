@@ -67,6 +67,14 @@ interface MatchingService {
     // 매칭 요청
     @POST("request-match/")
     fun requestMatch(@Body matchRequest: MatchRequest): Call<MatchResponse>
+
+    // 매칭 수락
+    @POST("api/matchaccept/")
+    fun acceptMatch(@Body matchRequest: MatchRequest): Call<MatchResponse>
+
+    // 매칭 거절
+    @POST("api/matchreject/")
+    fun rejectMatch(@Body matchRequest: MatchRequest): Call<MatchResponse>
 }
 
 // Retrofit 인스턴스를 생성하고 서비스 인터페이스를 제공하는 객체 정의

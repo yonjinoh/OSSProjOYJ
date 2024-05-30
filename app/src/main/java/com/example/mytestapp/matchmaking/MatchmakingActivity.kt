@@ -36,6 +36,15 @@ class MatchmakingActivity : AppCompatActivity() {
             showError("사용자 ID를 가져올 수 없습니다.") // 사용자 ID가 유효하지 않은 경우 에러 메시지 표시
         }
 
+        // WebSocketManager 초기화 및 연결
+        webSocketManager = WebSocketManager(
+            onMessageReceived = {},
+            onConnectionFailed = { error -> runOnUiThread {
+                Toast.makeText(this, "WebSocket 연결 실패: $error", Toast.LENGTH_LONG).show() // 수정
+            }}
+        )
+        webSocketManager.connect()
+
         val confirmButton = findViewById<Button>(R.id.confirm_button)
         val cancelButton = findViewById<Button>(R.id.cancel_button)
 
@@ -110,7 +119,7 @@ class MatchmakingActivity : AppCompatActivity() {
             put("type", "match_request")
             put("senderId", currentUserId)
             put("receiverId", targetUserId)
-            put("content", "상대가 매칭을 신청했습니다. 매칭을 수락하시겠습니까?\n[수락] [거절]")
+            put("content", "상대가 매칭을 신청했습니다. 매칭을 수락하시겠습니까?\n")
         }
         webSocketManager.sendMessage(messageData.toString())
     }
