@@ -9,7 +9,7 @@ import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mytestapp.databinding.ActivityRegisterBinding
-import com.example.mytestapp.model.request.signuprequest
+import com.example.mytestapp.model.request.SignupRequest
 import com.example.mytestapp.model.response.signupresponse
 import retrofit2.Call
 import retrofit2.Callback
@@ -78,7 +78,7 @@ class SignupActivity : AppCompatActivity() {
 
                 Log.d("signupbutton", "asdf")
                 SignupService.signup(
-                    signuprequest(
+                    SignupRequest(
                         ID.text.toString(),
                         Password.text.toString(),
                         Name.text.toString(),
