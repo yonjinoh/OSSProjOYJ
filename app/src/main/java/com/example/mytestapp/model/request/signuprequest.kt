@@ -5,14 +5,15 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class signuprequest(
-    @SerialName("ID")
-    val ID: String, // VARCHAR in SQL
-    @SerialName("Password")
-    val Password: String,   // VARCHAR in SQL
-    @SerialName("Name")
-    val Name: String,   // VARCHAR in SQL
-    @SerialName("Gender")
-    val Gender: String,     // VARCHAR in SQL
-    @SerialName("StudentID")
-    val StudentID: String   // VARCHAR in SQL
+    @SerialName("iD")
+    val iD: String, // VARCHAR in SQL
+    @SerialName("password")
+    val password: String,   // VARCHAR in SQL
+    @SerialName("name")
+    val name: String,   // VARCHAR in SQL // VARCHAR in SQL
+    @SerialName("studentID")
+    val studentID: String,
+    @SerialName("gender")
+    val gender: String// VARCHAR in SQL
 )
+

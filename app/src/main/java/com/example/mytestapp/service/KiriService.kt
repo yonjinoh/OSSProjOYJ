@@ -9,6 +9,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
+import retrofit2.http.Path
 
 
 // Retrofit 인터페이스 정의
@@ -50,25 +51,29 @@ interface ChatService {
     fun getChatHistory(@Query("user_id") userId: String): Call<List<ChatHistory>>
 }
 
+// 사용자 정보를 조회
+interface UserService {
+
+    @GET("api/user/{user_id}/")
+    fun getUserInfo(@Path("user_id") userId: String): Call<UserResponse>
+
+}
+
+// 매칭 관련 api
 interface MatchingService {
     @GET("matching-profiles")
     fun getMatchingProfiles(@Query("user_id") userId: String): Call<List<MatchingProfile>>
+
+    // 매칭 요청
+    @POST("request-match/")
+    fun requestMatch(@Body matchRequest: MatchRequest): Call<MatchResponse>
+
+    // 매칭 수락
+    @POST("api/matchaccept/")
+    fun acceptMatch(@Body matchRequest: MatchRequest): Call<MatchResponse>
+
+    // 매칭 거절
+    @POST("api/matchreject/")
+    fun rejectMatch(@Body matchRequest: MatchRequest): Call<MatchResponse>
 }
 
-// Retrofit 인스턴스를 생성하고 서비스 인터페이스를 제공하는 객체 정의
-object KiriService {
-    private const val BASE_URL = "http://your-django-server.com/" // 실제 서버 주소로 변경
-
-    private val retrofit: Retrofit = Retrofit.Builder()
-        .baseUrl(BASE_URL)
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
-
-    val chatService: ChatService by lazy {
-        retrofit.create(ChatService::class.java)
-    }
-
-    val matchingService: MatchingService by lazy {
-        retrofit.create(MatchingService::class.java)
-    }
-}
