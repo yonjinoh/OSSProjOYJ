@@ -49,11 +49,11 @@ class LoginActivity : AppCompatActivity() {
                     ) {
                         if (response.isSuccessful) {
                             Toast.makeText(applicationContext, "로그인 성공", Toast.LENGTH_SHORT).show()
-                            val userid = response.body()?.user_id
+                            val userID = response.body()?.UserID
 
                             val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
                             val editor = sharedPreferences.edit()
-                            editor.putString("userid", userid)
+                            editor.putString("UserID", userID)
                             editor.apply()
 
                             val intent = Intent(applicationContext, MainActivity::class.java)

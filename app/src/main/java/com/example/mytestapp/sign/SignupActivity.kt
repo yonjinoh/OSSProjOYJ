@@ -9,10 +9,11 @@ import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mytestapp.databinding.ActivityRegisterBinding
-import com.example.mytestapp.model.request.signuprequest            //구현 필요
-import com.example.mytestapp.model.response.signupresponse          //구현 필요
-import retrofit2.Call           //구현 필요
-import retrofit2.Callback       //구현 필요
+import com.example.mytestapp.model.request.signuprequest
+import com.example.mytestapp.model.response.signupresponse
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class SignupActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
