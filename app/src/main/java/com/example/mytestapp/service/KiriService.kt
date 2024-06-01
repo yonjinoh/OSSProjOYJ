@@ -57,7 +57,7 @@ interface MatchingService {
 
 // Retrofit 인스턴스를 생성하고 서비스 인터페이스를 제공하는 객체 정의
 object KiriService {
-    private const val BASE_URL = "http://your-django-server.com/" // 실제 서버 주소로 변경
+    private const val BASE_URL = "https://510c-128-134-0-90.ngrok-free.app:8000/" // 실제 서버 주소로 변경
 
     private val retrofit: Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)

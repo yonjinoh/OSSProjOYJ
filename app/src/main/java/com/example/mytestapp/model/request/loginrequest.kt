@@ -6,8 +6,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class loginrequest(
-    @SerialName("UserID")
-    val UserID: String, // VARCHAR in SQL
-    @SerialName("Password")
-    val Password: String    // VARCHAR in SQL
+    @SerialName("iD")
+    val iD: String, // VARCHAR in SQL
+    @SerialName("password")
+    val password: String    // VARCHAR in SQL
 )
