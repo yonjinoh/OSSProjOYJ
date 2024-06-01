@@ -9,15 +9,17 @@ import okhttp3.MediaType.Companion.toMediaType
 import retrofit2.Retrofit
 
 object ApiFactory {
+    private val contentType = "application/json".toMediaType()
+    private val json = Json { ignoreUnknownKeys = true }
+
     val retrofit: Retrofit by lazy {
         Retrofit.Builder()
             .baseUrl("https://ec2-13-124-159-83.ap-northeast-2.compute.amazonaws.com/")
-            .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
+            .addConverterFactory(json.asConverterFactory(contentType))
             .build()
-
     }
 
-    inline fun <reified T> create(): T = retrofit.create<T>(T::class.java)
+    inline fun <reified T> create(): T = retrofit.create(T::class.java)
 }
 
 object KiriServicePool {
