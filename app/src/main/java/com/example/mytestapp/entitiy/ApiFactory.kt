@@ -9,17 +9,14 @@ import okhttp3.MediaType.Companion.toMediaType
 import retrofit2.Retrofit
 
 object ApiFactory {
-
-
     val retrofit: Retrofit by lazy {
         Retrofit.Builder()
             .baseUrl("https://510c-128-134-0-90.ngrok-free.app/")
             .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
             .build()
-
     }
 
-    inline fun <reified T> create(): T = retrofit.create<T>(T::class.java)
+    inline fun <reified T> create(): T = retrofit.create(T::class.java)
 }
 
 object KiriServicePool {
@@ -29,6 +26,7 @@ object KiriServicePool {
     val RoommateService = ApiFactory.create<RoommateService>()
     val matchingService = ApiFactory.create<MatchingService>()
     val chatService = ApiFactory.create<ChatService>()
+    val userService = ApiFactory.create<UserService>()
 
 //    val createroomService = ApiFactory.create<CreateRoomService>()
 //    val searchroomService = ApiFactory.create<SearchRoomService>()

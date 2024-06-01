@@ -14,6 +14,7 @@ import com.example.mytestapp.model.response.signupresponse         //구현 필�
 import retrofit2.Call           //구현 필요
 import retrofit2.Callback       //구현 필요
 
+
 class SignupActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
 

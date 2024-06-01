@@ -4,9 +4,9 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class loginresponse(
-    @SerialName("success")
-    val success: Boolean,
-    @SerialName("user_id")
-    val user_id : String
+data class UserResponse(
+    @SerialName("userID")
+    val userID: String,
+    @SerialName("username")
+    val username: String
 )

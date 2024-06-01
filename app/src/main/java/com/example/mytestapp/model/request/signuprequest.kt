@@ -16,3 +16,4 @@ data class signuprequest(
     @SerialName("gender")
     val gender: String// VARCHAR in SQL
 )
+
