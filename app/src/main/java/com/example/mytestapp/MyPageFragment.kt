@@ -19,13 +19,13 @@ class MyPageFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_mypage, container, false)
 
+        // 학번과 이름을 표시할 TextView의 id는 "StudentID"와 "Name"으로 설정되어 있으므로 해당 id를 사용하여 TextView를 찾음
+        val studentIdTextView = view.findViewById<TextView>(R.id.StudentID)
+        val nameTextView = view.findViewById<TextView>(R.id.Name)
+
         // 받아온 데이터 추출
         val name = arguments?.getString("name")
         val studentId = arguments?.getString("studentId")
-
-        // 학번과 이름을 표시할 TextView 찾기
-        val studentIdTextView = view.findViewById<TextView>(R.id.StudentID)
-        val nameTextView = view.findViewById<TextView>(R.id.Name)
 
         // 학번과 이름 설정
         studentIdTextView.text = studentId
