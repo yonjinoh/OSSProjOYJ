@@ -4,15 +4,16 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class SignupRequest(
-    @SerialName("ID")
-    val id: String, // VARCHAR in SQL
-    @SerialName("Password")
+data class signuprequest(
+    @SerialName("iD")
+    val iD: String, // VARCHAR in SQL
+    @SerialName("password")
     val password: String,   // VARCHAR in SQL
-    @SerialName("Name")
-    val name: String,   // VARCHAR in SQL
-    @SerialName("Gender")
-    val gender: String,     // VARCHAR in SQL
-    @SerialName("StudentID")
-    val studentId: String   // VARCHAR in SQL
+    @SerialName("name")
+    val name: String,   // VARCHAR in SQL // VARCHAR in SQL
+    @SerialName("studentID")
+    val studentID: String,
+    @SerialName("gender")
+    val gender: String// VARCHAR in SQL
 )
+

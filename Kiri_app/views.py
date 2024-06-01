@@ -34,41 +34,41 @@ class UserViewSet(viewsets.ModelViewSet):
     #회원가입 시 호출되는 함수
     @api_view(['POST'])
     def signup(request):
-        id = request.data.get('ID')
-        password = request.data.get('Password')
-        name = request.data.get('Name')
-        # 학번, 성별 추가
-        studentId = request.data.get('studentID')
-        gender = request.data.get('Gender')
+        iD = request.data.get('iD')
+        password = request.data.get('password')
+        name = request.data.get('name')
+        studentID = request.data.get('studentID')
+        gender = request.data.get('gender')
 
         # studentid, gender 추가
-        if id and password and name and studentId and gender:
+        if iD and password and name and studentID and gender:
             try:
                 # 회원 정보가 존재하는지 체크
-                existing_user = AppUser.objects.get(id = id)
+                existing_user = AppUser.objects.get(iD=iD)
                 return Response({'success': 'False'}, status=status.HTTP_400_BAD_REQUEST)
             except AppUser.DoesNotExist:
                 # 회원 새로 생성
                 user_count = AppUser.objects.count() + 1
-                # studentId, gender 추가
-                user = AppUser.objects.create(userID = user_count,id = id, password=password, name = name, studentId = studentId, gender = gender)
+                user = AppUser.objects.create(
+                    userID=user_count, iD=iD, password=password, name=name, studentID=studentID, gender=gender
+                )
                 user.save()
                 return Response({'success': True}, status=status.HTTP_201_CREATED)
         else:
-            return Response({'success': False}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'success': 'False'}, status=status.HTTP_400_BAD_REQUEST)
 
 
     #로그인 시 호출되는 함수
     @api_view(['POST'])
     def login_api(request):
-        id = request.data.get('ID')
-        password = request.data.get('Password')
+        iD = request.data.get('iD')
+        password = request.data.get('password')
 
-        if id and password:
+        if iD and password:
             try:
                 # 로그인 성공
-                existing_user = AppUser.objects.get(id=id, password=password)
-                user_id = existing_user.id
+                existing_user = AppUser.objects.get(iD=iD, password=password)
+                user_id = existing_user.iD
                 request.session['user_id'] = user_id
                 user_id1=request.session.get('user_id')
                 print(user_id1)

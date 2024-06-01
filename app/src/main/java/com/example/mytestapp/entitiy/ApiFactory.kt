@@ -9,13 +9,10 @@ import okhttp3.MediaType.Companion.toMediaType
 import retrofit2.Retrofit
 
 object ApiFactory {
-    private val contentType = "application/json".toMediaType()
-    private val json = Json { ignoreUnknownKeys = true }
-
     val retrofit: Retrofit by lazy {
         Retrofit.Builder()
-            .baseUrl("https://ec2-13-124-159-83.ap-northeast-2.compute.amazonaws.com/")
-            .addConverterFactory(json.asConverterFactory(contentType))
+            .baseUrl("https://510c-128-134-0-90.ngrok-free.app/")
+            .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
             .build()
     }
 

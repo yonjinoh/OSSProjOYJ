@@ -15,7 +15,7 @@ import retrofit2.http.Path
 // Retrofit 인터페이스 정의
 interface SignService {
     @POST("signup/")
-    fun signup(@Body request: SignupRequest): Call<signupresponse>
+    fun signup(@Body request: signuprequest): Call<signupresponse>
 
     @POST("login/")
     fun login(@Body request: loginrequest): Call<loginresponse>
