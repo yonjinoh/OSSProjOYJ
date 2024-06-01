@@ -44,11 +44,13 @@ interface ChatService {
     @POST("block/")
     fun blockUser(@Body blockData: BlockData): Call<BlockResponse>
 
-    @POST("report/")
-    fun reportUser(@Body reportData: ReportData): Call<ReportResponse>
-
     @GET("chat-history/")
     fun getChatHistory(@Query("user_id") userId: String): Call<List<ChatHistory>>
+}
+
+interface ReportService {
+    @POST("/report")
+    fun reportUser(@Body reportData: ReportData): Call<ReportResponse>
 }
 
 // 사용자 정보를 조회
