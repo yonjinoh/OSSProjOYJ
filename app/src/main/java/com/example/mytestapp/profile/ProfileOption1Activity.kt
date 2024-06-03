@@ -2,6 +2,7 @@ package com.example.mytestapp.profile
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mytestapp.MainActivity
@@ -76,10 +77,20 @@ class ProfileOption1Activity : AppCompatActivity() {
         binding.btnNext.setOnClickListener {
             if (isValuesSelected()) {
                 val intent = Intent(this, ProfileOption2Activity::class.java)
-                intent.putExtra("m", mValue)
-                intent.putExtra("b", bValue)
-                intent.putExtra("t", tValue)
-                intent.putExtra("i", iValue)
+                profileList.add(mValue)
+                profileList.add(bValue)
+                profileList.add(tValue)
+                profileList.add(iValue)
+
+
+//                intent.putExtra("m", mValue)
+//                intent.putExtra("b", bValue)
+//                intent.putExtra("t", tValue)
+//                intent.putExtra("i", iValue)
+
+                // 로그 추가
+                Log.d("ProfileOption1Activity", "m: $mValue, b: $bValue, t: $tValue, i: $iValue")
+
                 startActivity(intent)
                 finish()
             } else {

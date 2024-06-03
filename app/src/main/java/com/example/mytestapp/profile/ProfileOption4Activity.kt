@@ -1,6 +1,8 @@
 package com.example.mytestapp.profile
 
+
 import android.content.Intent
+import android.content.Context
 import android.os.Bundle
 import android.widget.Button
 import android.widget.RadioButton
@@ -9,6 +11,20 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mytestapp.MainActivity
 import com.example.mytestapp.R
+import android.util.Log
+
+import com.example.mytestapp.model.request.profilerequest
+import com.example.mytestapp.model.response.profileresponse
+import com.example.mytestapp.entitiy.KiriServicePool.ProfileService
+import com.example.mytestapp.sign.LoginActivity
+
+
+import retrofit2.Call
+import retrofit2.Callback
+
+
+var profileList: MutableList<Int> = mutableListOf()
+
 
 class ProfileOption4Activity : AppCompatActivity() {
 
@@ -66,7 +82,7 @@ class ProfileOption4Activity : AppCompatActivity() {
                 Toast.makeText(this, "모든 선택지를 입력해주세요.", Toast.LENGTH_SHORT).show()
             } else {
                 // 프로필 생성이 완료되었음을 알리는 토스트 메시지 출력
-                Toast.makeText(this, "프로필 생성이 완료되었습니다.", Toast.LENGTH_SHORT).show()
+                sendProfileData(cleanliness, noiseSensitivity, sleepSchedule, upSchedule)
             }
         }
     }
@@ -139,5 +155,84 @@ class ProfileOption4Activity : AppCompatActivity() {
             }
             else -> -1 // 선택된 값이 없는 경우 -1을 반환
         }
+    }
+
+    private fun sendProfileData(cleanliness: Int, noiseSensitivity: Int, sleepSchedule: Int, upSchedule: Int) {
+        val Embti = profileList[0]
+        val Smbti = profileList[1]
+        val Tmbti = profileList[2]
+        val Jmbti = profileList[3]
+
+        val grade = profileList[4]
+        val smoke = profileList[5]
+        val firstLesson = profileList[6]
+        val sleepHabit = profileList[7]
+        val shareNeeds = profileList[8]
+
+        val inComm = profileList[9]
+        val heatSens = profileList[10]
+        val coldSens = profileList[11]
+        val drinkFreq = profileList[12]
+
+        //        val intent = intent
+//
+//        // 액티비티 1, 2, 3에서 전달된 값을 받음
+//        val Embti = intent.getIntExtra("m", -1)
+//        val Smbti = intent.getIntExtra("b", -1)
+//        val Tmbti = intent.getIntExtra("t", -1)
+//        val Jmbti = intent.getIntExtra("i", -1)
+//
+//        val grade = intent.getIntExtra("grade", -1)
+//        val smoke = intent.getIntExtra("smoking", -1)
+//        val firstLesson = intent.getIntExtra("firstLesson", -1)
+//        val sleepHabit = intent.getIntExtra("sleepingHabit", -1)
+//        val shareNeeds = intent.getIntExtra("sharingDailyNeeds", -1)
+//
+//        val inComm = intent.getIntExtra("internalCommunication", -1)
+//        val heatSens = intent.getIntExtra("heatSensitive", -1)
+//        val coldSens = intent.getIntExtra("coldSensitive", -1)
+//        val drinkFreq = intent.getIntExtra("drinkingFrequency", -1)
+
+        val cleanliness = cleanliness
+        val noiseSens = noiseSensitivity
+        val sleepSche = sleepSchedule
+        val upSche = upSchedule
+
+        val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        val userId = sharedPreferences.getString("UserID", null)
+
+        if (userId == null) {
+            Toast.makeText(this, "User ID를 찾을 수 없습니다. 다시 로그인 해주세요.", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
+            return
+        }
+
+        // 프로필 요청 객체 생성
+        val profileRequest = profilerequest(
+            userId, Embti, Smbti, Tmbti, Jmbti,
+            firstLesson, smoke, sleepHabit, grade, shareNeeds,
+            inComm, heatSens, coldSens, drinkFreq,
+            cleanliness, noiseSens, sleepSche, upSche
+        )
+
+        // 프로필 데이터 서버로 전송
+        ProfileService.profile(profileRequest).enqueue(object : Callback<profileresponse> {
+            override fun onResponse(call: Call<profileresponse>, response: retrofit2.Response<profileresponse>) {
+                if (response.isSuccessful) {
+                    Toast.makeText(applicationContext, "프로필 생성이 완료되었습니다.", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this@ProfileOption4Activity, MainActivity::class.java))
+                    finish()
+                } else {
+                    Toast.makeText(applicationContext, "프로필 생성 실패", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<profileresponse>, t: Throwable) {
+                Toast.makeText(applicationContext, "프로필 생성 실패", Toast.LENGTH_SHORT).show()
+                Log.d("ProfileCreationFail", t.toString())
+            }
+        })
     }
 }

@@ -9,6 +9,8 @@ from .models import AppUser, ChatRoom, Chat
 from .models import Profile, UserPref, Match, Report, Block
 from rest_framework import status
 from rest_framework.decorators import api_view
+from rest_framework.decorators import action
+
 from django.http.response import HttpResponse
 from rest_framework.response import Response
 from django.utils import timezone
@@ -23,6 +25,8 @@ from scipy.spatial.distance import euclidean
 from sklearn.metrics import jaccard_score
 from .models import AppUser, Match, Profile, UserPref
 
+import logging
+logger = logging.getLogger(__name__)
 
 # from django.contrib.auth import authenticate
 
@@ -198,7 +202,10 @@ class ProfileViewSet(viewsets.ModelViewSet):
     # KSH : 사용자 정보 생성 기능
     @api_view(['POST'])
     def profilecreate(request):
+        logger.debug(f"Received data: {request.data}")
+
         userId = request.data.get('userId')
+        userId = AppUser.objects.get(iD = userId)
 
         Embti = request.data.get('Embti')
         Smbti = request.data.get('Smbti')
@@ -219,10 +226,12 @@ class ProfileViewSet(viewsets.ModelViewSet):
         sleepSche = request.data.get('sleepSche')
         upSche = request.data.get('upSche')
 
-        if (userId and Embti and Smbti and Tmbti and Jmbti and firstLesson and smoke and sleepHabit
-                and grade and shareNeeds and inComm and heatSens and coldSens and drinkFreq
-                and cleanliness and noiseSens and sleepSche and upSche):
+        required_fields = [userId, Embti, Smbti, Tmbti, Jmbti, firstLesson, smoke, sleepHabit,
+                             grade, shareNeeds, inComm, heatSens, coldSens, drinkFreq,
+                            cleanliness, noiseSens, sleepSche, upSche]
 
+
+        if all(field is not None for field in required_fields):
             user_count = Profile.objects.count() + 1
             user_profile = Profile.objects.create(profileId = user_count, userId = userId,
                                                   Embti = Embti,
@@ -241,10 +250,10 @@ class ProfileViewSet(viewsets.ModelViewSet):
                                                   cleanliness = cleanliness,
                                                   noiseSens = noiseSens,
                                                   sleepSche = sleepSche,
-                                                  upSchel = upSche)
+                                                  upSche = upSche)
             user_profile.save()
 
-            user = AppUser.objects.get(userID = userId)
+            user = AppUser.objects.get(iD = userId)
             user.isProfile = True
             user.save()
 
@@ -312,12 +321,15 @@ class UserPrefViewSet(viewsets.ModelViewSet):
     # KSH : 사용자 선호도 정보 생성 기능
     @api_view(['POST'])
     def userprefcreate(request):
+        logger.debug(f"Received data: {request.data}")
+
         UuserId = request.data.get('UuserId')
+        UuserId = AppUser.objects.get(iD = UuserId)
 
         UEmbti = request.data.get('UEmbti')
-        USmbti = request.data.get('USmbti')
-        UTmbti = request.data.get('UTmbti')
-        UJmbti = request.data.get('UJmbti')
+        # USmbti = request.data.get('USmbti')
+        # UTmbti = request.data.get('UTmbti')
+        # UJmbti = request.data.get('UJmbti')
 
         UfirstLesson = request.data.get('UfirstLesson')
         Usmoke = request.data.get('Usmoke')
@@ -333,14 +345,15 @@ class UserPrefViewSet(viewsets.ModelViewSet):
         UsleepSche = request.data.get('UsleepSche')
         UupSche = request.data.get('UupSche')
 
-        if (UuserId and UEmbti and USmbti and UTmbti and UJmbti and UfirstLesson and Usmoke
-                and UsleepHabit and Ugrade and UshareNeeds and UinComm and UheatSens and UcoldSens
-                and UdrinkFreq and Ucleanliness and UnoiseSens and UsleepSche and UupSche):
+        required_fields = [UuserId, UEmbti, UfirstLesson, Usmoke, UsleepHabit,
+                           Ugrade, UshareNeeds, UinComm, UheatSens, UcoldSens,
+                           UdrinkFreq, Ucleanliness, UnoiseSens, UsleepSche, UupSche]
+
+        if all(field is not None for field in required_fields):
 
             user_count = UserPref.objects.count() + 1
             user_pref = UserPref.objects.create(prefId = user_count, UuserId = UuserId,
-                                                UEmbti = UEmbti, USmbti = USmbti,
-                                                UTmbti = UTmbti, UJmbti = UJmbti,
+                                                UEmbti = UEmbti,
                                                 UfirstLesson = UfirstLesson,
                                                 Usmoke = Usmoke,
                                                 UsleepHabit = UsleepHabit,
@@ -356,7 +369,7 @@ class UserPrefViewSet(viewsets.ModelViewSet):
                                                 UupSche = UupSche)
             user_pref.save()
 
-            user = AppUser.objects.get(userID = UuserId)
+            user = AppUser.objects.get(iD = UuserId)
             user.isUserPref = True
             user.save()
 
@@ -370,9 +383,9 @@ class UserPrefViewSet(viewsets.ModelViewSet):
         UuserId = request.data.get('UuserId')
 
         UEmbti = request.data.get('UEmbti')
-        USmbti = request.data.get('USmbti')
-        UTmbti = request.data.get('UTmbti')
-        UJmbti = request.data.get('UJmbti')
+        # USmbti = request.data.get('USmbti')
+        # UTmbti = request.data.get('UTmbti')
+        # UJmbti = request.data.get('UJmbti')
 
         UfirstLesson = request.data.get('UfirstLesson')
         Usmoke = request.data.get('Usmoke')
@@ -389,15 +402,15 @@ class UserPrefViewSet(viewsets.ModelViewSet):
         UupSche = request.data.get('UupSche')
 
 
-        if (UuserId and UEmbti and USmbti and UTmbti and UJmbti and UfirstLesson and Usmoke
+        if (UuserId and UEmbti and UfirstLesson and Usmoke
                 and UsleepHabit and Ugrade and UshareNeeds and UinComm and UheatSens and UcoldSens
                 and UdrinkFreq and Ucleanliness and UnoiseSens and UsleepSche and UupSche):
 
             user_pref = UserPref.objects.get(UuserId = UuserId)
             user_pref.UEmbti = UEmbti
-            user_pref.USmbti = USmbti
-            user_pref.UTmbti = UTmbti
-            user_pref.UJmbti = UJmbti
+            # user_pref.USmbti = USmbti
+            # user_pref.UTmbti = UTmbti
+            # user_pref.UJmbti = UJmbti
 
             user_pref.UfirstLesson = UfirstLesson
             user_pref.Usmoke = Usmoke

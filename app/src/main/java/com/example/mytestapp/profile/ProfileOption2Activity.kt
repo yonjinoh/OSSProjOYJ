@@ -2,6 +2,7 @@ package com.example.mytestapp.profile
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.RadioButton
 import com.example.mytestapp.R
 import android.widget.Toast
@@ -39,11 +40,17 @@ class ProfileOption2Activity : AppCompatActivity() {
         binding.btnNext.setOnClickListener {
             if (isValuesSelected()) {
                 val intent = Intent(this, ProfileOption3Activity::class.java)
-                intent.putExtra("grade", gradeValue)
-                intent.putExtra("smoking", smokingValue)
-                intent.putExtra("firstLesson", firstLessonValue)
-                intent.putExtra("sleepingHabit", sleepingHabitValue)
-                intent.putExtra("sharingDailyNeeds", sharingDailyNeedsValue)
+                profileList.add(gradeValue)
+                profileList.add(smokingValue)
+                profileList.add(firstLessonValue)
+                profileList.add(sleepingHabitValue)
+                profileList.add(sharingDailyNeedsValue)
+
+//                intent.putExtra("grade", gradeValue)
+//                intent.putExtra("smoking", smokingValue)
+//                intent.putExtra("firstLesson", firstLessonValue)
+//                intent.putExtra("sleepingHabit", sleepingHabitValue)
+//                intent.putExtra("sharingDailyNeeds", sharingDailyNeedsValue)
                 startActivity(intent)
                 finish()
             } else {

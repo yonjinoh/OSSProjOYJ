@@ -39,10 +39,12 @@ class MatchingOption2Activity : AppCompatActivity() {
             if (isValuesSelected()) {
                 // 선택한 값들을 다음 액티비티로 전달하고 해당 액티비티로 이동
                 val intent = Intent(this, MatchingOption3Activity::class.java)
-                intent.putExtra("Y_sharingDailyNeeds", Y_sharingDailyNeedsValue)
-                intent.putExtra("Y_internalCommunication", Y_internalCommunicationValueValue)
-                intent.putExtra("Y_heatSensitive", Y_heatSensitiveValue)
-                intent.putExtra("Y_coldSensitive", Y_coldSensitiveValue)
+
+                preflist.add(Y_sharingDailyNeedsValue)
+                preflist.add(Y_internalCommunicationValueValue)
+                preflist.add(Y_heatSensitiveValue)
+                preflist.add(Y_coldSensitiveValue)
+
                 startActivity(intent)
                 finish()
             } else {

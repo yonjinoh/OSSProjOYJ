@@ -2,6 +2,7 @@ package com.example.mytestapp.profile
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.RadioButton
 import android.widget.Toast
 import com.example.mytestapp.R
@@ -40,10 +41,17 @@ class ProfileOption3Activity : AppCompatActivity() {
             if (isValuesSelected()) {
                 // 선택한 값들을 다음 액티비티로 전달하고 해당 액티비티로 이동
                 val intent = Intent(this, ProfileOption4Activity::class.java)
-                intent.putExtra("internalCommunication", internalCommunicationValue)
-                intent.putExtra("heatSensitive", heatSensitiveValue)
-                intent.putExtra("coldSensitive", coldSensitiveValue)
-                intent.putExtra("drinkingFrequency", drinkingFrequencyValue)
+
+                profileList.add(internalCommunicationValue)
+                profileList.add(heatSensitiveValue)
+                profileList.add(coldSensitiveValue)
+                profileList.add(drinkingFrequencyValue)
+
+
+//                intent.putExtra("internalCommunication", internalCommunicationValue)
+//                intent.putExtra("heatSensitive", heatSensitiveValue)
+//                intent.putExtra("coldSensitive", coldSensitiveValue)
+//                intent.putExtra("drinkingFrequency", drinkingFrequencyValue)
                 startActivity(intent)
                 finish()
             } else {
