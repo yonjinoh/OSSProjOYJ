@@ -25,7 +25,7 @@ class AppUser(models.Model):
     matchStatus = models.CharField(max_length=45, default='pending')
 
     def __str__(self):
-        return self.name
+        return self.iD
 
 
 

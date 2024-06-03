@@ -30,7 +30,7 @@ class MatchingOption4Activity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_profile_option_4)
+        setContentView(R.layout.activity_matching_option_4)
 
         // 라디오 그룹 초기화
         firstYUpscheduleRadioGroup = findViewById(R.id.first_Y_up_schedule_radio_group)
