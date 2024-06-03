@@ -19,29 +19,41 @@ class MatchingAdapter(private val viewModel: MatchingViewModel) :
 
     override fun onBindViewHolder(holder: MatchingViewHolder, position: Int) {
         val profile = getItem(position)
-        val userName = when (position % 5) { // 각 아이템의 위치에 따라 UserID 1, 2, 3, 4, 5 중 하나를 선택
-            0 -> profile.user1Name
-            1 -> profile.user2Name
-            2 -> profile.user3Name
-            3 -> profile.user4Name
-            else -> profile.user5Name
-        }
-        val userStudentId = when (position % 5) { // 각 아이템의 위치에 따라 UserID 1, 2, 3, 4, 5 중 하나를 선택
-            0 -> profile.user1StudentId
-            1 -> profile.user2StudentId
-            2 -> profile.user3StudentId
-            3 -> profile.user4StudentId
-            else -> profile.user5StudentId
-        }
-        holder.bind(viewModel, profile, userName, userStudentId) // 여기에 네 개의 인수를 전달합니다.
+        holder.bind(viewModel, profile, position)
     }
 
     class MatchingViewHolder(private val binding: ItemMatchingBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(viewModel: MatchingViewModel, profile: MatchingProfile, userName: String, userStudentId: String) {
+        fun bind(viewModel: MatchingViewModel, profile: MatchingProfile, position: Int) {
             binding.viewModel = viewModel
             binding.profile = profile
+
+            // 사용자 이름 및 학번을 설정합니다.
+            val userName: String
+            val userStudentId: String
+            when (position % 5) {
+                0 -> {
+                    userName = profile.user1Name
+                    userStudentId = profile.user1StudentId
+                }
+                1 -> {
+                    userName = profile.user2Name
+                    userStudentId = profile.user2StudentId
+                }
+                2 -> {
+                    userName = profile.user3Name
+                    userStudentId = profile.user3StudentId
+                }
+                3 -> {
+                    userName = profile.user4Name
+                    userStudentId = profile.user4StudentId
+                }
+                else -> {
+                    userName = profile.user5Name
+                    userStudentId = profile.user5StudentId
+                }
+            }
             binding.userName = userName
             binding.userStudentId = userStudentId
             binding.executePendingBindings()
