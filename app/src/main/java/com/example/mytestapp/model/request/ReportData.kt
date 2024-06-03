@@ -6,8 +6,9 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ReportData(
-    @SerialName("reportId")
-    val reportId: String? = null,
+    // 서버에서 자동으로 생성되므로 클라이언트에서 해당 필드를 보낼 필요 없음
+    // @SerialName("reportId")
+    // val reportId: String? = null,
     @SerialName("reporterId")
     val reporterId: String,
     @SerialName("reason")
