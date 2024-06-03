@@ -206,6 +206,7 @@ class ProfileViewSet(viewsets.ModelViewSet):
 
         userId = request.data.get('userId')
         userId = AppUser.objects.get(iD = userId)
+        userId = userId.iD
 
         Embti = request.data.get('Embti')
         Smbti = request.data.get('Smbti')
@@ -326,6 +327,7 @@ class UserPrefViewSet(viewsets.ModelViewSet):
         UuserId = request.data.get('UuserId')
         UuserId = AppUser.objects.get(iD = UuserId)
 
+
         UEmbti = request.data.get('UEmbti')
         # USmbti = request.data.get('USmbti')
         # UTmbti = request.data.get('UTmbti')
@@ -433,6 +435,8 @@ class UserPrefViewSet(viewsets.ModelViewSet):
             return Response({'success': False}, status=status.HTTP_400_BAD_REQUEST)
 
 
+
+
 # KSH :  MatchViewSet 추가
 class MatchViewSet(viewsets.ModelViewSet):
     queryset = Match.objects.all()
@@ -459,10 +463,10 @@ class MatchViewSet(viewsets.ModelViewSet):
 
         # OYJ : 매칭 알고리즘 추가
         # 이진 필드와 연속 필드를 정의
-        binary_fields = ['Embti', 'Smbti', 'Tmbti', 'Jmbti', 'firstLesson', 'smoke', 'sleepHabit', 'shareNeeds', 'inComm', 'heatSens', 'coldSens']
+        binary_fields = ['Embti', 'firstLesson', 'smoke', 'sleepHabit', 'shareNeeds', 'inComm', 'heatSens', 'coldSens']
         continuous_fields = ['grade', 'drinkFreq', 'cleanliness', 'noiseSens', 'sleepSche', 'upSche',]
 
-        Ubinary_fields = ['UEmbti', 'USmbti', 'UTmbti', 'UJmbti', 'UfirstLesson', 'Usmoke', 'UsleepHabit', 'UshareNeeds', 'UinComm', 'UheatSens', 'UcoldSens']
+        Ubinary_fields = ['UEmbti', 'UfirstLesson', 'Usmoke', 'UsleepHabit', 'UshareNeeds', 'UinComm', 'UheatSens', 'UcoldSens']
         Ucontinuous_fields = ['Ugrade', 'UdrinkFreq', 'Ucleanliness', 'UnoiseSens', 'UsleepSche', 'UupSche']
 
 

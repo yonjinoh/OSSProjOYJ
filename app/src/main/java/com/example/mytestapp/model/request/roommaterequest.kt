@@ -6,8 +6,8 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class roommaterequest(
     // 사용자 ID
-    @SerialName("UuserID")
-    val UuserID: String,
+    @SerialName("UuserId")
+    val UuserId: String,
     // MBTI 옵션
     @SerialName("UEmbti")
     val UEmbti: Int,
