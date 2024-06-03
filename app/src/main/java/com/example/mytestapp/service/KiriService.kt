@@ -22,12 +22,12 @@ interface SignService {
 }
 
 interface ProfileService {
-    @POST("profile/")
+    @POST("profilecreate/")
     fun profile(@Body request: profilerequest): Call<profileresponse>
 }
 
 interface RoommateService {
-    @POST("roommate/")
+    @POST("userprefcreate/")
     fun roommate(@Body request: roommaterequest): Call<roommateresponse>
 }
 

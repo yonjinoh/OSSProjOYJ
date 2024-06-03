@@ -66,7 +66,12 @@ class MatchingOption3Activity : AppCompatActivity() {
             } else {
                 // 선택한 값들을 다음 액티비티로 전달하고 해당 액티비티로 이동
                 val intent = Intent(this, MatchingOption4Activity::class.java)
-                // 여기에 선택한 값들을 intent에 추가하는 코드 추가해야 함
+
+                preflist.add(cleanliness)
+                preflist.add(noiseSensitivity)
+                preflist.add(sleepSchedule)
+                preflist.add(drinkingFrequency)
+
                 startActivity(intent)
                 finish()
             }
