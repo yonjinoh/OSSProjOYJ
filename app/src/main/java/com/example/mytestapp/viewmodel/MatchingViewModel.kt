@@ -18,16 +18,18 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MatchingViewModel : ViewModel() {
-    private val _matchingProfiles = MutableLiveData<List<MatchingProfile>>()
-    val matchingProfiles: LiveData<List<MatchingProfile>> = _matchingProfiles
+    // LiveData 객체
+    private val _matchingProfiles = MutableLiveData<List<MatchingProfile>>() // 서버로부터 받은 매칭 결과를 담는 MutableLiveData
+    val matchingProfiles: LiveData<List<MatchingProfile>> = _matchingProfiles // 외부에서 관찰할 수 있는 LiveData
 
     private val matchingService: MatchingService = KiriServicePool.matchingService
 
     // 로그인 시 저장된 UserID를 SharedPreferences에서 불러와 데이터를 로드
-    fun loadMatchingProfiles(context: Context) {
+    fun loadMatchingProfiles(context: Context) { // 서버에 매칭 결과를 요청하는 로직
         val sharedPreferences = context.getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
         val userId = sharedPreferences.getString("UserID", null)
 
+        // 서버로부터 받은 매칭 결과를 LiveData를 통해 MatchingFragment에 전달
         userId?.let {
             matchingService.getMatchingProfiles(it).enqueue(object : Callback<List<MatchingProfile>> {
                 override fun onResponse(call: Call<List<MatchingProfile>>, response: Response<List<MatchingProfile>>) {
