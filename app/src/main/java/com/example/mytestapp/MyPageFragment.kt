@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment
 import com.example.mytestapp.BlockListActivity
 import com.example.mytestapp.R
 import com.example.mytestapp.profile.ProfileOption1Activity
+import com.example.mytestapp.sign.LoginActivity
+import android.content.Context
 
 class MyPageFragment : Fragment() {
 
@@ -49,7 +51,7 @@ class MyPageFragment : Fragment() {
 
         // 로그아웃 버튼 클릭 시
         view.findViewById<Button>(R.id.logout).setOnClickListener {
-            // 로그아웃 처리
+            // 로그아웃 실행
             logout()
         }
 
@@ -57,10 +59,15 @@ class MyPageFragment : Fragment() {
     }
 
     private fun logout() {
-        // 로그아웃 처리를 수행. 로그인 상태를 초기화하고 로그인 화면으로 이동
-//        val intent = Intent(requireContext(), LoginActivity::class.java)
-//        startActivity(intent)
-//        requireActivity().finish() // 현재 액티비티 종료
-        requireActivity().supportFragmentManager.popBackStack()
+        // SharedPreferences에서 로그인 상태 초기화
+        val sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.clear()
+        editor.apply()
+
+        // 로그인 화면으로 이동
+        val intent = Intent(requireContext(), LoginActivity::class.java)
+        startActivity(intent)
+        requireActivity().finish() // 현재 액티비티 종료
     }
 }
