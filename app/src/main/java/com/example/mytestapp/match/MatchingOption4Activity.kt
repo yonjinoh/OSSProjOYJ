@@ -12,8 +12,13 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.mytestapp.MainActivity
 import com.example.mytestapp.R
 import com.example.mytestapp.entitiy.KiriServicePool
-import com.example.mytestapp.model.request.profilerequest
+import com.example.mytestapp.entitiy.KiriServicePool.RoommateService
+import com.example.mytestapp.entitiy.KiriServicePool.AlgorithmService
+import com.example.mytestapp.model.request.Algorequest
+import com.example.mytestapp.model.response.Algoresponse
+
 import com.example.mytestapp.model.request.roommaterequest
+import com.example.mytestapp.model.response.MatchResponse
 import com.example.mytestapp.model.response.profileresponse
 import com.example.mytestapp.model.response.roommateresponse
 import com.example.mytestapp.profile.profileList
@@ -128,15 +133,40 @@ class MatchingOption4Activity : AppCompatActivity() {
             Ucleanliness, UnoiseSens, UsleepSche, UupSche
         )
 
+        val userId = UuserId
+
+        val AlgoRequest = Algorequest(
+            userId = userId
+        )
+
         // 프로필 데이터 서버로 전송
-        KiriServicePool.RoommateService.roommate(prefRequest).enqueue(object :
+        RoommateService.roommate(prefRequest).enqueue(object :
             Callback<roommateresponse> {
             override fun onResponse(call: Call<roommateresponse>, response: retrofit2.Response<roommateresponse>) {
                 if (response.isSuccessful) {
                     Toast.makeText(applicationContext, "매칭을 시작합니다.", Toast.LENGTH_SHORT).show()
                     startActivity(Intent(this@MatchingOption4Activity, MatchingING::class.java))
+
+
+                    AlgorithmService.algoOPS(AlgoRequest).enqueue(object : Callback<Algoresponse> {
+                        override fun onResponse(call: Call<Algoresponse>, response: retrofit2.Response<Algoresponse>) {
+                            if (response.isSuccessful) {
+                                Toast.makeText(applicationContext, "매칭이 완료 되었습니다.", Toast.LENGTH_SHORT).show()
+                            }
+                            else {
+                                Toast.makeText(applicationContext, "매칭 실패", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                        override fun onFailure(call: Call<Algoresponse>, t: Throwable) {
+                            Toast.makeText(applicationContext, "매칭 실패", Toast.LENGTH_SHORT).show()
+                        }
+                    })
                     finish()
-                } else {
+                }
+
+
+
+                else {
                     Toast.makeText(applicationContext, "매칭 시작 실패", Toast.LENGTH_SHORT).show()
                 }
             }
