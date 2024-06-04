@@ -79,3 +79,8 @@ interface MatchingService {
     fun rejectMatch(@Body matchRequest: MatchRequest): Call<MatchResponse>
 }
 
+
+interface AlgorithmService {
+    @POST("matching/")
+    fun algoOPS(@Body request: Algorequest): Call<Algoresponse>
+}

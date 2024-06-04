@@ -115,8 +115,6 @@ class UserPref(models.Model):
 class Match(models.Model):
     matchId = models.AutoField(primary_key = True)
     userId = models.ForeignKey(AppUser, on_delete=models.CASCADE, related_name='matchings')
-    # matchScore 필요한가?
-    matchScore = models.FloatField()
     createdAt = models.DateTimeField(default = timezone.now)
     updateAt = models.DateTimeField(default = timezone.now)
     # related_name 참조 변경 필요
