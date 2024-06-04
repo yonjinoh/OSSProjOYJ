@@ -63,7 +63,7 @@ class MatchingAdapter(private val viewModel: MatchingViewModel) :
 
 class MatchingDiffCallback : DiffUtil.ItemCallback<MatchingProfile>() {
     override fun areItemsTheSame(oldItem: MatchingProfile, newItem: MatchingProfile): Boolean {
-        return oldItem.matchID == newItem.matchID
+        return oldItem.matchId == newItem.matchId
     }
 
     override fun areContentsTheSame(oldItem: MatchingProfile, newItem: MatchingProfile): Boolean {

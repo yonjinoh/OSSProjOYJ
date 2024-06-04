@@ -115,8 +115,8 @@ class UserPref(models.Model):
 class Match(models.Model):
     matchId = models.AutoField(primary_key = True)
     userId = models.ForeignKey(AppUser, on_delete=models.CASCADE, related_name='matchings')
-    createdAt = models.DateTimeField(default = timezone.now)
-    updateAt = models.DateTimeField(default = timezone.now)
+    createdAt = models.DateTimeField(auto_now_add=True)
+    updatedAt = models.DateTimeField(auto_now=True)
     # related_name 참조 변경 필요
     userId1 = models.IntegerField()
     userId2 = models.IntegerField()

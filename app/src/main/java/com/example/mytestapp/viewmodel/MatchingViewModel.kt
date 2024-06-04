@@ -51,8 +51,8 @@ class MatchingViewModel : ViewModel() {
     fun onProfileClicked(view: View, profile: MatchingProfile) {
         val context = view.context
         val intent = Intent(context, ChatActivity::class.java).apply {
-            putExtra("targetUserId", profile.userID)
-            putExtra("targetUserName", profile.userID) // 이름 대신 userID를 사용, 필요에 따라 수정
+            putExtra("targetUserId", profile.userId)
+            putExtra("targetUserName", profile.userId) // 이름 대신 userID를 사용, 필요에 따라 수정
         }
         context.startActivity(intent)
     }
