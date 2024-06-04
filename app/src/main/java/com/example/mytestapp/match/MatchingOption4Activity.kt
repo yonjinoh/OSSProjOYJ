@@ -145,7 +145,7 @@ class MatchingOption4Activity : AppCompatActivity() {
             override fun onResponse(call: Call<roommateresponse>, response: retrofit2.Response<roommateresponse>) {
                 if (response.isSuccessful) {
                     Toast.makeText(applicationContext, "매칭을 시작합니다.", Toast.LENGTH_SHORT).show()
-                    startActivity(Intent(this@MatchingOption4Activity, MatchingING::class.java))
+
 
 
                     AlgorithmService.algoOPS(AlgoRequest).enqueue(object : Callback<Algoresponse> {
@@ -161,6 +161,7 @@ class MatchingOption4Activity : AppCompatActivity() {
                             Toast.makeText(applicationContext, "매칭 실패", Toast.LENGTH_SHORT).show()
                         }
                     })
+                    startActivity(Intent(this@MatchingOption4Activity, MatchingING::class.java))
                     finish()
                 }
 
