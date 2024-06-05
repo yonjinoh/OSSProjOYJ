@@ -5,6 +5,7 @@ import android.content.Intent
 import android.view.MenuItem
 import android.view.View
 import android.widget.PopupMenu
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -19,8 +20,8 @@ import retrofit2.Response
 
 class MatchingViewModel : ViewModel() {
     // LiveData 객체
-    private val _matchingProfiles = MutableLiveData<List<MatchingProfile>>() // 서버로부터 받은 매칭 결과를 담는 MutableLiveData
-    val matchingProfiles: LiveData<List<MatchingProfile>> = _matchingProfiles // 외부에서 관찰할 수 있는 LiveData
+    private val _matchingProfiles = MutableLiveData<MatchingProfile>() // 서버로부터 받은 매칭 결과를 담는 MutableLiveData
+    val matchingProfiles: LiveData<MatchingProfile> = _matchingProfiles // 외부에서 관찰할 수 있는 LiveData
 
     private val matchingService: MatchingService = KiriServicePool.matchingService
 
@@ -31,17 +32,17 @@ class MatchingViewModel : ViewModel() {
 
         // 서버로부터 받은 매칭 결과를 LiveData를 통해 MatchingFragment에 전달
         userId?.let {
-            matchingService.getMatchingProfiles(it).enqueue(object : Callback<List<MatchingProfile>> {
-                override fun onResponse(call: Call<List<MatchingProfile>>, response: Response<List<MatchingProfile>>) {
+            matchingService.getMatchingProfiles(it).enqueue(object : Callback<MatchingProfile> {
+                override fun onResponse(call: Call<MatchingProfile>, response: Response<MatchingProfile>) {
                     if (response.isSuccessful) {
                         _matchingProfiles.value = response.body()
                     } else {
-                        _matchingProfiles.value = emptyList()
+                        _matchingProfiles.value = MatchingProfile()
                     }
                 }
 
-                override fun onFailure(call: Call<List<MatchingProfile>>, t: Throwable) {
-                    _matchingProfiles.value = emptyList()
+                override fun onFailure(call: Call<MatchingProfile>, t: Throwable) {
+                    _matchingProfiles.value = MatchingProfile()
                 }
             })
         }
