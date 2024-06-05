@@ -6,29 +6,29 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class MatchingProfile(
-    @SerialName("MatchId")
+    @SerialName("matchId")
     val matchId: String,
-    @SerialName("UserId")
+    @SerialName("userId")
     val userId: String,
-    @SerialName("User1ID")
+    @SerialName("user1ID")
     val user1ID: String,
-    @SerialName("User2ID")
+    @SerialName("user2ID")
     val user2ID: String,
-    @SerialName("User3ID")
+    @SerialName("user3ID")
     val user3ID: String,
-    @SerialName("User4ID")
+    @SerialName("user4ID")
     val user4ID: String,
-    @SerialName("User5ID")
+    @SerialName("user5ID")
     val user5ID: String,
-    @SerialName("User1Name")
+    @SerialName("user1Name")
     val user1Name: String,
-    @SerialName("User2Name")
+    @SerialName("user2Name")
     val user2Name: String,
-    @SerialName("User3Name")
+    @SerialName("user3Name")
     val user3Name: String,
-    @SerialName("User4Name")
+    @SerialName("user4Name")
     val user4Name: String,
-    @SerialName("User5Name")
+    @SerialName("user5Name")
     val user5Name: String,
     @SerialName("user1StudentId")
     val user1StudentId: String,

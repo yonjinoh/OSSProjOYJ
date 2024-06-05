@@ -63,8 +63,8 @@ interface UserService {
 
 // 매칭 관련 api
 interface MatchingService {
-    @GET("matching-profiles")
-    fun getMatchingProfiles(@Query("user_id") userId: String): Call<List<MatchingProfile>>
+    @GET("getmatchresult/")
+    fun getMatchingProfiles(@Query("userId") userId: String): Call<List<MatchingProfile>>
 
     // 매칭 요청
     @POST("request-match/")
