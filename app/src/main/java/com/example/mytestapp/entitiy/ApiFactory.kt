@@ -11,7 +11,7 @@ import retrofit2.Retrofit
 object ApiFactory {
     val retrofit: Retrofit by lazy {
         Retrofit.Builder()
-            .baseUrl("https://ea21-210-94-220-228.ngrok-free.app")
+            .baseUrl("https://73a8-210-94-220-228.ngrok-free.app")
             .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
             .build()
     }

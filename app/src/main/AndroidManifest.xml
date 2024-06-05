@@ -30,6 +30,14 @@
         <activity
             android:name=".profile.ProfileOption1Activity"
             android:exported="false" />
+
+        <activity
+            android:name=".match.MatchingING"
+            android:exported="false" />
+        <activity
+            android:name=".match.MatchingFragment"
+            android:exported="false" />
+
         <activity
             android:name=".match.MatchingOption4Activity"
             android:exported="false" />

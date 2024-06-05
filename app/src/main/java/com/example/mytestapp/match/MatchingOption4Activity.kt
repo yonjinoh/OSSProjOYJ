@@ -3,30 +3,23 @@ package com.example.mytestapp.match
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
-import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mytestapp.MainActivity
 import com.example.mytestapp.R
 import com.example.mytestapp.entitiy.KiriServicePool
-import com.example.mytestapp.entitiy.KiriServicePool.RoommateService
-import com.example.mytestapp.entitiy.KiriServicePool.AlgorithmService
 import com.example.mytestapp.model.request.Algorequest
-import com.example.mytestapp.model.response.Algoresponse
-
 import com.example.mytestapp.model.request.roommaterequest
-import com.example.mytestapp.model.response.MatchResponse
-import com.example.mytestapp.model.response.profileresponse
+import com.example.mytestapp.model.response.Algoresponse
 import com.example.mytestapp.model.response.roommateresponse
-import com.example.mytestapp.profile.profileList
 import com.example.mytestapp.sign.LoginActivity
 import retrofit2.Call
 import retrofit2.Callback
+import retrofit2.Response
 
-var preflist : MutableList<Int> = mutableListOf()
+var preflist: MutableList<Int> = mutableListOf()
 
 class MatchingOption4Activity : AppCompatActivity() {
 
@@ -97,23 +90,8 @@ class MatchingOption4Activity : AppCompatActivity() {
             else -> -1 // 선택된 값이 없는 경우 -1을 반환
         }
     }
+
     private fun sendPrefdata(upSchedule: Int) {
-        val UEmbti = preflist[0]
-        val UfirstLesson = preflist[1]
-        val Usmoke = preflist[2]
-        val UsleepHabit = preflist[3]
-        val Ugrade = preflist[4]
-        val UshareNeeds = preflist[5]
-        val UinComm = preflist[6]
-        val UheatSens = preflist[7]
-        val UcoldSens = preflist[8]
-        val UdrinkFreq = preflist[9]
-        val Ucleanliness = preflist[10]
-        val UnoiseSens = preflist[11]
-        val UsleepSche = preflist[12]
-
-        val UupSche = upSchedule
-
         val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
         val UuserId = sharedPreferences.getString("UserID", null)
 
@@ -127,47 +105,21 @@ class MatchingOption4Activity : AppCompatActivity() {
 
         // 프로필 요청 객체 생성
         val prefRequest = roommaterequest(
-            UuserId, UEmbti,
-            UfirstLesson, Usmoke, UsleepHabit, Ugrade, UshareNeeds,
-            UinComm, UheatSens, UcoldSens, UdrinkFreq,
-            Ucleanliness, UnoiseSens, UsleepSche, UupSche
+            UuserId, preflist[0], preflist[1], preflist[2], preflist[3], preflist[4],
+            preflist[5], preflist[6], preflist[7], preflist[8], preflist[9],
+            preflist[10], preflist[11], preflist[12], upSchedule
         )
 
-        val userId = UuserId
-
-        val AlgoRequest = Algorequest(
-            userId = userId
-        )
+        val AlgoRequest = Algorequest(userId = UuserId)
 
         // 프로필 데이터 서버로 전송
-        RoommateService.roommate(prefRequest).enqueue(object :
-            Callback<roommateresponse> {
-            override fun onResponse(call: Call<roommateresponse>, response: retrofit2.Response<roommateresponse>) {
+        KiriServicePool.RoommateService.roommate(prefRequest).enqueue(object : Callback<roommateresponse> {
+            override fun onResponse(call: Call<roommateresponse>, response: Response<roommateresponse>) {
                 if (response.isSuccessful) {
                     Toast.makeText(applicationContext, "매칭을 시작합니다.", Toast.LENGTH_SHORT).show()
-
-
-
-                    AlgorithmService.algoOPS(AlgoRequest).enqueue(object : Callback<Algoresponse> {
-                        override fun onResponse(call: Call<Algoresponse>, response: retrofit2.Response<Algoresponse>) {
-                            if (response.isSuccessful) {
-                                Toast.makeText(applicationContext, "매칭이 완료 되었습니다.", Toast.LENGTH_SHORT).show()
-                            }
-                            else {
-                                Toast.makeText(applicationContext, "매칭 실패", Toast.LENGTH_SHORT).show()
-                            }
-                        }
-                        override fun onFailure(call: Call<Algoresponse>, t: Throwable) {
-                            Toast.makeText(applicationContext, "매칭 실패", Toast.LENGTH_SHORT).show()
-                        }
-                    })
-                    startActivity(Intent(this@MatchingOption4Activity, MatchingING::class.java))
-                    finish()
-                }
-
-
-
-                else {
+                    startNextActivity()
+                    callAlgorithmService(AlgoRequest)
+                } else {
                     Toast.makeText(applicationContext, "매칭 시작 실패", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -178,10 +130,25 @@ class MatchingOption4Activity : AppCompatActivity() {
         })
     }
 
+    private fun startNextActivity() {
+        val intent = Intent(this, MatchingING::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    private fun callAlgorithmService(AlgoRequest: Algorequest) {
+        KiriServicePool.AlgorithmService.algoOPS(AlgoRequest).enqueue(object : Callback<Algoresponse> {
+            override fun onResponse(call: Call<Algoresponse>, response: Response<Algoresponse>) {
+                if (response.isSuccessful) {
+                    Toast.makeText(applicationContext, "매칭이 완료 되었습니다.", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(applicationContext, "매칭 실패", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<Algoresponse>, t: Throwable) {
+                Toast.makeText(applicationContext, "매칭 실패", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
 }
-
-
-
-
-
-
