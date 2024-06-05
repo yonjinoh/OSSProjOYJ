@@ -1,6 +1,6 @@
 package com.example.mytestapp
 
-import MyPageFragment
+import com.example.mytestapp.mypage.MyPageFragment
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -62,16 +62,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun navigateToMyPageFragment() {
-        // 사용자 정보를 기반으로 Bundle 생성
-        val bundle = Bundle().apply {
-            putString("name", userName)
-            putString("studentId", userStudentID)
-        }
+        // MyPageFragment 인스턴스 생성
+        val myPageFragment = MyPageFragment()
 
-        // MyPageFragment 인스턴스 생성 및 전환
-        val myPageFragment = MyPageFragment().apply {
-            arguments = bundle
-        }
+        // MyPageFragment로 전환
         replaceFragment(myPageFragment)
     }
 
