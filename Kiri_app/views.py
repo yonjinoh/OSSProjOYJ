@@ -700,15 +700,16 @@ class BlockViewSet(viewsets.ModelViewSet):
     @api_view(['POST', 'DELETE'])
     def blockuser(request):
         if request.method == 'POST':
-            timestamp = request.data.get('timestamp')
             blockerId = request.data.get('blockerId')
+            blockedId = request.data.get('blockedId')
 
-            blockedId = ChatRoom.objects.get('blockedId')
-            blockedId = blockedId.user2
+            blocker = AppUser.objects.get(iD = blockerId)
+            blocked = AppUser.objects.get(iD = blockedId)
 
-            if timestamp and blockerId and blockedId:
+
+            if blocker and blocked:
                 block_count = Block.objects.count() + 1
-                block = Block.objects.create(blockId = block_count, timestamp = timestamp, blockerId = blockerId, blockedId = blockedId)
+                block = Block.objects.create(blockId = block_count, blockerId = blocker, blockedId = blocked)
                 block.save()
                 return Response({'success': True}, status=status.HTTP_201_CREATED)
             else:
@@ -717,9 +718,12 @@ class BlockViewSet(viewsets.ModelViewSet):
             blockerId = request.data.get('blockerId')
             blockedId = request.data.get('blockedId')
 
-            if blockerId and blockedId:
+            blocker = AppUser.objects.get(iD = blockerId)
+            blocked = AppUser.objects.get(iD = blockedId)
+
+            if blocker and blocked:
                 try:
-                    block = Block.objects.get(blockerId = blockerId, blockedId = blockedId)
+                    block = Block.objects.get(blockerId = blocker, blockedId = blocked)
                     block.delete()
                     return Response({'success': True}, status=status.HTTP_200_OK)
                 except Block.DoesNotExist:
@@ -732,13 +736,17 @@ class BlockViewSet(viewsets.ModelViewSet):
     def getblocklist(request):
         blockerId = request.data.get('blockerId')
 
+        blocker = AppUser.objects.get(iD = blockerId)
+
         try:
-            block_list = Block.objects.filter(blockerId = blockerId)
+            block_list = Block.objects.filter(blockerId = blocker)
 
             block_user_list = []
             for block in block_list:
-                block_user = AppUser.objects.get(userID = block.blockedId)
+                block_user = AppUser.objects.get(userID = block)
                 block_user_list.append(block_user)
+                #
+
 
             return Response({'block_list': block_user_list}, status=status.HTTP_200_OK)
 
