@@ -49,17 +49,17 @@
 ##### model
 - **[request.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/model/request.kt), [response.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/model/response.kt)**
   - 서버에 정보를 전달하거나 요청을 위한 데이터 클래스들을 정의.
-  - 참고: 프로젝트 ['펀칭' 구조](https://github.com/punching-project-url) 참고 및 수정
+  - 참고: 프로젝트 ['펀칭' 구조](https://github.com/CSID-DGU/2023-1-OSSP1-criminal6-1/tree/main/app/src/main/java/com/example/testapplication/model) 참고 및 수정
 
 ##### profile
 - **[ProfileOption1Activity.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/profile/ProfileOption1Activity.kt), [ProfileOption2Activity.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/profile/ProfileOption2Activity.kt), [ProfileOption3Activity.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/profile/ProfileOption3Activity.kt), [ProfileOption4Activity.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/profile/ProfileOption4Activity.kt)**
   - 프로필 생성을 위한 옵션을 입력받고 저장하여 프로필 정보를 서버로 전달하는 코드.
-  - 참고: 프로젝트 ['펀칭' 코드](https://github.com/punching-project-url) 참고 및 수정
+  - 참고: 프로젝트 ['펀칭' 코드](https://github.com/CSID-DGU/2023-1-OSSP1-criminal6-1/tree/main/app/src/main/java/com/example/testapplication/create_room) 참고 및 수정
 
 ##### service
 - **[KiriService.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/service/KiriService.kt)**
   - 서버에서 제공하는 특정 엔드포인트에 대한 HTTP 요청을 정의하는 API 서비스 인터페이스에 대한 코드.
-  - 참고: 프로젝트 ['펀칭' 코드](https://github.com/CSID-DGU/2023-1-OSSP1-criminal6-1/tree/main/app/src/main/java/com/example/testapplication/model) 참고 및 수정
+  - 참고: 프로젝트 ['펀칭' 코드](https://github.com/CSID-DGU/2023-1-OSSP1-criminal6-1/tree/main/app/src/main/java/com/example/testapplication/service) 참고 및 수정
 
 ##### sign
 - **[LoginActivity.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/sign/LoginActivity.kt), [SignupActivity.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/sign/SignupActivity.kt)**
@@ -81,7 +81,7 @@
   - 앱에서 WebSocket을 사용하여 실시간 통신(채팅)을 구현하는 코드.
 - **[BlockListActivity.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/websocket/BlockListActivity.kt)**
   - 차단 목록을 표시하는 화면을 위한 코드. 차단된 사용자 목록을 확인하고, 필요에 따라 차단을 해제.
-  - 참고: 프로젝트 ['펀칭' 코드](https://github.com/punching-project-url) 참고 및 수정
+
 
 ##### res (앱의 화면 구성을 위한 디렉토리)
 - **drawable**
@@ -144,6 +144,6 @@
 
 ## 소스 코드 간의 연계성
 
-- **[기능별 소스 코드 간의 연계성](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/Doc/1_1_OSSProj_05_OhYeSu_%EC%88%98%ED%96%89%EA%B3%84%ED%9A%8D%EC%84%9C.md)**
+- **[기능별 소스 코드 간의 연계성](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/Doc/4_5_OSSProj_05_OhYeSu_fileLinkages.md)**
  해당 링크를 통해 각 기능별 소스 코드 간의 연계성 확인 가능
 
