@@ -12,41 +12,32 @@ data class MatchingProfile(
     val userId: String = "",
     @SerialName("user1ID")
     val user1ID: String = "",
+    @SerialName("user1Name")
+    val user1Name: String = "a",
+    @SerialName("user1StudentId")
+    val user1StudentId: String = "a",
     @SerialName("user2ID")
     val user2ID: String = "",
-    @SerialName("user3ID")
-    val user3ID: String = "",
-    @SerialName("user4ID")
-    val user4ID: String = "",
-    @SerialName("user5ID")
-    val user5ID: String = "",
-    @SerialName("user1Name")
-    val user1Name: String = "",
     @SerialName("user2Name")
-    val user2Name: String = "",
+    val user2Name: String = "b",
+    @SerialName("user2StudentId")
+    val user2StudentId: String = "b",
+    @SerialName("user3ID")
+    val user3ID: String = "c",
     @SerialName("user3Name")
     val user3Name: String = "",
-    @SerialName("user4Name")
-    val user4Name: String = "",
-    @SerialName("user5Name")
-    val user5Name: String = "",
-    @SerialName("user1StudentId")
-    val user1StudentId: String = "",
-    @SerialName("user2StudentId")
-    val user2StudentId: String = "",
     @SerialName("user3StudentId")
     val user3StudentId: String = "",
+    @SerialName("user4ID")
+    val user4ID: String = "",
+    @SerialName("user4Name")
+    val user4Name: String = "",
     @SerialName("user4StudentId")
     val user4StudentId: String = "",
+    @SerialName("user5ID")
+    val user5ID: String = "",
+    @SerialName("user5Name")
+    val user5Name: String = "",
     @SerialName("user5StudentId")
     val user5StudentId: String = ""
 )
-
-
-
-
-
-
-
-
-

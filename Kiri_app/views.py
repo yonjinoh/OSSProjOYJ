@@ -571,6 +571,7 @@ class MatchViewSet(viewsets.ModelViewSet):
 
         userId = request.query_params.get('userId')
         userId = AppUser.objects.get(iD = userId)
+        userId = userId.userID
 
         if userId is None:
             return Response({'success': False, 'error': 'UserID is required'}, status=status.HTTP_400_BAD_REQUEST)
@@ -587,12 +588,12 @@ class MatchViewSet(viewsets.ModelViewSet):
             # 반환 정보 수정 필요
 
             response = {
-                'matchId': match_result.matchId,
-                'user1ID': user1.userID, 'user1Name': user1.name, 'user1StudentId': user1.studentID,
-                'user2ID': user2.userID, 'user2Name': user2.name, 'user2StudentId': user2.studentID,
-                'user3ID': user3.userID, 'user3Name': user3.name, 'user3StudentId': user3.studentID,
-                'user4ID': user4.userID, 'user4Name': user4.name, 'user4StudentId': user4.studentID,
-                'user5ID': user5.userID, 'user5Name': user5.name, 'user5StudentId': user5.studentID,
+                'matchId': str(match_result.matchId), 'userId': str(userId),
+                'user1ID': str(user1.userID), 'user1Name': user1.name, 'user1StudentId': user1.studentID,
+                'user2ID': str(user2.userID), 'user2Name': user2.name, 'user2StudentId': user2.studentID,
+                'user3ID': str(user3.userID), 'user3Name': user3.name, 'user3StudentId': user3.studentID,
+                'user4ID': str(user4.userID), 'user4Name': user4.name, 'user4StudentId': user4.studentID,
+                'user5ID': str(user5.userID), 'user5Name': user5.name, 'user5StudentId': user5.studentID,
             }
             logger.debug(f"Response data: {response}")
 
