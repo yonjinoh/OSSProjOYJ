@@ -34,7 +34,7 @@ class BlockUserActivity : Activity() {
     }
 
     private fun initializeComponents() {
-        val sharedPreferences = getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+        val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
         currentUserId = sharedPreferences.getString("userId", "unknownUserId") ?: "unknownUserId"
 
         // KiriServicePool에서 chatService를 가져옴
@@ -66,10 +66,10 @@ class BlockUserActivity : Activity() {
     private fun blockUser(blockedId: String) {
         val blockId = UUID.randomUUID().toString()
         val blockData = BlockData(
-            BlockID = blockId,
-            UserID = currentUserId,
-            BlockerID = currentUserId,
-            BlockedID = blockedId
+//            BlockID = blockId,
+//            UserID = currentUserId,
+            blockerID = currentUserId,
+            blockedID = blockedId
         )
         chatService.blockUser(blockData).enqueue(object : Callback<BlockResponse> {
             override fun onResponse(call: Call<BlockResponse>, response: Response<BlockResponse>) {
