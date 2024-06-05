@@ -26,7 +26,7 @@ class MatchingViewModel : ViewModel() {
 
     // 로그인 시 저장된 UserID를 SharedPreferences에서 불러와 데이터를 로드
     fun loadMatchingProfiles(context: Context) { // 서버에 매칭 결과를 요청하는 로직
-        val sharedPreferences = context.getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+        val sharedPreferences = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
         val userId = sharedPreferences.getString("UserID", null)
 
         // 서버로부터 받은 매칭 결과를 LiveData를 통해 MatchingFragment에 전달
