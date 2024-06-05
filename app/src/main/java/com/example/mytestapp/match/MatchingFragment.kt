@@ -42,7 +42,7 @@ class MatchingFragment : Fragment() {
         viewModel.loadMatchingProfiles(requireContext())
 
         viewModel.matchingProfiles.observe(viewLifecycleOwner) { profiles ->
-            profiles?.let { adapter.submitList(it) }
+            profiles?.let { adapter.submitList(listOf(it)) }
         }
 
         binding.imageMenu.setOnClickListener {

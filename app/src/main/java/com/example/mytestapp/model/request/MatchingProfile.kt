@@ -7,39 +7,39 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class MatchingProfile(
     @SerialName("matchId")
-    val matchId: String,
+    val matchId: String = "",
     @SerialName("userId")
-    val userId: String,
+    val userId: String = "",
     @SerialName("user1ID")
-    val user1ID: String,
+    val user1ID: String = "",
     @SerialName("user2ID")
-    val user2ID: String,
+    val user2ID: String = "",
     @SerialName("user3ID")
-    val user3ID: String,
+    val user3ID: String = "",
     @SerialName("user4ID")
-    val user4ID: String,
+    val user4ID: String = "",
     @SerialName("user5ID")
-    val user5ID: String,
+    val user5ID: String = "",
     @SerialName("user1Name")
-    val user1Name: String,
+    val user1Name: String = "",
     @SerialName("user2Name")
-    val user2Name: String,
+    val user2Name: String = "",
     @SerialName("user3Name")
-    val user3Name: String,
+    val user3Name: String = "",
     @SerialName("user4Name")
-    val user4Name: String,
+    val user4Name: String = "",
     @SerialName("user5Name")
-    val user5Name: String,
+    val user5Name: String = "",
     @SerialName("user1StudentId")
-    val user1StudentId: String,
+    val user1StudentId: String = "",
     @SerialName("user2StudentId")
-    val user2StudentId: String,
+    val user2StudentId: String = "",
     @SerialName("user3StudentId")
-    val user3StudentId: String,
+    val user3StudentId: String = "",
     @SerialName("user4StudentId")
-    val user4StudentId: String,
+    val user4StudentId: String = "",
     @SerialName("user5StudentId")
-    val user5StudentId: String
+    val user5StudentId: String = ""
 )
 
 

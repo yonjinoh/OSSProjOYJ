@@ -567,6 +567,8 @@ class MatchViewSet(viewsets.ModelViewSet):
     # KSH : 매칭결과 조회 기능 추가
     @api_view(['GET'])
     def getmatchresult(request):
+        logger.debug(f"Received data: {request.data}")
+
         userId = request.query_params.get('userId')
         userId = AppUser.objects.get(iD = userId)
 
@@ -592,6 +594,7 @@ class MatchViewSet(viewsets.ModelViewSet):
                 'user4ID': user4.userID, 'user4Name': user4.name, 'user4StudentId': user4.studentID,
                 'user5ID': user5.userID, 'user5Name': user5.name, 'user5StudentId': user5.studentID,
             }
+            logger.debug(f"Response data: {response}")
 
             return Response(response, status=status.HTTP_200_OK)
 
@@ -672,6 +675,8 @@ class ReportViewSet(viewsets.ModelViewSet):
     # KSH : 유저 신고 기능 추가
     @api_view(['POST'])
     def reportuser(request):
+        logger.debug(f"Received data: {request.data}")
+
         reporterId = request.data.get('reporterId')
         reason = request.data.get('reason')
         timestamp = request.data.get('timestamp')
