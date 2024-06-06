@@ -1,6 +1,7 @@
 package com.example.mytestapp.matchmaking
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -41,6 +42,7 @@ class MatchmakingActivity : AppCompatActivity() {
             onMessageReceived = {},
             onConnectionFailed = { error -> runOnUiThread {
                 Toast.makeText(this, "WebSocket 연결 실패: $error", Toast.LENGTH_LONG).show() // 수정
+                Log.e("MatchmakingAc", "웹소켓 연결 실패: $error")
             }}
         )
         webSocketManager.connect()
