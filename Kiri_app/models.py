@@ -134,9 +134,9 @@ class Report(models.Model):
     reportId = models.AutoField(primary_key = True)
     reporterId = models.ForeignKey(AppUser, on_delete=models.CASCADE, related_name='reports')
     reason = models.TextField()
-    timestamp = models.DateTimeField(default = timezone.now)
+    timestamp = models.DateTimeField(auto_now_add=True)
     # Chat 모델에서 포린키 가져와야함 수정 필요
-    reportedId = models.ForeignKey(ChatRoom, on_delete=models.CASCADE, related_name='reporters')
+    reportedId = models.ForeignKey(AppUser, on_delete=models.CASCADE, related_name='reporters')
 
 
     def __str__(self):
@@ -149,7 +149,7 @@ class Block (models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     blockerId = models.ForeignKey(AppUser, on_delete=models.CASCADE, related_name='blocks')
     # Chat 모델에서 포린키 가져와야함 수정 필요
-    blockedId = models.ForeignKey(ChatRoom, on_delete=models.CASCADE, related_name='blockers')
+    blockedId = models.ForeignKey(AppUser, on_delete=models.CASCADE, related_name='blockers')
 
 
 

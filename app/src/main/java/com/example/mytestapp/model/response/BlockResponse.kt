@@ -6,5 +6,4 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class BlockResponse(
     @SerialName("success") val success: Boolean,
-    @SerialName("error") val error: String? = null
 )

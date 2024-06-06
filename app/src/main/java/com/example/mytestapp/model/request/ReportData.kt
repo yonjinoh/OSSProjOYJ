@@ -14,7 +14,5 @@ data class ReportData(
     @SerialName("reason")
     val reason: String,
     @SerialName("reportedId")
-    val reportedId: String,
-    @SerialName("timestamp")
-    val timestamp: String = System.currentTimeMillis().toString()  // 기본값으로 현재 시간을 사용
+    val reportedId: String
 )

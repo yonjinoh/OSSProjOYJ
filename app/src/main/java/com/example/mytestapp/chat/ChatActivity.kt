@@ -54,7 +54,7 @@ class ChatActivity : AppCompatActivity() {
         targetUserId = intent.getStringExtra("targetUserId") ?: "Unknown User"
         targetUserName = intent.getStringExtra("targetUserName") ?: "Unknown User"
 
-        val sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE)
+        val sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
         currentUserId = sharedPreferences.getString("userId", "defaultUserId") ?: "defaultUserId"
         currentUserName = sharedPreferences.getString("userName", "defaultUserName") ?: "defaultUserName"
 

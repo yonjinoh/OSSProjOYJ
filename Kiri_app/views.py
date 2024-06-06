@@ -679,16 +679,19 @@ class ReportViewSet(viewsets.ModelViewSet):
         logger.debug(f"Received data: {request.data}")
 
         reporterId = request.data.get('reporterId')
+        reporterId = AppUser.objects.get(iD = reporterId)
+
         reason = request.data.get('reason')
-        timestamp = request.data.get('timestamp')
 
-        reportedId = ChatRoom.objects.get('reportedId')
-        reportedId = reportedId.user2
+        reportedId = request.data.get('reportedId')
+        reportedId = AppUser.objects.get(userID = reportedId)
 
-        if reporterId and reason and timestamp and reportedId:
+
+
+        if reporterId and reason and  reportedId:
             report_count = Report.objects.count() + 1
             report = Report.objects.create(reportId = report_count, reporterId = reporterId,
-                                           reason = reason, timestamp = timestamp,
+                                           reason = reason,
                                            reportedId = reportedId)
             report.save()
             return Response({'success': True}, status=status.HTTP_201_CREATED)
@@ -706,11 +709,12 @@ class BlockViewSet(viewsets.ModelViewSet):
     @api_view(['POST', 'DELETE'])
     def blockuser(request):
         if request.method == 'POST':
-            blockerId = request.data.get('blockerId')
-            blockedId = request.data.get('blockedId')
+            logger.debug(f"Received data: {request.data}")
+            blockerId = request.data.get('blockerID')
+            blockedId = request.data.get('blockedID')
 
             blocker = AppUser.objects.get(iD = blockerId)
-            blocked = AppUser.objects.get(iD = blockedId)
+            blocked = AppUser.objects.get(userID = blockedId)
 
 
             if blocker and blocked:
