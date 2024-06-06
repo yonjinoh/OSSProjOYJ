@@ -36,7 +36,17 @@ class MatchingViewModel : ViewModel() {
             matchingService.getMatchingProfiles(it).enqueue(object : Callback<List<MatchingProfile>> {
                 override fun onResponse(call: Call<List<MatchingProfile>>, response: Response<List<MatchingProfile>>) {
                     if (response.isSuccessful) {
-                        _matchingProfiles.value = response.body()
+                        val profiles = response.body()
+                        // 매칭 프로필을 5명의 사용자 프로필로 변환하여 MutableLiveData에 설정
+                        val userProfiles = mutableListOf<MatchingProfile>()
+                        profiles?.forEach { profile ->
+                            userProfiles.add(MatchingProfile(profile.matchId, profile.userId, profile.user1ID, profile.user1Name, profile.user1StudentId))
+                            userProfiles.add(MatchingProfile(profile.matchId, profile.userId, profile.user2ID, profile.user2Name, profile.user2StudentId))
+                            userProfiles.add(MatchingProfile(profile.matchId, profile.userId, profile.user3ID, profile.user3Name, profile.user3StudentId))
+                            userProfiles.add(MatchingProfile(profile.matchId, profile.userId, profile.user4ID, profile.user4Name, profile.user4StudentId))
+                            userProfiles.add(MatchingProfile(profile.matchId, profile.userId, profile.user5ID, profile.user5Name, profile.user5StudentId))
+                        }
+                        _matchingProfiles.value = userProfiles
                     } else {
                         Toast.makeText(context, "매칭 결과를 불러오는데 실패했습니다.", Toast.LENGTH_SHORT).show()
                         _matchingProfiles.value = emptyList()
@@ -45,7 +55,7 @@ class MatchingViewModel : ViewModel() {
 
                 override fun onFailure(call: Call<List<MatchingProfile>>, t: Throwable) {
                     Log.e("MatchingViewModel", "Failed to load matching profiles", t)
-                    Toast.makeText(context, "매칭 결과를 불러오는데 실패했습니22222다.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "매칭 결과를 불러오는데 실패했습니다.", Toast.LENGTH_SHORT).show()
                     _matchingProfiles.value = emptyList()
                 }
             })
