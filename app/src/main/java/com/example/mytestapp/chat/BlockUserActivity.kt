@@ -30,7 +30,7 @@ class BlockUserActivity : Activity() {
         targetUserId = intent.getStringExtra("targetUserId") ?: "unknown"
 
         initializeComponents()
-        confirmBlockUser(targetUserId)
+        confirmBlockUser(targetUserId, "해당 사용자를 차단하시겠습니까?", this::blockUser)
     }
 
     private fun initializeComponents() {
@@ -41,10 +41,13 @@ class BlockUserActivity : Activity() {
         chatService = KiriServicePool.chatService
     }
 
-    private fun confirmBlockUser(blockedId: String) {
+    private fun confirmBlockUser(blockedId: String, message: String, blockUser: (String)-> Unit) {
         val dialogView = LayoutInflater.from(this).inflate(R.layout.activity_chat_confirmation, null)
         val confirmButton = dialogView.findViewById<Button>(R.id.confirm_button)
         val cancelButton = dialogView.findViewById<Button>(R.id.cancel_button)
+        val confirmationMessage = dialogView.findViewById<TextView>(R.id.confirmation_message)
+
+        confirmationMessage.text = message
 
         val alertDialog = AlertDialog.Builder(this)
             .setView(dialogView)
