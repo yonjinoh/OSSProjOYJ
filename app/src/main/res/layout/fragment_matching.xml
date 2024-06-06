@@ -50,5 +50,20 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             tools:listitem="@layout/item_matching" />
+
+        <!--메인화면 메뉴 하단바-->
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bnv_main"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            app:itemIconSize="24dp"
+            android:background="#FFFAFA"
+            app:itemIconTint="@drawable/menu_selector_color"
+            app:labelVisibilityMode="labeled"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:menu="@menu/item_menu" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
