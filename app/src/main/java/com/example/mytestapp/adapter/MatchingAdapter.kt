@@ -19,43 +19,20 @@ class MatchingAdapter(private val viewModel: MatchingViewModel) :
 
     override fun onBindViewHolder(holder: MatchingViewHolder, position: Int) {
         val profile = getItem(position)
-        holder.bind(viewModel, profile, position)
+        holder.bind(viewModel, profile)
     }
 
     class MatchingViewHolder(private val binding: ItemMatchingBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(viewModel: MatchingViewModel, profile: MatchingProfile, position: Int) {
+        fun bind(viewModel: MatchingViewModel, profile: MatchingProfile) {
             binding.viewModel = viewModel
             binding.profile = profile
 
             // 사용자 이름 및 학번을 설정합니다.
-            val userName: String
-            val userStudentId: String
-            when (position % 5) {
-                0 -> {
-                    userName = profile.user1Name
-                    userStudentId = profile.user1StudentId
-                }
-                1 -> {
-                    userName = profile.user2Name
-                    userStudentId = profile.user2StudentId
-                }
-                2 -> {
-                    userName = profile.user3Name
-                    userStudentId = profile.user3StudentId
-                }
-                3 -> {
-                    userName = profile.user4Name
-                    userStudentId = profile.user4StudentId
-                }
-                else -> {
-                    userName = profile.user5Name
-                    userStudentId = profile.user5StudentId
-                }
-            }
-            binding.userName = userName
-            binding.userStudentId = userStudentId
+            binding.userName = profile.user1Name
+            binding.userStudentId = profile.user1StudentId
+
             binding.executePendingBindings()
         }
     }
