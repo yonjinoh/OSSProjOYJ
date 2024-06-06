@@ -483,13 +483,15 @@ class MatchViewSet(viewsets.ModelViewSet):
         user_pref = UserPref.objects.get(UuserId=user.userID)
 
         # 조건에 맞는 사용자 리스트 가져옴
-        user_list = AppUser.objects.exclude(iD=userId).filter(
+        user_list = AppUser.objects.exclude(userID=userId).filter(
             gender=user.gender,
             matchStatus='pending',
             isProfile=True,
             isUserPref=True,
             isRestricted=False
         )
+
+        print(user_list)
 
         # OYJ : 매칭 알고리즘 추가
         # 이진 필드와 연속 필드를 정의
