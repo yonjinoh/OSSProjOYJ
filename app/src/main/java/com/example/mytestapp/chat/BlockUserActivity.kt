@@ -35,7 +35,7 @@ class BlockUserActivity : Activity() {
 
     private fun initializeComponents() {
         val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
-        currentUserId = sharedPreferences.getString("userId", "unknownUserId") ?: "unknownUserId"
+        currentUserId = sharedPreferences.getString("UserID", "unknownUserId") ?: "unknownUserId"
 
         // KiriServicePool에서 chatService를 가져옴
         chatService = KiriServicePool.chatService
@@ -78,7 +78,7 @@ class BlockUserActivity : Activity() {
                     if (blockResponse != null && blockResponse.success) {
                         showCompletionDialog("해당 사용자가 차단되었습니다.")
                     } else {
-                        Toast.makeText(this@BlockUserActivity, "차단에 실패했습니다: ${blockResponse?.error}", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@BlockUserActivity, "차단에 실패했습니다", Toast.LENGTH_SHORT).show()
                     }
                 } else {
                     Toast.makeText(this@BlockUserActivity, "차단에 실패했습니다", Toast.LENGTH_SHORT).show()

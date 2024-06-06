@@ -41,8 +41,8 @@ class ReportUserActivity : Activity() {
     }
 
     private fun initializeComponents() {
-        val sharedPreferences = getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
-        currentUserId = sharedPreferences.getString("userId", "unknownUserId") ?: "unknownUserId"
+        val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        currentUserId = sharedPreferences.getString("UserID", "unknownUserId") ?: "unknownUserId"
 
         // KiriServicePool에서 chatService를 가져옴
         reportService = KiriServicePool.reportService
@@ -117,12 +117,10 @@ class ReportUserActivity : Activity() {
     }
 
     private fun reportUser(reportedId: String, reason: String) {
-        val timestamp = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault()).format(Date()) // X
         val reportData = ReportData(
             reporterId = currentUserId,
             reason = reason,
-            reportedId = reportedId,
-            timestamp = timestamp // X
+            reportedId = reportedId
         )
         reportService.reportUser(reportData).enqueue(object : Callback<ReportResponse> { // 변경
             override fun onResponse(call: Call<ReportResponse>, response: Response<ReportResponse>) {

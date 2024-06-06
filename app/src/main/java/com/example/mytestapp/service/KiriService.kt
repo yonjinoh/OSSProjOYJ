@@ -41,7 +41,7 @@ interface ChatService {
     @POST("messages/")
     fun postMessage(@Body message: ChatMessage): Call<ChatMessage>
 
-    @POST("block/")
+    @POST("blockuser/")
     fun blockUser(@Body blockData: BlockData): Call<BlockResponse>
 
     @GET("chat-history/")
@@ -49,7 +49,7 @@ interface ChatService {
 }
 
 interface ReportService {
-    @POST("/report")
+    @POST("reportuser/")
     fun reportUser(@Body reportData: ReportData): Call<ReportResponse>
 }
 
