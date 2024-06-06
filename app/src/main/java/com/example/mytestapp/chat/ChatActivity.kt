@@ -2,6 +2,7 @@ package com.example.mytestapp.chat
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
@@ -81,6 +82,7 @@ class ChatActivity : AppCompatActivity() {
             }},
             onConnectionFailed = { error -> runOnUiThread {
                 Toast.makeText(this, "WebSocket 연결 실패: $error", Toast.LENGTH_LONG).show()
+                Log.e("ChatActivity", "웹소켓 연결 실패: $error")
             }}
         )
 
