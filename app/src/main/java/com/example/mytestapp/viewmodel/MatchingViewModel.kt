@@ -21,8 +21,8 @@ import retrofit2.Response
 
 class MatchingViewModel : ViewModel() {
     // LiveData 객체
-    private val _matchingProfiles = MutableLiveData<MatchingProfile>() // 서버로부터 받은 매칭 결과를 담는 MutableLiveData
-    val matchingProfiles: LiveData<MatchingProfile> = _matchingProfiles // 외부에서 관찰할 수 있는 LiveData
+    private val _matchingProfiles = MutableLiveData<List<MatchingProfile>>() // 서버로부터 받은 매칭 결과를 담는 MutableLiveData
+    val matchingProfiles: LiveData<List<MatchingProfile>> = _matchingProfiles // 외부에서 관찰할 수 있는 LiveData
 
     private val matchingService: MatchingService = KiriServicePool.matchingService
 
@@ -33,20 +33,20 @@ class MatchingViewModel : ViewModel() {
 
         // 서버로부터 받은 매칭 결과를 LiveData를 통해 MatchingFragment에 전달
         userId?.let {
-            matchingService.getMatchingProfiles(it).enqueue(object : Callback<MatchingProfile> {
-                override fun onResponse(call: Call<MatchingProfile>, response: Response<MatchingProfile>) {
+            matchingService.getMatchingProfiles(it).enqueue(object : Callback<List<MatchingProfile>> {
+                override fun onResponse(call: Call<List<MatchingProfile>>, response: Response<List<MatchingProfile>>) {
                     if (response.isSuccessful) {
                         _matchingProfiles.value = response.body()
                     } else {
                         Toast.makeText(context, "매칭 결과를 불러오는데 실패했습니다.", Toast.LENGTH_SHORT).show()
-                        _matchingProfiles.value = MatchingProfile()
+                        _matchingProfiles.value = emptyList()
                     }
                 }
 
-                override fun onFailure(call: Call<MatchingProfile>, t: Throwable) {
+                override fun onFailure(call: Call<List<MatchingProfile>>, t: Throwable) {
                     Log.e("MatchingViewModel", "Failed to load matching profiles", t)
                     Toast.makeText(context, "매칭 결과를 불러오는데 실패했습니22222다.", Toast.LENGTH_SHORT).show()
-                    _matchingProfiles.value = MatchingProfile()
+                    _matchingProfiles.value = emptyList()
                 }
             })
         }
