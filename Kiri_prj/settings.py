@@ -153,9 +153,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'  # 프로젝트 루트 디렉토리에 staticfiles 디렉토리 생성
-STATICFILES_DIRS = [
-    BASE_DIR / 'static',
-    ]
+STATICFILES_DIRS = []
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
