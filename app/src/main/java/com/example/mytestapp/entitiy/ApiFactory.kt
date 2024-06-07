@@ -11,7 +11,7 @@ import retrofit2.Retrofit
 object ApiFactory {
     val retrofit: Retrofit by lazy {
         Retrofit.Builder()
-            .baseUrl("https://13.124.159.83")
+            .baseUrl("http://13.124.159.83/")
             .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
             .build()
     }
@@ -37,3 +37,4 @@ object KiriServicePool {
 //    val roomlistService = ApiFactory.create<RoomlistService>()
 //    val enterroomService = ApiFactory.create<EnterRoomlistService>()
 }
+
