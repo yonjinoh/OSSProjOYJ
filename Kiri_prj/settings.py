@@ -25,6 +25,9 @@ SECRET_KEY = 'django-insecure-ttqah)3dl(795v%q%ux0=@!o+abh!7tf%8cv9ep7sm&2s$k#*)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+
+SECURE_SSL_REDIRECT = True
+
 # KSH: 모든 호스트 장고 접속 가능
 ALLOWED_HOSTS = ['*']
 
@@ -150,6 +153,9 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'  # 프로젝트 루트 디렉토리에 staticfiles 디렉토리 생성
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+    ]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
