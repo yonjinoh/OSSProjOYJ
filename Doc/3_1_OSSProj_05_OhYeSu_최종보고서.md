@@ -56,10 +56,25 @@
 ### 2. 최종결과물 소개  
 
 *  **동국대학교 기숙사 룸메이트 매칭 시스템 '끼리끼리' 의 주요 기능 소개**
-    - 매칭 기능
-    - 채팅 기능
-    - 차단 기능
-    - 신고 기능
+   <br>
+    - 프로필 생성 기능  
+    
+    ![프로필생성](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/144078388/f457610f-4d1d-4677-8d62-6c246bd97003) 
+
+     - 룸메이트에 대한 선호 정보 입력 기능
+    ![룸메선호정보](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/144078388/67c7b411-2903-429b-955b-4a093f870fce)  
+
+    - 매칭 알고리즘을 통한 룸메이트 추천 기능
+    ![매칭목록](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/144078388/6b491dff-fba8-4a14-b739-8d97e50e834f)  
+
+    - 채팅 기능  
+    ![매칭하기](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/144078388/ef11a97d-9769-49d6-928f-3252db3bafd8)  
+
+    - 차단 기능  
+    ![차단하기](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/144078388/4b6927f6-164c-4de3-8d21-8bc4ebd89e0d)   
+
+    - 이외의 구현 기능은 최종보고서 부록에 기재 
+    [최종보고서 부록](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/Doc/3_3_OSSProj_05_OhYeSu_최종보고서부록.md)
 
 
 ### 3. 프로젝트 추진 내용    
@@ -67,15 +82,15 @@
 #### 3.1 프로젝트 진행과정    
 
  
-* 요구사항 분석
+* **요구사항 분석**
     - 사례와 기존의 프로젝트들 분석을 통해 룸메이트 매칭 서비스에 대한 수요와 타당성 확보
     - 분석한 내용을 기반으로 요구사항명세서 작성
-* 기획
+* **기획**
     - 대안 비교를 통해 사용할 플랫폼을 결정하고 앱의 구조를 설계
     - 데이터베이스 구조 결정 후 DB 명세서와 ERD 설계도 작성
     - 필요한 API 분석 후 API 명세서 작성
     - 구현할 초기 화면을 Figma를 통해 디자인
-* 개발
+* **개발**
     - 안드로이드 스튜디오 설치 후 기본 개발 환경 설정
     - 개발에 필요한 라이브러리와 도구를 추가하고 설정
     - 앱을 위한 데이터베이스를 MySQL을 이용하여 DB 명세서를 기반으로 구축하고 관리 및 저장
@@ -92,6 +107,44 @@
 
 * **개념설계** 
 * **상세설계**
+    
+    - **요구사항명세서**
+
+    [요구사항명세서.pdf](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/files/15218854/default.pdf)
+    ![요구사항명세서](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/861484b9-623a-4860-a87a-c7af702e752c)
+    <br>
+
+
+    - **DB 명세서**
+
+    [KIRIKIRI_DB 명세서.pdf](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/files/15218855/KIRIKIRI_DB.pdf)
+
+    ![DB 명세서1](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/7b14f04c-9013-4de4-92a2-f7388e373fdc)  
+
+    ![DB명세서2](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/79b6154d-3c91-46d9-a3d4-8b3adb99bcc6)  
+
+    ![DB명세서3](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/3b07998c-d237-4cfc-b27c-66fdf6d05ee6)
+    <br>
+
+    - **ERD**
+
+    ![Kiri (2)](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/bd28a217-6ed0-4875-9a4e-d42b7c7277b9)
+
+    </br>
+
+    - **API 명세서**
+
+    [API 명세서](https://meadow-cast-ab6.notion.site/API-ba20f04456da4df4b0f3a824b6be7885?pvs=4)  
+    ![API 명세서](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/e0891dc0-93e7-4048-99c6-2760a9c25646) 
+   </br>
+
+    - **주요 기능 시퀀스 다이어그램**
+      
+     매칭 입력 시퀀스 다이어그램
+
+  ![매칭 입력 시퀀스 다이어그램](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/8e098f6b-30f4-465f-a4ab-f344a3ec6eb2)
+<br><br>
+
 * **구현 이론**
     - 어플리케이션 개발을 위한 안드로이드 스튜디오 플랫폼 이용
  
