@@ -66,6 +66,7 @@ class LoginActivity : AppCompatActivity() {
                     }
 
                     override fun onFailure(call: Call<loginresponse>, t: Throwable) {
+                        Log.d("ffffff", t.message.toString())
                         Toast.makeText(applicationContext, "서버통신 실패", Toast.LENGTH_SHORT).show()
                     }
 
