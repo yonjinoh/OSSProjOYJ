@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         // SharedPreferences에 사용자 정보 저장
         val sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
         with(sharedPreferences.edit()) {
-            putString("UserID", userID)
+            putString("userId", userID)
             putString("userName", userName)
             putString("userStudentId", userStudentID)
             apply()
