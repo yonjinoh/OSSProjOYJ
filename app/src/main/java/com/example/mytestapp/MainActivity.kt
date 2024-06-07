@@ -26,9 +26,9 @@ class MainActivity : AppCompatActivity() {
         userStudentID = intent.getStringExtra("studentid") ?: "unknownStudentID"
 
         // SharedPreferences에 사용자 정보 저장
-        val sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE)
+        val sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
         with(sharedPreferences.edit()) {
-            putString("userId", userID)
+            putString("UserID", userID)
             putString("userName", userName)
             putString("userStudentId", userStudentID)
             apply()

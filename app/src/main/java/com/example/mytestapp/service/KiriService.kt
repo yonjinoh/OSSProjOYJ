@@ -32,7 +32,7 @@ interface RoommateService {
 }
 
 interface ChatService {
-    @GET("messages/")
+    @GET("savemessage/")
     fun getMessages(
         @Query("currentUserId") currentUserId: String,
         @Query("targetUserId") targetUserId: String
