@@ -1,0 +1,15 @@
+[Unit]
+Description=uWSGI service
+After=syslog.target
+
+[Service]
+ExecStart=/project/Kiri/venvs/Kiri4/bin/uwsgi -i /project/Kiri/.config/uwsgi/Kiri_prj.ini
+
+Restart=always
+KillSignal=SIGQUIT
+Type=notify
+StandardError=syslog
+NotifyAccess=all
+
+[Install]
+WantedBy=multi-user.target
