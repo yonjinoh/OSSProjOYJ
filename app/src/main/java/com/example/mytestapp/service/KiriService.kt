@@ -22,17 +22,17 @@ interface SignService {
 }
 
 interface ProfileService {
-    @POST("profile/")
+    @POST("profilecreate/")
     fun profile(@Body request: profilerequest): Call<profileresponse>
 }
 
 interface RoommateService {
-    @POST("roommate/")
+    @POST("userprefcreate/")
     fun roommate(@Body request: roommaterequest): Call<roommateresponse>
 }
 
 interface ChatService {
-    @GET("messages/")
+    @GET("savemessage/")
     fun getMessages(
         @Query("currentUserId") currentUserId: String,
         @Query("targetUserId") targetUserId: String
@@ -41,14 +41,16 @@ interface ChatService {
     @POST("messages/")
     fun postMessage(@Body message: ChatMessage): Call<ChatMessage>
 
-    @POST("block/")
+    @POST("blockuser/")
     fun blockUser(@Body blockData: BlockData): Call<BlockResponse>
-
-    @POST("report/")
-    fun reportUser(@Body reportData: ReportData): Call<ReportResponse>
 
     @GET("chat-history/")
     fun getChatHistory(@Query("user_id") userId: String): Call<List<ChatHistory>>
+}
+
+interface ReportService {
+    @POST("reportuser/")
+    fun reportUser(@Body reportData: ReportData): Call<ReportResponse>
 }
 
 // 사용자 정보를 조회
@@ -61,8 +63,8 @@ interface UserService {
 
 // 매칭 관련 api
 interface MatchingService {
-    @GET("matching-profiles")
-    fun getMatchingProfiles(@Query("user_id") userId: String): Call<List<MatchingProfile>>
+    @GET("getmatchresult/")
+    fun getMatchingProfiles(@Query("userId") userId: String): Call<List<MatchingProfile>>
 
     // 매칭 요청
     @POST("request-match/")
@@ -77,3 +79,8 @@ interface MatchingService {
     fun rejectMatch(@Body matchRequest: MatchRequest): Call<MatchResponse>
 }
 
+
+interface AlgorithmService {
+    @POST("matching/")
+    fun algoOPS(@Body request: Algorequest): Call<Algoresponse>
+}

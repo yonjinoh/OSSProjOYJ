@@ -39,7 +39,7 @@ class BlockRecyclerViewAdapter(
 
         // ViewHolder에 데이터 바인딩
         fun bind(blockItem: BlockData) {
-            blockedIDTextView.text = blockItem.BlockedID
+            blockedIDTextView.text = blockItem.blockedID
             // 여기에 다른 데이터를 ViewHolder에 바인딩하는 코드 추가 가능
         }
     }

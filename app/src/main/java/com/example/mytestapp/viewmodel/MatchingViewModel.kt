@@ -2,9 +2,11 @@ package com.example.mytestapp.viewmodel
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.PopupMenu
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -18,27 +20,42 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MatchingViewModel : ViewModel() {
-    private val _matchingProfiles = MutableLiveData<List<MatchingProfile>>()
-    val matchingProfiles: LiveData<List<MatchingProfile>> = _matchingProfiles
+    // LiveData 객체
+    private val _matchingProfiles = MutableLiveData<List<MatchingProfile>>() // 서버로부터 받은 매칭 결과를 담는 MutableLiveData
+    val matchingProfiles: LiveData<List<MatchingProfile>> = _matchingProfiles // 외부에서 관찰할 수 있는 LiveData
 
     private val matchingService: MatchingService = KiriServicePool.matchingService
 
     // 로그인 시 저장된 UserID를 SharedPreferences에서 불러와 데이터를 로드
-    fun loadMatchingProfiles(context: Context) {
-        val sharedPreferences = context.getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+    fun loadMatchingProfiles(context: Context) { // 서버에 매칭 결과를 요청하는 로직
+        val sharedPreferences = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
         val userId = sharedPreferences.getString("UserID", null)
 
+        // 서버로부터 받은 매칭 결과를 LiveData를 통해 MatchingFragment에 전달
         userId?.let {
             matchingService.getMatchingProfiles(it).enqueue(object : Callback<List<MatchingProfile>> {
                 override fun onResponse(call: Call<List<MatchingProfile>>, response: Response<List<MatchingProfile>>) {
                     if (response.isSuccessful) {
-                        _matchingProfiles.value = response.body()
+                        val profiles = response.body()
+                        // 매칭 프로필을 5명의 사용자 프로필로 변환하여 MutableLiveData에 설정
+                        val userProfiles = mutableListOf<MatchingProfile>()
+                        profiles?.forEach { profile ->
+                            userProfiles.add(MatchingProfile(profile.matchId, profile.userId, profile.user1ID, profile.user1Name, profile.user1StudentId))
+                            userProfiles.add(MatchingProfile(profile.matchId, profile.userId, profile.user2ID, profile.user2Name, profile.user2StudentId))
+                            userProfiles.add(MatchingProfile(profile.matchId, profile.userId, profile.user3ID, profile.user3Name, profile.user3StudentId))
+                            userProfiles.add(MatchingProfile(profile.matchId, profile.userId, profile.user4ID, profile.user4Name, profile.user4StudentId))
+                            userProfiles.add(MatchingProfile(profile.matchId, profile.userId, profile.user5ID, profile.user5Name, profile.user5StudentId))
+                        }
+                        _matchingProfiles.value = userProfiles
                     } else {
+                        Toast.makeText(context, "매칭 결과를 불러오는데 실패했습니다.", Toast.LENGTH_SHORT).show()
                         _matchingProfiles.value = emptyList()
                     }
                 }
 
                 override fun onFailure(call: Call<List<MatchingProfile>>, t: Throwable) {
+                    Log.e("MatchingViewModel", "Failed to load matching profiles", t)
+                    Toast.makeText(context, "매칭 결과를 불러오는데 실패했습니다.", Toast.LENGTH_SHORT).show()
                     _matchingProfiles.value = emptyList()
                 }
             })
@@ -49,8 +66,8 @@ class MatchingViewModel : ViewModel() {
     fun onProfileClicked(view: View, profile: MatchingProfile) {
         val context = view.context
         val intent = Intent(context, ChatActivity::class.java).apply {
-            putExtra("targetUserId", profile.userID)
-            putExtra("targetUserName", profile.userID) // 이름 대신 userID를 사용, 필요에 따라 수정
+            putExtra("targetUserId", profile.user1ID) // 특정 사용자 ID 설정
+            putExtra("targetUserName", profile.user1Name) // 특정 사용자 이름 설정
         }
         context.startActivity(intent)
     }

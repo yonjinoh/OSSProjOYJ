@@ -40,11 +40,13 @@ class MatchingOption1Activity : AppCompatActivity() {
             if (isValuesSelected()) {
                 // 선택한 값들을 다음 액티비티로 전달하고 해당 액티비티로 이동
                 val intent = Intent(this, MatchingOption2Activity::class.java)
-                intent.putExtra("Ym", Y_mValue)
-                intent.putExtra("Ygrade", Y_gradeValue)
-                intent.putExtra("Ysmoking", Y_smokingValue)
-                intent.putExtra("YfirstLesson", Y_firstLessonValue)
-                intent.putExtra("YsleepingHabit", Y_sleepingHabitValue)
+
+                preflist.add(Y_mValue)
+                preflist.add(Y_gradeValue)
+                preflist.add(Y_smokingValue)
+                preflist.add(Y_firstLessonValue)
+                preflist.add(Y_sleepingHabitValue)
+
                 startActivity(intent)
                 finish()
             } else {

@@ -19,31 +19,20 @@ class MatchingAdapter(private val viewModel: MatchingViewModel) :
 
     override fun onBindViewHolder(holder: MatchingViewHolder, position: Int) {
         val profile = getItem(position)
-        val userName = when (position % 5) { // 각 아이템의 위치에 따라 UserID 1, 2, 3, 4, 5 중 하나를 선택
-            0 -> profile.user1Name
-            1 -> profile.user2Name
-            2 -> profile.user3Name
-            3 -> profile.user4Name
-            else -> profile.user5Name
-        }
-        val userStudentId = when (position % 5) { // 각 아이템의 위치에 따라 UserID 1, 2, 3, 4, 5 중 하나를 선택
-            0 -> profile.user1StudentId
-            1 -> profile.user2StudentId
-            2 -> profile.user3StudentId
-            3 -> profile.user4StudentId
-            else -> profile.user5StudentId
-        }
-        holder.bind(viewModel, profile, userName, userStudentId) // 여기에 네 개의 인수를 전달합니다.
+        holder.bind(viewModel, profile)
     }
 
     class MatchingViewHolder(private val binding: ItemMatchingBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(viewModel: MatchingViewModel, profile: MatchingProfile, userName: String, userStudentId: String) {
+        fun bind(viewModel: MatchingViewModel, profile: MatchingProfile) {
             binding.viewModel = viewModel
             binding.profile = profile
-            binding.userName = userName
-            binding.userStudentId = userStudentId
+
+            // 사용자 이름 및 학번을 설정합니다.
+            binding.userName = profile.user1Name
+            binding.userStudentId = profile.user1StudentId
+
             binding.executePendingBindings()
         }
     }
@@ -51,7 +40,7 @@ class MatchingAdapter(private val viewModel: MatchingViewModel) :
 
 class MatchingDiffCallback : DiffUtil.ItemCallback<MatchingProfile>() {
     override fun areItemsTheSame(oldItem: MatchingProfile, newItem: MatchingProfile): Boolean {
-        return oldItem.matchID == newItem.matchID
+        return oldItem.matchId == newItem.matchId
     }
 
     override fun areContentsTheSame(oldItem: MatchingProfile, newItem: MatchingProfile): Boolean {
