@@ -56,10 +56,10 @@
 ### 2. 최종결과물 소개  
 
 *  **동국대학교 기숙사 룸메이트 매칭 시스템 '끼리끼리' 의 주요 기능 소개**
-<br>
+   <br>
     - 프로필 생성 기능  
     
-    ![프로필생성](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/144078388/f457610f-4d1d-4677-8d62-6c246bd97003)  
+    ![프로필생성](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/144078388/f457610f-4d1d-4677-8d62-6c246bd97003) 
 
      - 룸메이트에 대한 선호 정보 입력 기능
     ![룸메선호정보](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/144078388/67c7b411-2903-429b-955b-4a093f870fce)  
@@ -136,12 +136,13 @@
 
     [API 명세서](https://meadow-cast-ab6.notion.site/API-ba20f04456da4df4b0f3a824b6be7885?pvs=4)  
     ![API 명세서](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/e0891dc0-93e7-4048-99c6-2760a9c25646) 
-</br>
+   </br>
 
     - **주요 기능 시퀀스 다이어그램**
-    매칭 입력 시퀀스 다이어그램
+      
+     매칭 입력 시퀀스 다이어그램
 
-![매칭 입력 시퀀스 다이어그램](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/8e098f6b-30f4-465f-a4ab-f344a3ec6eb2)
+  ![매칭 입력 시퀀스 다이어그램](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/8e098f6b-30f4-465f-a4ab-f344a3ec6eb2)
 <br><br>
 
 * **구현 이론**
