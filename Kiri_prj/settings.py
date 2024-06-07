@@ -154,7 +154,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'  # 프로젝트 루트 디렉토리에 staticfiles 디렉토리 생성
 STATICFILES_DIRS = [
-    BASE_DIR / 'staticfiles',
+    BASE_DIR / 'static',
     ]
 
 # Default primary key field type
