@@ -2,6 +2,7 @@ package com.example.mytestapp.chat
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
@@ -53,8 +54,8 @@ class ChatActivity : AppCompatActivity() {
         targetUserId = intent.getStringExtra("targetUserId") ?: "Unknown User"
         targetUserName = intent.getStringExtra("targetUserName") ?: "Unknown User"
 
-        val sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE)
-        currentUserId = sharedPreferences.getString("userId", "defaultUserId") ?: "defaultUserId"
+        val sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
+        currentUserId = sharedPreferences.getString("UserID", "defaultUserId") ?: "defaultUserId"
         currentUserName = sharedPreferences.getString("userName", "defaultUserName") ?: "defaultUserName"
 
         initializeComponents()
@@ -81,6 +82,7 @@ class ChatActivity : AppCompatActivity() {
             }},
             onConnectionFailed = { error -> runOnUiThread {
                 Toast.makeText(this, "WebSocket 연결 실패: $error", Toast.LENGTH_LONG).show()
+                Log.e("ChatActivity", "웹소켓 연결 실패: $error")
             }}
         )
 

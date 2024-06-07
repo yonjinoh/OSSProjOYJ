@@ -25,7 +25,7 @@ class AppUser(models.Model):
     matchStatus = models.CharField(max_length=45, default='pending')
 
     def __str__(self):
-        return self.Name
+        return self.iD
 
 
 
@@ -115,10 +115,8 @@ class UserPref(models.Model):
 class Match(models.Model):
     matchId = models.AutoField(primary_key = True)
     userId = models.ForeignKey(AppUser, on_delete=models.CASCADE, related_name='matchings')
-    # matchScore 필요한가?
-    matchScore = models.FloatField()
-    createdAt = models.DateTimeField(default = timezone.now)
-    updateAt = models.DateTimeField(default = timezone.now)
+    createdAt = models.DateTimeField(auto_now_add=True)
+    updatedAt = models.DateTimeField(auto_now=True)
     # related_name 참조 변경 필요
     userId1 = models.IntegerField()
     userId2 = models.IntegerField()
@@ -136,9 +134,9 @@ class Report(models.Model):
     reportId = models.AutoField(primary_key = True)
     reporterId = models.ForeignKey(AppUser, on_delete=models.CASCADE, related_name='reports')
     reason = models.TextField()
-    timestamp = models.DateTimeField(default = timezone.now)
+    timestamp = models.DateTimeField(auto_now_add=True)
     # Chat 모델에서 포린키 가져와야함 수정 필요
-    reportedId = models.ForeignKey(ChatRoom, on_delete=models.CASCADE, related_name='reporters')
+    reportedId = models.ForeignKey(AppUser, on_delete=models.CASCADE, related_name='reporters')
 
 
     def __str__(self):
@@ -148,10 +146,10 @@ class Report(models.Model):
 # KSH: Block 모델 정의 추가
 class Block (models.Model):
     blockId = models.AutoField(primary_key = True)
-    timestamp = models.DateTimeField(default = timezone.now)
+    timestamp = models.DateTimeField(auto_now_add=True)
     blockerId = models.ForeignKey(AppUser, on_delete=models.CASCADE, related_name='blocks')
     # Chat 모델에서 포린키 가져와야함 수정 필요
-    blockedId = models.ForeignKey(ChatRoom, on_delete=models.CASCADE, related_name='blockers')
+    blockedId = models.ForeignKey(AppUser, on_delete=models.CASCADE, related_name='blockers')
 
 
 
@@ -166,4 +164,4 @@ class Block (models.Model):
     # blockedId = models.ForeignKey(AppUser, on_delete=models.CASCADE, related_name='blockers')
 
     def __str__(self):
-        return self.blockId
+        return self.blockedId

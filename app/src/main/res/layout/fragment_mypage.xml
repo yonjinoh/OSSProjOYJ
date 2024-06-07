@@ -107,7 +107,7 @@
 
 
 
-    <!-- 학번 이름 전체 LinearLayout -->
+    <!-- 아이디 전체 LinearLayout -->
     <LinearLayout
         android:id="@+id/namecard"
         android:layout_width="match_parent"
@@ -126,24 +126,18 @@
             android:layout_marginStart="15dp"
             android:layout_gravity="center_vertical">
 
-            <!-- 학번 -->
+            <!-- 아이디 표시 -->
             <TextView
-                android:id="@+id/StudentID"
+                android:id="@+id/ID"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@{viewModel.userID + `님`}"
+                android:textSize="22sp"
                 android:fontFamily="@font/pretendard"
                 android:textColor="@color/text_main"
-                android:textSize="22sp"/>
-
-            <!-- 이름 -->
-            <TextView
-                android:id="@+id/Name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
-                android:fontFamily="@font/pretendard"
-                android:textColor="@color/text_main"
-                android:textSize="22sp"/>
+                android:layout_marginTop="20dp"
+                app:layout_constraintStart_toEndOf="@id/logoImage"
+                app:layout_constraintTop_toBottomOf="@id/welcomeMessage"/>
 
         </LinearLayout>
     </LinearLayout>
@@ -161,7 +155,7 @@
         android:textStyle="bold"
         android:textColor="@color/text_white"
         android:background="@drawable/button_rec_orange"
-        app:layout_constraintTop_toBottomOf="@id/namecard"
+        app:layout_constraintTop_toBottomOf="@+id/namecard"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="50dp"/>
@@ -193,6 +187,19 @@
         android:background="@drawable/edittext_stroke_gray"
         app:layout_constraintTop_toBottomOf="@id/blockListButton"
         android:layout_marginTop="20dp"/>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bnv_main"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        app:itemIconSize="24dp"
+        android:background="#FFFAFA"
+        app:itemIconTint="@drawable/menu_selector_color"
+        app:labelVisibilityMode="labeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/item_menu" />
 
 
 

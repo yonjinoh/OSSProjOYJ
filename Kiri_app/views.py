@@ -9,6 +9,8 @@ from .models import AppUser, ChatRoom, Chat
 from .models import Profile, UserPref, Match, Report, Block
 from rest_framework import status
 from rest_framework.decorators import api_view
+from rest_framework.decorators import action
+
 from django.http.response import HttpResponse
 from rest_framework.response import Response
 from django.utils import timezone
@@ -23,6 +25,8 @@ from scipy.spatial.distance import euclidean
 from sklearn.metrics import jaccard_score
 from .models import AppUser, Match, Profile, UserPref
 
+import logging
+logger = logging.getLogger(__name__)
 
 # from django.contrib.auth import authenticate
 
@@ -198,7 +202,11 @@ class ProfileViewSet(viewsets.ModelViewSet):
     # KSH : 사용자 정보 생성 기능
     @api_view(['POST'])
     def profilecreate(request):
+        logger.debug(f"Received data: {request.data}")
+
         userId = request.data.get('userId')
+        userId = AppUser.objects.get(iD = userId)
+        #userId = userId.iD
 
         Embti = request.data.get('Embti')
         Smbti = request.data.get('Smbti')
@@ -219,10 +227,12 @@ class ProfileViewSet(viewsets.ModelViewSet):
         sleepSche = request.data.get('sleepSche')
         upSche = request.data.get('upSche')
 
-        if (userId and Embti and Smbti and Tmbti and Jmbti and firstLesson and smoke and sleepHabit
-                and grade and shareNeeds and inComm and heatSens and coldSens and drinkFreq
-                and cleanliness and noiseSens and sleepSche and upSche):
+        required_fields = [userId, Embti, Smbti, Tmbti, Jmbti, firstLesson, smoke, sleepHabit,
+                             grade, shareNeeds, inComm, heatSens, coldSens, drinkFreq,
+                            cleanliness, noiseSens, sleepSche, upSche]
 
+
+        if all(field is not None for field in required_fields):
             user_count = Profile.objects.count() + 1
             user_profile = Profile.objects.create(profileId = user_count, userId = userId,
                                                   Embti = Embti,
@@ -241,10 +251,10 @@ class ProfileViewSet(viewsets.ModelViewSet):
                                                   cleanliness = cleanliness,
                                                   noiseSens = noiseSens,
                                                   sleepSche = sleepSche,
-                                                  upSchel = upSche)
+                                                  upSche = upSche)
             user_profile.save()
 
-            user = AppUser.objects.get(userID = userId)
+            user = AppUser.objects.get(iD = userId)
             user.isProfile = True
             user.save()
 
@@ -312,12 +322,16 @@ class UserPrefViewSet(viewsets.ModelViewSet):
     # KSH : 사용자 선호도 정보 생성 기능
     @api_view(['POST'])
     def userprefcreate(request):
+        logger.debug(f"Received data: {request.data}")
+
         UuserId = request.data.get('UuserId')
+        UuserId = AppUser.objects.get(iD = UuserId)
+
 
         UEmbti = request.data.get('UEmbti')
-        USmbti = request.data.get('USmbti')
-        UTmbti = request.data.get('UTmbti')
-        UJmbti = request.data.get('UJmbti')
+        # USmbti = request.data.get('USmbti')
+        # UTmbti = request.data.get('UTmbti')
+        # UJmbti = request.data.get('UJmbti')
 
         UfirstLesson = request.data.get('UfirstLesson')
         Usmoke = request.data.get('Usmoke')
@@ -333,34 +347,61 @@ class UserPrefViewSet(viewsets.ModelViewSet):
         UsleepSche = request.data.get('UsleepSche')
         UupSche = request.data.get('UupSche')
 
-        if (UuserId and UEmbti and USmbti and UTmbti and UJmbti and UfirstLesson and Usmoke
-                and UsleepHabit and Ugrade and UshareNeeds and UinComm and UheatSens and UcoldSens
-                and UdrinkFreq and Ucleanliness and UnoiseSens and UsleepSche and UupSche):
+        required_fields = [UuserId, UEmbti, UfirstLesson, Usmoke, UsleepHabit,
+                           Ugrade, UshareNeeds, UinComm, UheatSens, UcoldSens,
+                           UdrinkFreq, Ucleanliness, UnoiseSens, UsleepSche, UupSche]
 
-            user_count = UserPref.objects.count() + 1
-            user_pref = UserPref.objects.create(prefId = user_count, UuserId = UuserId,
-                                                UEmbti = UEmbti, USmbti = USmbti,
-                                                UTmbti = UTmbti, UJmbti = UJmbti,
-                                                UfirstLesson = UfirstLesson,
-                                                Usmoke = Usmoke,
-                                                UsleepHabit = UsleepHabit,
-                                                Ugrade = Ugrade,
-                                                UshareNeeds = UshareNeeds,
-                                                UinComm = UinComm,
-                                                UheatSens = UheatSens,
-                                                UcoldSens = UcoldSens,
-                                                UdrinkFreq = UdrinkFreq,
-                                                Ucleanliness = Ucleanliness,
-                                                UnoiseSens = UnoiseSens,
-                                                UsleepSche = UsleepSche,
-                                                UupSche = UupSche)
-            user_pref.save()
+        if all(field is not None for field in required_fields):
 
-            user = AppUser.objects.get(userID = UuserId)
-            user.isUserPref = True
-            user.save()
+            if UserPref.objects.filter(UuserId = UuserId).exists():
+                user_pref = UserPref.objects.get(UuserId = UuserId)
+                user_pref.UEmbti = UEmbti
+                # user_pref.USmbti = USmbti
+                # user_pref.UTmbti = UTmbti
+                # user_pref.UJmbti = UJmbti
 
-            return Response({'success': True}, status=status.HTTP_201_CREATED)
+                user_pref.UfirstLesson = UfirstLesson
+                user_pref.Usmoke = Usmoke
+                user_pref.UsleepHabit = UsleepHabit
+                user_pref.Ugrade = Ugrade
+                user_pref.UshareNeeds = UshareNeeds
+                user_pref.UinComm = UinComm
+                user_pref.UheatSens = UheatSens
+                user_pref.UcoldSens = UcoldSens
+                user_pref.UdrinkFreq = UdrinkFreq
+                user_pref.Ucleanliness = Ucleanliness
+                user_pref.UnoiseSens = UnoiseSens
+                user_pref.UsleepSche = UsleepSche
+                user_pref.UupSche = UupSche
+
+                user_pref.save()
+
+                return Response({'success': True}, status=status.HTTP_200_OK)
+
+            else:
+                user_count = UserPref.objects.count() + 1
+                user_pref = UserPref.objects.create(prefId = user_count, UuserId = UuserId,
+                                                    UEmbti = UEmbti,
+                                                    UfirstLesson = UfirstLesson,
+                                                    Usmoke = Usmoke,
+                                                    UsleepHabit = UsleepHabit,
+                                                    Ugrade = Ugrade,
+                                                    UshareNeeds = UshareNeeds,
+                                                    UinComm = UinComm,
+                                                    UheatSens = UheatSens,
+                                                    UcoldSens = UcoldSens,
+                                                    UdrinkFreq = UdrinkFreq,
+                                                    Ucleanliness = Ucleanliness,
+                                                    UnoiseSens = UnoiseSens,
+                                                    UsleepSche = UsleepSche,
+                                                    UupSche = UupSche)
+                user_pref.save()
+
+                user = AppUser.objects.get(iD = UuserId)
+                user.isUserPref = True
+                user.save()
+
+                return Response({'success': True}, status=status.HTTP_201_CREATED)
         else:
             return Response({'success': False}, status=status.HTTP_400_BAD_REQUEST)
     
@@ -370,9 +411,9 @@ class UserPrefViewSet(viewsets.ModelViewSet):
         UuserId = request.data.get('UuserId')
 
         UEmbti = request.data.get('UEmbti')
-        USmbti = request.data.get('USmbti')
-        UTmbti = request.data.get('UTmbti')
-        UJmbti = request.data.get('UJmbti')
+        # USmbti = request.data.get('USmbti')
+        # UTmbti = request.data.get('UTmbti')
+        # UJmbti = request.data.get('UJmbti')
 
         UfirstLesson = request.data.get('UfirstLesson')
         Usmoke = request.data.get('Usmoke')
@@ -389,15 +430,17 @@ class UserPrefViewSet(viewsets.ModelViewSet):
         UupSche = request.data.get('UupSche')
 
 
-        if (UuserId and UEmbti and USmbti and UTmbti and UJmbti and UfirstLesson and Usmoke
-                and UsleepHabit and Ugrade and UshareNeeds and UinComm and UheatSens and UcoldSens
-                and UdrinkFreq and Ucleanliness and UnoiseSens and UsleepSche and UupSche):
+        required_fields = [UuserId, UEmbti, UfirstLesson, Usmoke, UsleepHabit,
+                   Ugrade, UshareNeeds, UinComm, UheatSens, UcoldSens,
+                   UdrinkFreq, Ucleanliness, UnoiseSens, UsleepSche, UupSche]
+
+        if all(field is not None for field in required_fields):
 
             user_pref = UserPref.objects.get(UuserId = UuserId)
             user_pref.UEmbti = UEmbti
-            user_pref.USmbti = USmbti
-            user_pref.UTmbti = UTmbti
-            user_pref.UJmbti = UJmbti
+            # user_pref.USmbti = USmbti
+            # user_pref.UTmbti = UTmbti
+            # user_pref.UJmbti = UJmbti
 
             user_pref.UfirstLesson = UfirstLesson
             user_pref.Usmoke = Usmoke
@@ -420,6 +463,8 @@ class UserPrefViewSet(viewsets.ModelViewSet):
             return Response({'success': False}, status=status.HTTP_400_BAD_REQUEST)
 
 
+
+
 # KSH :  MatchViewSet 추가
 class MatchViewSet(viewsets.ModelViewSet):
     queryset = Match.objects.all()
@@ -428,12 +473,14 @@ class MatchViewSet(viewsets.ModelViewSet):
     # KSH : 매칭+매칭결과 저장 알고리즘
     @api_view(['POST'])
     def matching(request):
+        # 사용자 iD임
         userId = request.data.get('userId')
 
-        # 현재 사용자를 가져옴
-        user = AppUser.objects.get(userID=userId)
-        # 사용자의 선호도를 가져옴
-        user_pref = UserPref.objects.get(UuserId=userId)
+        # 사용자 iD로 사용자 객체 가져옴
+        user = AppUser.objects.get(iD=userId)
+        userId = user.userID
+        # 사용자 선호도 객체 가져옴(
+        user_pref = UserPref.objects.get(UuserId=user.userID)
 
         # 조건에 맞는 사용자 리스트 가져옴
         user_list = AppUser.objects.exclude(userID=userId).filter(
@@ -444,12 +491,14 @@ class MatchViewSet(viewsets.ModelViewSet):
             isRestricted=False
         )
 
+        print(user_list)
+
         # OYJ : 매칭 알고리즘 추가
         # 이진 필드와 연속 필드를 정의
-        binary_fields = ['Embti', 'Smbti', 'Tmbti', 'Jmbti', 'firstLesson', 'smoke', 'sleepHabit', 'shareNeeds', 'inComm', 'heatSens', 'coldSens']
+        binary_fields = ['Embti', 'firstLesson', 'smoke', 'sleepHabit', 'shareNeeds', 'inComm', 'heatSens', 'coldSens']
         continuous_fields = ['grade', 'drinkFreq', 'cleanliness', 'noiseSens', 'sleepSche', 'upSche',]
 
-        Ubinary_fields = ['UEmbti', 'USmbti', 'UTmbti', 'UJmbti', 'UfirstLesson', 'Usmoke', 'UsleepHabit', 'UshareNeeds', 'UinComm', 'UheatSens', 'UcoldSens']
+        Ubinary_fields = ['UEmbti', 'UfirstLesson', 'Usmoke', 'UsleepHabit', 'UshareNeeds', 'UinComm', 'UheatSens', 'UcoldSens']
         Ucontinuous_fields = ['Ugrade', 'UdrinkFreq', 'Ucleanliness', 'UnoiseSens', 'UsleepSche', 'UupSche']
 
 
@@ -457,9 +506,10 @@ class MatchViewSet(viewsets.ModelViewSet):
         def calculate_jaccard_similarity(user_pref, profile, Ubinary_fields, binary_fields):
             user_pref_data = [getattr(user_pref, field) for field in Ubinary_fields]  # user_pref 객체의 binary_fields 필드 값을 가져옴
             profile_data = [getattr(profile, field) for field in binary_fields]  # profile 객체의 binary_fields 필드 값을 가져옴
-            return jaccard_score(user_pref_data, profile_data)
+            return jaccard_score(user_pref_data, profile_data, average='weighted')  # average 파라미터를 추가
 
-        # 유클리드 유사도를 계산하는 함수
+
+    # 유클리드 유사도를 계산하는 함수
         def calculate_euclidean_similarity(user_pref, profile, Ucontinuous_fields, continuous_fields):
             user_pref_data = [getattr(user_pref, field) for field in Ucontinuous_fields]  # user_pref 객체의 continuous_fields 필드 값을 가져옴
             profile_data = [getattr(profile, field) for field in continuous_fields]  # profile 객체의 continuous_fields 필드 값을 가져옴
@@ -487,7 +537,7 @@ class MatchViewSet(viewsets.ModelViewSet):
 
         if match_resultlist:
             try:
-                existing_match_result = Match.objects.get(userId=userId)
+                existing_match_result = Match.objects.get(userId=user)
                 existing_match_result.updateAt = timezone.now()
                 existing_match_result.userId1 = match_resultlist[0]
                 existing_match_result.userId2 = match_resultlist[1]
@@ -499,11 +549,16 @@ class MatchViewSet(viewsets.ModelViewSet):
                 return Response({'success': True}, status=status.HTTP_200_OK)
             except Match.DoesNotExist:
                 match_count = Match.objects.count() + 1
-                match_result = Match.objects.create(matchId=match_count, userId=userId,
-                                             createdAt=timezone.now, updateAt=timezone.now,
+                match_result = Match.objects.create(matchId=match_count, userId=user,
+                                             createdAt=timezone.now,
                                              userId1=match_resultlist[0], userId2=match_resultlist[1],
                                              userId3=match_resultlist[2], userId4=match_resultlist[3],
                                              userId5=match_resultlist[4])
+                # match_result = Match.objects.create(matchId=match_count, userId=user,
+                #                                     createdAt=timezone.now, updateAt=timezone.now,
+                #                                     userId1=match_resultlist[0], userId2=match_resultlist[1],
+                #                                     userId3=match_resultlist[2], userId4=match_resultlist[3],
+                #                                     userId5=match_resultlist[4])
                 match_result.save()
 
                 return Response({'success': True}, status=status.HTTP_201_CREATED)
@@ -514,7 +569,14 @@ class MatchViewSet(viewsets.ModelViewSet):
     # KSH : 매칭결과 조회 기능 추가
     @api_view(['GET'])
     def getmatchresult(request):
-        userId = request.data.get('userId')
+        logger.debug(f"Received data: {request.data}")
+
+        userId = request.query_params.get('userId')
+        userId = AppUser.objects.get(iD = userId)
+        userId = userId.userID
+
+        if userId is None:
+            return Response({'success': False, 'error': 'UserID is required'}, status=status.HTTP_400_BAD_REQUEST)
 
         try:
             match_result = Match.objects.get(userId=userId)
@@ -527,13 +589,15 @@ class MatchViewSet(viewsets.ModelViewSet):
 
             # 반환 정보 수정 필요
 
-            response = {
-                'user1ID': user1.userID, 'user1Name': user1.name, 'user1StudentId': user1.studentId,
-                'user2ID': user2.userID, 'user2Name': user2.name, 'user2StudentId': user2.studentId,
-                'user3ID': user3.userID, 'user3Name': user3.name, 'user3StudentId': user3.studentId,
-                'user4ID': user4.userID, 'user4Name': user4.name, 'user4StudentId': user4.studentId,
-                'user5ID': user5.userID, 'user5Name': user5.name, 'user5StudentId': user5.studentId,
-            }
+            response = [{
+                'matchId': str(match_result.matchId), 'userId': str(userId),
+                'user1ID': str(user1.userID), 'user1Name': user1.name, 'user1StudentId': user1.studentID,
+                'user2ID': str(user2.userID), 'user2Name': user2.name, 'user2StudentId': user2.studentID,
+                'user3ID': str(user3.userID), 'user3Name': user3.name, 'user3StudentId': user3.studentID,
+                'user4ID': str(user4.userID), 'user4Name': user4.name, 'user4StudentId': user4.studentID,
+                'user5ID': str(user5.userID), 'user5Name': user5.name, 'user5StudentId': user5.studentID,
+            }]
+            logger.debug(f"Response data: {response}")
 
             return Response(response, status=status.HTTP_200_OK)
 
@@ -614,17 +678,22 @@ class ReportViewSet(viewsets.ModelViewSet):
     # KSH : 유저 신고 기능 추가
     @api_view(['POST'])
     def reportuser(request):
+        logger.debug(f"Received data: {request.data}")
+
         reporterId = request.data.get('reporterId')
+        reporterId = AppUser.objects.get(iD = reporterId)
+
         reason = request.data.get('reason')
-        timestamp = request.data.get('timestamp')
 
-        reportedId = ChatRoom.objects.get('reportedId')
-        reportedId = reportedId.user2
+        reportedId = request.data.get('reportedId')
+        reportedId = AppUser.objects.get(userID = reportedId)
 
-        if reporterId and reason and timestamp and reportedId:
+
+
+        if reporterId and reason and  reportedId:
             report_count = Report.objects.count() + 1
             report = Report.objects.create(reportId = report_count, reporterId = reporterId,
-                                           reason = reason, timestamp = timestamp,
+                                           reason = reason,
                                            reportedId = reportedId)
             report.save()
             return Response({'success': True}, status=status.HTTP_201_CREATED)
@@ -642,15 +711,17 @@ class BlockViewSet(viewsets.ModelViewSet):
     @api_view(['POST', 'DELETE'])
     def blockuser(request):
         if request.method == 'POST':
-            timestamp = request.data.get('timestamp')
-            blockerId = request.data.get('blockerId')
+            logger.debug(f"Received data: {request.data}")
+            blockerId = request.data.get('blockerID')
+            blockedId = request.data.get('blockedID')
 
-            blockedId = ChatRoom.objects.get('blockedId')
-            blockedId = blockedId.user2
+            blocker = AppUser.objects.get(iD = blockerId)
+            blocked = AppUser.objects.get(userID = blockedId)
 
-            if timestamp and blockerId and blockedId:
+
+            if blocker and blocked:
                 block_count = Block.objects.count() + 1
-                block = Block.objects.create(blockId = block_count, timestamp = timestamp, blockerId = blockerId, blockedId = blockedId)
+                block = Block.objects.create(blockId = block_count, blockerId = blocker, blockedId = blocked)
                 block.save()
                 return Response({'success': True}, status=status.HTTP_201_CREATED)
             else:
@@ -659,9 +730,12 @@ class BlockViewSet(viewsets.ModelViewSet):
             blockerId = request.data.get('blockerId')
             blockedId = request.data.get('blockedId')
 
-            if blockerId and blockedId:
+            blocker = AppUser.objects.get(iD = blockerId)
+            blocked = AppUser.objects.get(iD = blockedId)
+
+            if blocker and blocked:
                 try:
-                    block = Block.objects.get(blockerId = blockerId, blockedId = blockedId)
+                    block = Block.objects.get(blockerId = blocker, blockedId = blocked)
                     block.delete()
                     return Response({'success': True}, status=status.HTTP_200_OK)
                 except Block.DoesNotExist:
@@ -674,13 +748,17 @@ class BlockViewSet(viewsets.ModelViewSet):
     def getblocklist(request):
         blockerId = request.data.get('blockerId')
 
+        blocker = AppUser.objects.get(iD = blockerId)
+
         try:
-            block_list = Block.objects.filter(blockerId = blockerId)
+            block_list = Block.objects.filter(blockerId = blocker)
 
             block_user_list = []
             for block in block_list:
-                block_user = AppUser.objects.get(userID = block.blockedId)
+                block_user = AppUser.objects.get(userID = block)
                 block_user_list.append(block_user)
+                #
+
 
             return Response({'block_list': block_user_list}, status=status.HTTP_200_OK)
 

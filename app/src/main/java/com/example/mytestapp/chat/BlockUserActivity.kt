@@ -30,21 +30,24 @@ class BlockUserActivity : Activity() {
         targetUserId = intent.getStringExtra("targetUserId") ?: "unknown"
 
         initializeComponents()
-        confirmBlockUser(targetUserId)
+        confirmBlockUser(targetUserId, "해당 사용자를 차단하시겠습니까?", this::blockUser)
     }
 
     private fun initializeComponents() {
-        val sharedPreferences = getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
-        currentUserId = sharedPreferences.getString("userId", "unknownUserId") ?: "unknownUserId"
+        val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        currentUserId = sharedPreferences.getString("UserID", "unknownUserId") ?: "unknownUserId"
 
         // KiriServicePool에서 chatService를 가져옴
         chatService = KiriServicePool.chatService
     }
 
-    private fun confirmBlockUser(blockedId: String) {
+    private fun confirmBlockUser(blockedId: String, message: String, blockUser: (String)-> Unit) {
         val dialogView = LayoutInflater.from(this).inflate(R.layout.activity_chat_confirmation, null)
         val confirmButton = dialogView.findViewById<Button>(R.id.confirm_button)
         val cancelButton = dialogView.findViewById<Button>(R.id.cancel_button)
+        val confirmationMessage = dialogView.findViewById<TextView>(R.id.confirmation_message)
+
+        confirmationMessage.text = message
 
         val alertDialog = AlertDialog.Builder(this)
             .setView(dialogView)
@@ -66,10 +69,10 @@ class BlockUserActivity : Activity() {
     private fun blockUser(blockedId: String) {
         val blockId = UUID.randomUUID().toString()
         val blockData = BlockData(
-            BlockID = blockId,
-            UserID = currentUserId,
-            BlockerID = currentUserId,
-            BlockedID = blockedId
+//            BlockID = blockId,
+//            UserID = currentUserId,
+            blockerID = currentUserId,
+            blockedID = blockedId
         )
         chatService.blockUser(blockData).enqueue(object : Callback<BlockResponse> {
             override fun onResponse(call: Call<BlockResponse>, response: Response<BlockResponse>) {
@@ -78,7 +81,7 @@ class BlockUserActivity : Activity() {
                     if (blockResponse != null && blockResponse.success) {
                         showCompletionDialog("해당 사용자가 차단되었습니다.")
                     } else {
-                        Toast.makeText(this@BlockUserActivity, "차단에 실패했습니다: ${blockResponse?.error}", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@BlockUserActivity, "차단에 실패했습니다", Toast.LENGTH_SHORT).show()
                     }
                 } else {
                     Toast.makeText(this@BlockUserActivity, "차단에 실패했습니다", Toast.LENGTH_SHORT).show()
