@@ -26,9 +26,7 @@ SECRET_KEY = 'django-insecure-ttqah)3dl(795v%q%ux0=@!o+abh!7tf%8cv9ep7sm&2s$k#*)
 DEBUG = True
 
 # KSH: 모든 호스트 장고 접속 가능
-ALLOWED_HOSTS = [
-                ".ap-northeast-2.compute.amazonaws.com",
-                ".kirikiri9878.shop"]
+ALLOWED_HOSTS = ['*']
 
 
 
