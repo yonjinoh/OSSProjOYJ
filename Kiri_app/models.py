@@ -37,7 +37,6 @@ class ChatRoom(models.Model): #ChatHistory 역할
     userID2 = models.IntegerField(default = 0)
     userID2name = models.CharField(max_length = 45, default = '')
     AccessedTime = models.DateTimeField(auto_now_add=True) # 채팅방 메세지 시간
-    recentMessage = models.TextField(default = "") # 최근 메세지
 
     def __str__(self):
         return f"ChatRoom between {self.user1.username} and {self.user2.username}"
