@@ -151,7 +151,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = 'staticfiles/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'  # 프로젝트 루트 디렉토리에 staticfiles 디렉토리 생성
 STATICFILES_DIRS = []
 
