@@ -20,7 +20,7 @@ class WebSocketManager(
 
     companion object {
         private const val NORMAL_CLOSURE_STATUS = 1000
-        private const val WEBSOCKET_URL = "ws://127.0.0.1/ws/chat/"
+        private const val WEBSOCKET_URL = "wss://127.0.0.1/ws/chat/"
     }
 
     fun connect() {
