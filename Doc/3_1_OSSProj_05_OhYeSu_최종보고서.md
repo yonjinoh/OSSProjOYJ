@@ -79,16 +79,72 @@
 
 #### 3.1 프로젝트 진행과정    
 
+* **참고한 기존 프로젝트와의 차별점**  
+![image (2)](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/f804a6ed-e79e-4093-a23a-be91b800586a)  
+    **가장 핵심적인 차별점 및 개선점**
+    - 프로필을 보고 룸메이트와 매칭을 시도하는 것이 아닌 매칭 조건을 입력하고 유사도를 계산하여 원하는 조건과 유사한 유저를 추천받을 수 있는 알고리즘을 도입
+    - 데이터의 형태(이진/연속)에 따라 계산 방식이 달라지므로 **유클리드 거리**+**자카드 유사도**를 이용해 추천 알고리즘 제공
+    - 채팅 및 차단 기능 구현
+    - UI/UX 개선
+*  더 자세한 내용은 다음의 링크에서 확인할 수 있음<br>
+  [최종보고서 부록](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/Doc/3_3_OSSProj_05_OhYeSu_최종보고서부록.md)
+  <br><br>
  
-* **요구사항 분석**
+* **개념설계**
     - 사례와 기존의 프로젝트들 분석을 통해 룸메이트 매칭 서비스에 대한 수요와 타당성 확보
-    - 분석한 내용을 기반으로 요구사항명세서 작성
-* **기획**
+    - 사용자의 요구사항을 분석 및 추정한 내용을 기반으로 요구사항명세서 작성
+      <br>
+    **요구사항명세서**
+
+        [요구사항명세서.pdf](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/files/15218854/default.pdf)
+        ![요구사항명세서](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/861484b9-623a-4860-a87a-c7af702e752c)
+    <br>
+    
+    - 요구사항 명세서를 바탕으로 주요 기능을 산정 및 유스케이스 다이어그램 작성
+      <br>
+    **유스케이스 다이어그램**
+        ![유스케이스1 drawio](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/413c4b5f-277c-41c7-bd4a-a6a71c313743)
+        <br>  
+
+* **상세설계**
     - 대안 비교를 통해 사용할 플랫폼을 결정하고 앱의 구조를 설계
+      <br>
+    **시스템 구조 설계**
+    ![시스템 구조도](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/bc6d45b7-436e-44be-81b9-0487dd78977d) 
+      <br>
+    **전체 시스템 블록다이어그램**
+    ![블록다이어그램](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/d0b7b29f-7541-4e12-ad45-6db26643324c)
+      <br>
     - 데이터베이스 구조 결정 후 DB 명세서와 ERD 설계도 작성
-    - 필요한 API 분석 후 API 명세서 작성
-    - 구현할 초기 화면을 Figma를 통해 디자인
-* **개발**
+      <br>
+    **DB 명세서**
+
+       [KIRIKIRI_DB 명세서.pdf](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/files/15218855/KIRIKIRI_DB.pdf)
+
+       ![DB 명세서1](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/7b14f04c-9013-4de4-92a2-f7388e373fdc)  
+
+      ![DB명세서2](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/79b6154d-3c91-46d9-a3d4-8b3adb99bcc6)  
+
+       ![DB명세서3](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/3b07998c-d237-4cfc-b27c-66fdf6d05ee6)
+        <br>
+        **ERD**
+       ![Kiri (2)](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/bd28a217-6ed0-4875-9a4e-d42b7c7277b9)
+        <br>
+
+    - 클라이언트와 서버 간의 상호작용에 필요한 API들을 분석 후 API 명세서 작성
+      <br>
+    **API 명세서**
+
+       [API 명세서](https://meadow-cast-ab6.notion.site/API-ba20f04456da4df4b0f3a824b6be7885?pvs=4)  
+       ![API 명세서](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/e0891dc0-93e7-4048-99c6-2760a9c25646) 
+    <br>
+
+    - 구현할 초기 화면을 Figma를 통해 디자인  
+    **UI/UX 설계**
+    [피그마 디자인 링크](https://www.figma.com/design/ZbEkzUonsown49AqxAWbCB/%EB%81%BC%EB%A6%AC%EB%81%BC%EB%A6%AC?node-id=133-821&t=Sqpi3uGnfd7dF2fC-1)
+    <br>
+
+* **개발 진행 계획**
     - 안드로이드 스튜디오 설치 후 기본 개발 환경 설정
     - 개발에 필요한 라이브러리와 도구를 추가하고 설정
     - 앱을 위한 데이터베이스를 MySQL을 이용하여 DB 명세서를 기반으로 구축하고 관리 및 저장
@@ -99,75 +155,36 @@
     - 회원가입, 프로필 생성, 매칭 추천, 채팅, 차단 등의 기능 구현
     - 앱의 각 기능을 테스트하고 버그를 찾아 수정
     
-
+<br>
 
 #### 3.2 프로젝트 구현과정    
-
-* **개념설계** 
-    - **유스케이스 다이어그램**
-    
-    ![유스케이스1 drawio](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/413c4b5f-277c-41c7-bd4a-a6a71c313743)
-
-    - **최종 결과물 시스템 구조도**
-    ![시스템 구조도](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/bc6d45b7-436e-44be-81b9-0487dd78977d)  
-
-    <br>
-
-    - **전체 시스템 블록다이어그램**
-    ![블록다이어그램](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/d0b7b29f-7541-4e12-ad45-6db26643324c)
-    <br>
-
-    - **요구사항명세서**
-
-    [요구사항명세서.pdf](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/files/15218854/default.pdf)
-    ![요구사항명세서](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/861484b9-623a-4860-a87a-c7af702e752c)
-    <br>
-
-    - **플로우 차트**
-      
-    ![화면 흐름도](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/81df98c4-4d91-4539-ad86-b9bed0b534e3)
-
-
-* **상세설계**
-    
+- 최종 대안 선택
     
 
+| 분석 항목                          | 선택된 방법                                          | 주요 이유 및 특징                                                |
+|----------------------------------|---------------------------------------------------|-------------------------------------------------------------|
+| **개발 방식 선택 (웹앱 vs. 안드로이드 앱)** | 안드로이드 앱                                       | 네이티브 언어로 개발, 빠른 구동 속도 및 안정성, 기기 기능 활용 가능       |
+| 개발 플랫폼 및 환경                       | Android Studio                                    | 통합 개발 환경, 효율적인 관리 및 널리 사용되는 커뮤니티 지원                               |
+| 데이터베이스 구축 방법                    | MySQL 워크벤치                                     | 중앙 집중화 가능, 확장성 및 보안 기능 제공                                      |
+| 외부 데이터베이스 접근 방법                | Django 사용                                       | 간단한 환경 구성, 파이썬 기반의 유연성 제공                                      |
+| 유사도 기반 추천 알고리즘                  | 유클리드 유사도와 자카드 유사도 결합 사용                       | 연속 데이터와 이진 데이터 모두 적합한 처리 가능                                     |
+| 차단 기능 구현                          | 데이터베이스 이용                                    | 안정적인 장기적 데이터 저장 및 관리 용이성                                      |
 
-    - **DB 명세서**
+<br>
 
-    [KIRIKIRI_DB 명세서.pdf](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/files/15218855/KIRIKIRI_DB.pdf)
+* **최종 솔루션 선택 과정**
 
-    ![DB 명세서1](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/7b14f04c-9013-4de4-92a2-f7388e373fdc)  
+    - 프로젝트의 최종 목표가 모바일 안드로이드 어플리케이션의 구현이기 때문에 앱 개발 선택
+    - 유저가 선택한 룸메이트 매칭 조건과 유저들 간의 성향과 생활 습관과의 유사도 계산에서 이진데이터와 연속데이터를 적합하게 처리할 수 있도록 유클리드+자카드 유사도 계산 방식을 선택
+    - 초기에 고려했던 Apache를 사용하여 외부 데이터베이스에 접근하는 방식은 설정이 어렵기 때문에 보다 간편한 Django 사용
+    - DB는 Room같은 기능 제한이 많은 내부 라이브러리 보다는 외부 데이터베이스인 MySQL 워크벤치 사용
+    - 차단 기능을 구현할 시, 차단 목록이 자주 바뀔 수 있음을 고려하여 메모리나 캐시에 저장하기 보다는 데이터베이스를 이용해 구현
+    - 여러 대안 비교를 통한 최종 선택 과정에 대한 더 자세한 설명은 부록 참고<br>
+  [최종보고서 부록](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/Doc/3_3_OSSProj_05_OhYeSu_최종보고서부록.md)
+  <br>
+ 
 
-    ![DB명세서2](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/79b6154d-3c91-46d9-a3d4-8b3adb99bcc6)  
-
-    ![DB명세서3](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/3b07998c-d237-4cfc-b27c-66fdf6d05ee6)
-    <br>
-
-    - **ERD**
-
-    ![Kiri (2)](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/bd28a217-6ed0-4875-9a4e-d42b7c7277b9)
-
-    </br>
-
-    - **API 명세서**
-
-    [API 명세서](https://meadow-cast-ab6.notion.site/API-ba20f04456da4df4b0f3a824b6be7885?pvs=4)  
-    ![API 명세서](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/e0891dc0-93e7-4048-99c6-2760a9c25646) 
-   </br>
-
-    - **주요 기능 시퀀스 다이어그램**
-      
-     매칭 입력 시퀀스 다이어그램
-
-  ![매칭 입력 시퀀스 다이어그램](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/8e098f6b-30f4-465f-a4ab-f344a3ec6eb2)
-
-    - **UI/UX 설계**
-    [피그마 디자인 링크](https://www.figma.com/design/ZbEkzUonsown49AqxAWbCB/%EB%81%BC%EB%A6%AC%EB%81%BC%EB%A6%AC?node-id=133-821&t=Sqpi3uGnfd7dF2fC-1)
-<br><br>
-
-
-* **구현 이론**
+* **구현 과정 상세 설명**
     - 어플리케이션 개발을 위한 안드로이드 스튜디오 플랫폼 이용
  
       
@@ -197,17 +214,19 @@
         - 사용자의 프로필 정보, 매칭 결과 등이 안전하게 보관됨
         - 데이터베이스 테이블을 이용해 차단 기능 구현
         <br>
+
 * **소스 코드 overview**
     - 구현한 코드에 대한 자세한 설명은 하단 링크에 수록<br>
     [소스 코드 및 오픈 소스 Overview](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/overveiw.md)
-    <br><br>
+    <br>
+- **주요 기능에 대한 시퀀스 다이어그램**
+      
+    매칭 입력 시퀀스 다이어그램
+
+  ![매칭 입력 시퀀스 다이어그램](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/8e098f6b-30f4-465f-a4ab-f344a3ec6eb2)<br>
 *  **배포 방법**
 
-    <br><br>
-*  **참고한 다른 프로젝트와의 차이점**
-![image (2)](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/f804a6ed-e79e-4093-a23a-be91b800586a)  
-*  차이점에 대한 더 자세한 내용은 다음의 링크에서 확인할 수 있음<br>
-  [최종보고서 부록](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/Doc/3_3_OSSProj_05_OhYeSu_최종보고서부록.md)
+    
   <br><br>
 ### 4. 기대효과  
 
@@ -276,7 +295,7 @@
 
 ### 7. 프로젝트 성과    
 
-* Guthub 등록 / SW 등록 / 논문 / 특허 등 성과를 구체적으로 기재  
+* Guthub 등록
 
 ### 7. 첨부  
 
