@@ -34,7 +34,7 @@ class ChatRoom(models.Model): #ChatHistory 역할
     HistoryID = models.AutoField(primary_key = True) # 채팅방 ID 번호
     userID = models.ForeignKey(AppUser, related_name='chatroom_user', on_delete=models.CASCADE)
     # User - 매치 결과의 유저로 수정 필요
-    userID2 = models.IntegerField(default = 0)
+    userID2 = models.ForeignKey(AppUser, related_name='chatroom_user2', on_delete=models.CASCADE)
     # userID2name = models.CharField(max_length = 45, default = '')
     # AccessedTime = models.DateTimeField(auto_now_add=True) # 채팅방 메세지 시간
 
@@ -47,7 +47,7 @@ class Chat(models.Model): #Message 역할
     CHistoryID = models.ForeignKey(ChatRoom, on_delete=models.CASCADE, related_name='chats', default = -1)
 
     senderID = models.ForeignKey(AppUser, on_delete=models.CASCADE, related_name='senders')
-    receiverID = models.IntegerField()
+    receiverID = models.ForeignKey(AppUser, on_delete=models.CASCADE, related_name='receivers')
 
     content = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
