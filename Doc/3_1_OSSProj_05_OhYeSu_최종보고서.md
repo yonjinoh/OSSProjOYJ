@@ -70,8 +70,8 @@
 
     - 차단 기능  
     ![차단하기](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/144078388/4b6927f6-164c-4de3-8d21-8bc4ebd89e0d)   
-
-    - 이외의 구현 기능은 최종보고서 부록에 기재 
+  
+    - 이외의 구현 기능은 최종보고서 부록에 기재 <br>
     [최종보고서 부록](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/Doc/3_3_OSSProj_05_OhYeSu_최종보고서부록.md)
 
 
@@ -105,7 +105,7 @@
 
 * **개념설계** 
     - **유스케이스 다이어그램**
-    <br>
+    
     ![유스케이스1 drawio](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/413c4b5f-277c-41c7-bd4a-a6a71c313743)
 
     - **최종 결과물 시스템 구조도**
@@ -116,6 +116,7 @@
     - **전체 시스템 블록다이어그램**
     ![블록다이어그램](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/d0b7b29f-7541-4e12-ad45-6db26643324c)
     <br>
+
     - **요구사항명세서**
 
     [요구사항명세서.pdf](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/files/15218854/default.pdf)
@@ -123,6 +124,7 @@
     <br>
 
     - **플로우 차트**
+      
     ![화면 흐름도](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/81df98c4-4d91-4539-ad86-b9bed0b534e3)
 
 
@@ -163,7 +165,7 @@
     - **UI/UX 설계**
     [피그마 디자인 링크](https://www.figma.com/design/ZbEkzUonsown49AqxAWbCB/%EB%81%BC%EB%A6%AC%EB%81%BC%EB%A6%AC?node-id=133-821&t=Sqpi3uGnfd7dF2fC-1)
 <br><br>
-    - ****
+
 
 * **구현 이론**
     - 어플리케이션 개발을 위한 안드로이드 스튜디오 플랫폼 이용
@@ -196,7 +198,7 @@
         - 데이터베이스 테이블을 이용해 차단 기능 구현
         <br>
 * **소스 코드 overview**
-    - 구현한 코드에 대한 자세한 설명은 하단 링크에 수록
+    - 구현한 코드에 대한 자세한 설명은 하단 링크에 수록<br>
     [오픈소스 Overview](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/overview.md)
     <br><br>
 *  **배포 방법**
@@ -206,7 +208,7 @@
 ![image (2)](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/f804a6ed-e79e-4093-a23a-be91b800586a)  
 *  차이점에 대한 더 자세한 내용은 다음의 링크에서 확인할 수 있음<br>
   [최종보고서 부록](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/Doc/3_3_OSSProj_05_OhYeSu_최종보고서부록.md)
-
+  <br><br>
 ### 4. 기대효과  
 
 -  **플랫폼 제공**
