@@ -35,7 +35,10 @@ interface RoommateService {
 interface ChatService {
 
     @POST("chatroomcreate/")
-    fun createChatRoom(@Body request: ChatRoomRequest): Call<ChatRoomResponse>
+    fun createChatRoom(@Body request: ChatRoomRequest): Call<ChatRoom>
+
+    @GET("getchathistory/")
+    fun getChatHistory(@Query("CHistoryID") CHistoryID: String): Call<List<ChatMessage>>
 
     @GET("chatroomlist/")
     fun getChatRoomList(@Query("userID") userID: String): Call<List<ChatRoom>>
@@ -43,8 +46,7 @@ interface ChatService {
     @POST("savemessage/")
     fun saveMessage(@Body request: ChatMessageRequest): Call<ResponseBody>
 
-    @GET("getchathistory/")
-    fun getChatHistory(@Query("CHistoryID") CHistoryID: String): Call<List<ChatMessage>>
+
 
     @POST("blockuser/")
     fun blockUser(@Body blockData: BlockData): Call<BlockResponse>

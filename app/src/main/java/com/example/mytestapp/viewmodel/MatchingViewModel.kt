@@ -88,18 +88,21 @@ class MatchingViewModel : ViewModel() {
         )
 
         // 채팅방 생성 또는 존재 여부 확인 요청
-        chatService.createChatRoom(chatRoomRequest).enqueue(object : Callback<ChatRoomResponse> {
+        chatService.createChatRoom(chatRoomRequest).enqueue(object : Callback<ChatRoom> {
             override fun onResponse(call: Call<ChatRoomResponse>, response: Response<ChatRoomResponse>) {
                 if (response.isSuccessful) {
-                    val chatRoom = response.body()?.chatroom
-                    val chatHistory = response.body()?.chat_history
+                    Toast.makeText(context, "채팅방이 생성되었습니다", Toast.LENGTH_SHORT).show()
+                    /*val chatRoom = response.body()?.chatroom
                     if (chatRoom != null) {
-                        moveToChatActivity(view, chatRoom, chatHistory, targetUserName)
+                        // 채팅방 생성 후 채팅 내역 가져오기
+                        fetchChatHistory(view, chatRoom, targetUserName)
                     } else {
                         Toast.makeText(context, "채팅방을 생성하지 못했습니다.", Toast.LENGTH_SHORT).show()
-                    }
+                    }*/
                 } else {
-                    Toast.makeText(context, "채팅방 생성 요청 실패", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "채팅방이 이미 존재합니다", Toast.LENGTH_SHORT).show()
+
+                    fetchChatHistory(view, chatRoom, targetUserName)
                 }
             }
 
@@ -108,6 +111,30 @@ class MatchingViewModel : ViewModel() {
             }
         })
     }
+
+    // 채팅 내역 가져오기
+    fun fetchChatHistory(view: View, chatRoom: ChatRoom, targetUserName: String) {
+        val context = view.context
+        val sharedPreferences = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        val currentUserId = sharedPreferences.getString("UserID", null) ?: return
+
+        chatService.getChatHistory(chatRoom.CHistoryID).enqueue(object : Callback<List<ChatMessage>> {
+            override fun onResponse(call: Call<List<ChatMessage>>, response: Response<List<ChatMessage>>) {
+                if (response.isSuccessful) {
+                    val chatHistory = response.body()
+                    moveToChatActivity(view, chatRoom, chatHistory, targetUserName)
+                } else {
+                    Toast.makeText(context, "채팅 내역 요청 실패", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<List<ChatMessage>>, t: Throwable) {
+                Toast.makeText(context, "네트워크 오류", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+
 
     private fun moveToChatActivity(view: View, chatRoom: ChatRoom, chatHistory: List<ChatMessage>?, targetUserName: String) {
         val context = view.context
