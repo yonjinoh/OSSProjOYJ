@@ -111,34 +111,57 @@ class ChatRoomListViewSet(viewsets.ModelViewSet):
     def chatroomcreate(request):
         userID = request.data.get('userID')
         userID2 = request.data.get('userID2')
-        userID2name = AppUser.objects.get(userID = userID2).name
 
-        AccessedTime = request.data.get('AccessedTime')
-        recentMessage = request.data.get('recentMessage')
+        userID = AppUser.objects.get(iD = userID)
+        userID2 = AppUser.objects.get(iD = userID2)
 
-        if userID and userID2 and userID2name and AccessedTime and recentMessage:
+        try:
+            user1 = AppUser.objects.get(iD=userID)
+            user2 = AppUser.objects.get(iD=userID2)
+        except AppUser.DoesNotExist:
+            return Response({'success': False, 'error': 'One or both users do not exist'}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            chatroom = ChatRoom.objects.get(
+                Q(userID=user1, userID2=user2) | Q(userID=user2, userID2=user1)
+            )
+            return Response({'success': False}, status=status.HTTP_400_BAD_REQUEST)
+
+        except ChatRoom.DoesNotExist:
             room_count = ChatRoom.objects.count() + 1
-            chatroom = ChatRoom.objects.create(HistoryID = room_count, userID = userID,
-                                               userID2 = userID2, userID2name = userID2name,
-                                               AccessedTime = AccessedTime,
-                                               recentMessage = recentMessage)
+            chatroom = ChatRoom.objects.create(
+                HistoryID=room_count,
+                userID=user1,
+                userID2=user2
+            )
             chatroom.save()
             return Response({'success': True}, status=status.HTTP_201_CREATED)
 
-        else:
-            return Response({'success': False}, status=status.HTTP_400_BAD_REQUEST)
+    @api_view(['GET'])
+    def getchathistory(request):
+        userID = request.data.get('userID')
+        userID2 = request.data.get('userID2')
+
+        userID = AppUser.objects.get(iD = userID)
+        userID2 = AppUser.objects.get(iD = userID2)
+
+        chats = Chat.objects.filter(Q(senderID=userID, receiverID=userID2)
+                                    | Q(senderID=userID2, receiverID=userID)).order_by('timestamp')
+
+        return Response(ChatSerializer(chats, many=True).data, status=status.HTTP_200_OK)
 
     @api_view(['GET'])
     def chatroomlist(request):
-        chatroom_list = ChatRoom.objects.filter(userID = request.data.get('userID'))
+        userID = request.data.get('userID')
+        userID = AppUser.objects.get(iD = userID)
+
+        chatroom_list = ChatRoom.objects.filter(iD=userID)
+
         serializer = ChatRoomSerializer(chatroom_list, many=True)
+
         return Response(serializer.data)
 
 
-
-
-# 채팅 내역 저장 - 보낼때마다 저장
-# 채팅 내역 불러오기
 
 class ChatViewSet(viewsets.ModelViewSet):
     queryset = Chat.objects.all()

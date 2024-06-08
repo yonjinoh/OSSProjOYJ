@@ -1,18 +1,21 @@
 import json
 from channels.generic.websocket import AsyncWebsocketConsumer
+from django.contrib.auth import get_user_model
+from channels.db import database_sync_to_async
+from .models import ChatRoom, Chat, AppUser
 
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
-        self.room_name = self.scope['url_route']['kwargs']['room_name']
-        self.room_group_name = f'chat_{self.room_name}'
+        self.user_id = self.scope['url_route']['kwargs']['user_id']
+        self.receiver_id = self.scope['url_route']['kwargs']['receiver_id']
 
-        # Join room group
-        await self.channel_layer.group_add(
-            self.room_group_name,
-            self.channel_name
-        )
+        self.chat_room = await self.get_chat_room(self.user_id, self.receiver_id)
+
+        if not self.chat_room:
+            await self.close()
 
         await self.accept()
+
 
     async def disconnect(self, close_code):
         # Leave room group
@@ -21,23 +24,44 @@ class ChatConsumer(AsyncWebsocketConsumer):
             self.channel_name
         )
 
+
     async def receive(self, text_data):
-        text_data_json = json.loads(text_data)
-        message = text_data_json['message']
+        data = json.loads(text_data)
+        CHistoryID = data['CHistoryID']
+        senderID = data['senderID']
+        receiverID = data['receiverID']
+        content = data['content']
 
-        # Send message to room group
-        await self.channel_layer.group_send(
-            self.room_group_name,
-            {
-                'type': 'chat_message',
-                'message': message
-            }
-        )
+        # Save message to database
+        await self.save_message(CHistoryID, senderID, receiverID, content)
 
-    async def chat_message(self, event):
-        message = event['message']
-
-        # Send message to WebSocket
+        # Send message to receiver
         await self.send(text_data=json.dumps({
-            'message': message
+            'CHistoryID': CHistoryID,
+            'message': content,
+            'senderID': senderID,
+            'receiverID': receiverID
         }))
+
+
+    @database_sync_to_async
+    def save_message(self, CHistoryID, senderID, receiverID, content):
+        CHistoryID = ChatRoom.objects.get(HistoryID=CHistoryID)
+
+        senderID = AppUser.objects.get(iD=senderID)
+        senderID = senderID.iD
+
+        receiverID = AppUser.objects.get(iD=receiverID)
+        receiverID = receiverID.iD
+
+        content = content
+
+        chat_count = Chat.objects.count() + 1
+        chat = Chat.objects.create(
+            messageID = chat_count,
+            CHistoryID=CHistoryID,
+            senderID=senderID,
+            receiverID=receiverID,
+            content=content
+        )
+        chat.save()
