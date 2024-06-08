@@ -14,7 +14,7 @@
   - [프로젝트 최종 보고서](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/Doc/3_1_OSSProj_05_OhYeSu_%EC%B5%9C%EC%A2%85%EB%B3%B4%EA%B3%A0%EC%84%9C.md)
   - [프로젝트 최종 발표자료](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/Doc/2_2_OSSProj_05_OhYeSu_%EC%A4%91%EA%B0%84%EB%B0%9C%ED%91%9C%EC%9E%90%EB%A3%8C.pptx)
   - [제품 구성 배포 운영자료](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/Doc/4_3_OSSProj_05_OhYeSu_%EC%A0%9C%ED%92%88%EA%B5%AC%EC%84%B1%EB%B0%B0%ED%8F%AC%EC%9A%B4%EC%98%81%EC%9E%90%EB%A3%8C.md)
-  - [오픈소스 Overview](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/overview.md)
+  - [구현 코드 및 오픈 소스 Overview](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/overveiw.md)
 
 ### 1.2 범위 명세서
 프로젝트의 각 주요 작업과 산출물 명세
