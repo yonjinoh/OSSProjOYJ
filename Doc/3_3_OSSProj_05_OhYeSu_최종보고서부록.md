@@ -52,7 +52,19 @@
 - **플랫폼의 부재와 매칭 방식의 한계를 개선하기 위해 고도화된 알고리즘으로 룸메이트 매칭 서비스를 제공하는 플랫폼을 제안**
 <br></br>
 
+### 최종 결과물 구현 기능 
+- 회원가입 기능
+    <br>
+    ![스크린샷 2024-06-06 205904](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/d0ce7b88-8bb2-4d85-8821-368327b41587)  
+    <br>
+- 로그인 기능  
+    ![로그인](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/144078388/941cfee2-ca1e-4e1a-a2e8-c08eb363098d)
+    <br>
+- 메인 화면 기능  
+    ![메인](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/144078388/a85f5217-1250-4b30-b1a2-797801def00e)
 
+
+<br></br>
 ### 참고한 다른 프로젝트와의 차이점  
 ![image (2)](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/f804a6ed-e79e-4093-a23a-be91b800586a)  
 <쉐어메이트, 끼리끼리 도메인 및 기능 비교표>

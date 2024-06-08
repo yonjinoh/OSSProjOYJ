@@ -8,8 +8,7 @@
 5. [차단 기능 연계성](#5-차단-기능-연계성)
 6. [신고 기능 연계성](#6-신고-기능-연계성)
 7. [사용자 프로필/사용자 선호도 수정 기능 연계성](#7-사용자-프로필-사용자-선호도-수정-기능-연계성)
-8. [차단 목록 관리 기능 연계성](#8-차단-목록-관리-기능-연계성)
-9. [로그아웃 기능](#9-로그아웃-기능)
+8. [로그아웃 기능](#8-로그아웃-기능)
 
 ---
 
@@ -33,7 +32,7 @@
 
 #### 서버와의 통신
 
-- **[ApiFactory.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/entity/ApiFactory.kt)**
+- **[ApiFactory.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/entitiy/ApiFactory.kt)**
   - Retrofit을 사용하여 회원가입 API와 통신합니다. 다양한 서비스 객체들을 생성 및 관리합니다.
 - **[KiriService.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/service/KiriService.kt)**
   - 회원가입 및 로그인 관련 Retrofit 인터페이스를 정의합니다.
@@ -63,7 +62,7 @@
 
 ### 참고한 원천 코딩
 - 새로운 코딩: [SignupActivity.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/sign/SignupActivity.kt)
-- 참고한 원천 코딩: [펀칭 프로젝트 SignupActivity.kt](https://github.com/punching-project-url/path/to/SignupActivity.kt)
+- 참고한 원천 코딩: [펀칭 프로젝트 SignupActivity.kt](https://github.com/CSID-DGU/2023-1-OSSP1-criminal6-1/blob/main/app/src/main/java/com/example/testapplication/sign/SignupActivity.kt)
 
 ---
 
@@ -87,7 +86,7 @@
 
 #### 서버와의 통신
 
-- **[ApiFactory.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/entity/ApiFactory.kt)**
+- **[ApiFactory.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/entitiy/ApiFactory.kt)**
   - Retrofit을 사용하여 로그인 API와 통신합니다. 다양한 서비스 객체들을 생성 및 관리합니다.
 - **[KiriService.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/service/KiriService.kt)**
   - 회원가입 및 로그인 관련 Retrofit 인터페이스를 정의합니다.
@@ -118,7 +117,7 @@
 ### 참고한 원천 코딩
 - 일부 참고
 - 새로운 코딩: [LoginActivity.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/sign/LoginActivity.kt)
-- 참고한 원천 코딩: [펀칭 프로젝트 LoginActivity.kt](https://github.com/punching-project-url/path/to/LoginActivity.kt)
+- 참고한 원천 코딩: [펀칭 프로젝트 LoginActivity.kt](https://github.com/CSID-DGU/2023-1-OSSP1-criminal6-1/blob/main/app/src/main/java/com/example/testapplication/sign/LoginActivity.kt)
 
 ---
 
@@ -135,7 +134,7 @@
 
 ### 연계성 설명
 
-- **[ProfileOption1Activity.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/profile/ProfileOption1Activity.kt), [ProfileOption2Activity.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/profile/ProfileOption2Activity.kt), [ProfileOption3Activity.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/profile/ProfileOption3Activity.kt)
+- [ProfileOption1Activity.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/profile/ProfileOption1Activity.kt), [ProfileOption2Activity.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/profile/ProfileOption2Activity.kt), [ProfileOption3Activity.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/profile/ProfileOption3Activity.kt)
   - 사용자가 프로필을 입력받는 액티비티입니다. 
 
 #### 사용자 선호도 입력 처리
@@ -145,16 +144,16 @@
 
 #### 서버와의 통신
 
-- **[ApiFactory.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/entity/ApiFactory.kt)**
+- **[ApiFactory.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/entitiy/ApiFactory.kt)**
   - Retrofit을 사용하여 매칭 관련 API와 통신합니다. 다양한 서비스 객체들을 생성 및 관리합니다.
 - **[KiriService.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/service/KiriService.kt)**
   - 매칭 관련 Retrofit 인터페이스를 정의합니다.
 
 #### 응답 처리
 
-- **[MatchingRequest.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/model/request/MatchingRequest.kt)**
+- **[MatchingRequest.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/model/request/MatchRequest.kt)**
   - 서버로 전송되는 매칭 요청 데이터를 정의합니다.
-- **[MatchingResponse.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/model/response/MatchingResponse.kt)**
+- **[MatchingResponse.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/model/response/MatchResponse.kt)**
   - 서버로부터 받는 매칭 응답 데이터를 정의합니다.
 
 
@@ -187,7 +186,7 @@
 ### 참고한 원천 코딩
 - 일부 참고
 - 새로운 코딩: [MatchingOption1Activity.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/match/MatchingOption1Activity.kt)
-- 참고한 원천 코딩: [펀칭 프로젝트 MatchingOption1Activity.kt](https://github.com/punching-project-url/path/to/MatchingFragment.kt)
+- 참고한 원천 코딩: [펀칭 프로젝트 MatchingOptionActivity.kt](https://github.com/CSID-DGU/2023-1-OSSP1-criminal6-1/blob/main/app/src/main/java/com/example/testapplication/matching/MatchingOptionActivity.kt)
 
 ---
 
@@ -211,19 +210,19 @@
 
 #### 메시지 수신
 
-- **[WebSocketManager.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/websocket/WebSocketManager.kt)**
+- **[WebSocketManager.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/websocket/WebsocketManager.kt)**
   - WebSocket을 통해 실시간으로 메시지를 수신합니다.
 
 #### 서버와의 통신
 
-- **[ApiFactory.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/entity/ApiFactory.kt)**
+- **[ApiFactory.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/entitiy/ApiFactory.kt)**
   - Retrofit을 사용하여 채팅 관련 API와 통신합니다. 다양한 서비스 객체들을 생성 및 관리합니다.
 - **[KiriService.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/service/KiriService.kt)**
   - 채팅 관련 Retrofit 인터페이스를 정의합니다.
 
 #### UI 업데이트
 
-- **[ChatViewModel.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/viewmodel/ChatViewModel.kt)**
+- **[ChatRoomViewModel.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/viewmodel/ChatRoomViewModel.kt)**
   - 메시지 목록을 LiveData로 관리하여 UI에 반영합니다.
 
 #### UI 레이아웃 정의
@@ -245,7 +244,7 @@
   - Django Channel을 사용하여 Websocket 통신을 처리하는 ChatConsumer클래스를 정의합니다.
 - **[routing.py](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/Kiri_app/routing.py)**
   - Django Channels를 사용하여 실시간 채팅을 처리하는 Websocket 경로 설정합니다.
-- **[asgi.py](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/Kiri_app/asgi.py)**
+- **[asgi.py](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/Kiri_prj/wsgi.py)**
   - HTTP 요청과 Websocket 요청을 구분하고 라우팅을 수행합니다.
 
 ### 참고한 원천 코딩
@@ -274,29 +273,24 @@
 
 #### 서버와의 통신
 
-- **[ApiFactory.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/entity/ApiFactory.kt)**
+- **[ApiFactory.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/entitiy/ApiFactory.kt)**
   - Retrofit을 사용하여 차단 관련 API와 통신합니다. 다양한 서비스 객체들을 생성 및 관리합니다.
 - **[KiriService.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/service/KiriService.kt)**
   - 차단 관련 Retrofit 인터페이스를 정의합니다.
 
 #### 응답 처리
 
-- **[blockrequest.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/model/request/blockrequest.kt)**
+- **[BlockData.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/model/request/BlockData.kt)**
   - 서버로 전송되는 차단 요청 데이터를 정의합니다.
-- **[blockresponse.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/model/response/blockresponse.kt)**
+- **[BlockResponse.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/model/response/BlockResponse.kt)**
   - 서버로부터 받는 차단 응답 데이터를 정의합니다.
 
-#### UI 업데이트
-
-- **[BlockListActivity.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/websocket/BlockListActivity.kt)**
-  - 차단된 사용자 목록을 표시하고 관리하는 화면입니다.
 
 #### UI 레이아웃 정의
 
 - **[activity_block_user.xml](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/res/layout/activity_block_user.xml)**
   - 사용자 차단 화면의 레이아웃을 정의합니다.
-- **[activity_block_list.xml](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/res/layout/activity_block_list.xml)**
-  - 차단된 사용자 목록을 표시하는 화면의 레이아웃을 정의합니다.
+
 
 #### 백엔드 처리
 
@@ -310,10 +304,7 @@
   - 차단 관련 엔드포인트를 정의합니다.
 
 ### 참고한 원천 코딩
-- 새로운 코딩: [BlockUserActivity.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/chat/BlockUserActivity.kt)
-- 참고한 원천 코딩: [펀칭 프로젝트 BlockUserActivity.kt](https://github.com/punching-project-url/path/to/BlockUserActivity.kt)
-
----
+- 직접 코딩
 
 ## 6. 신고 기능 연계성
 
@@ -335,16 +326,16 @@
 
 #### 서버와의 통신
 
-- **[ApiFactory.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/entity/ApiFactory.kt)**
+- **[ApiFactory.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/entitiy/ApiFactory.kt)**
   - Retrofit을 사용하여 신고 관련 API와 통신합니다. 다양한 서비스 객체들을 생성 및 관리합니다.
 - **[KiriService.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/service/KiriService.kt)**
   - 신고 관련 Retrofit 인터페이스를 정의합니다.
 
 #### 응답 처리
 
-- **[reportrequest.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/model/request/reportrequest.kt)**
+- **[ReportData.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/model/request/ReportData.kt)**
   - 서버로 전송되는 신고 요청 데이터를 정의합니다.
-- **[reportresponse.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/model/response/reportresponse.kt)**
+- **[ReportResponse.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/model/response/ReportResponse.kt)**
   - 서버로부터 받는 신고 응답 데이터를 정의합니다.
 
 #### UI 레이아웃 정의
@@ -364,8 +355,7 @@
   - 신고 관련 엔드포인트를 정의합니다.
 
 ### 참고한 원천 코딩
-- 새로운 코딩: [ReportUserActivity.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/chat/ReportUserActivity.kt)
-- 참고한 원천 코딩: [펀칭 프로젝트 ReportUserActivity.kt](https://github.com/punching-project-url/path/to/ReportUserActivity.kt)
+- 직접 코딩
 
 ---
 
@@ -389,7 +379,7 @@
 
 #### 서버와의 통신
 
-- **[ApiFactory.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/entity/ApiFactory.kt)**
+- **[ApiFactory.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/entitiy/ApiFactory.kt)**
   - Retrofit을 사용하여 프로필과 선호도 관련 API와 통신합니다. 다양한 서비스 객체들을 생성 및 관리합니다.
 - **[KiriService.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/service/KiriService.kt)**
   - 프로필과 선호도 관련 Retrofit 인터페이스를 정의합니다.
@@ -403,7 +393,7 @@
 
 #### UI 레이아웃 정의
 
-- **[activity_profile_option1.xml](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/res/layout/activity_profile_option1.xml), [activity_profile_option2.xml](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/res/layout/activity_profile_option2.xml), [activity_profile_option3.xml](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/res/layout/activity_profile_option3.xml), [activity_profile_option4.xml](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/res/layout/activity_profile_option4.xml)**
+- **[activity_profile_option_1.xml](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/res/layout/activity_profile_option_1.xml), [activity_profile_option_2.xml](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/res/layout/activity_profile_option_2.xml), [activity_profile_option_3.xml](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/res/layout/activity_profile_option_3.xml), [activity_profile_option_4.xml](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/res/layout/activity_profile_option_4.xml)**
   - 프로필과 선호도 입력 화면의 레이아웃을 정의합니다.
 
 #### 백엔드 처리
@@ -419,71 +409,11 @@
 
 ### 참고한 원천 코딩
 - 새로운 코딩: [ProfileOption1Activity.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/profile/ProfileOption1Activity.kt)
-- 참고한 원천 코딩: [펀칭 프로젝트 ProfileOption1Activity.kt](https://github.com/punching-project-url/path/to/ProfileOption1Activity.kt)
+- 참고한 원천 코딩: [펀칭 프로젝트 ProfileOption1Activity.kt](https://github.com/CSID-DGU/2023-1-OSSP1-criminal6-1/blob/main/app/src/main/java/com/example/testapplication/matching/MatchingOptionActivity.kt)
 
 ---
 
-## 8. 차단 목록 관리 기능 연계성
-
-### 개요
-차단 목록 관리 기능은 사용자가 차단한 사용자 목록을 조회하고, 차단을 해제하는 기능을 포함합니다. 주요 연계성은 다음과 같습니다:
-
-1. 사용자 입력 처리
-2. 서버와의 통신
-3. 응답 처리
-4. UI 업데이트
-5. UI 레이아웃 정의
-6. 백엔드 처리
-
-### 연계성 설명
-
-#### 사용자 입력 처리
-
-- **[BlockListActivity.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/websocket/BlockListActivity.kt)**
-  - 사용자가 차단 목록을 조회하고 차단을 해제하는 화면입니다.
-
-#### 서버와의 통신
-
-- **[ApiFactory.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/entity/ApiFactory.kt)**
-  - Retrofit을 사용하여 차단 목록 관련 API와 통신합니다. 다양한 서비스 객체들을 생성 및 관리합니다.
-- **[KiriService.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/service/KiriService.kt)**
-  - 차단 목록 관련 Retrofit 인터페이스를 정의합니다.
-
-#### 응답 처리
-
-- **[blocklistrequest.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/model/request/blocklistrequest.kt)**
-  - 서버로 전송되는 차단 목록 요청 데이터를 정의합니다.
-- **[blocklistresponse.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/model/response/blocklistresponse.kt)**
-  - 서버로부터 받는 차단 목록 응답 데이터를 정의합니다.
-
-#### UI 업데이트
-
-- **[BlockListActivity.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/websocket/BlockListActivity.kt)**
-  - 차단된 사용자 목록을 표시하고 관리하는 화면입니다.
-
-#### UI 레이아웃 정의
-
-- **[activity_block_list.xml](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/res/layout/activity_block_list.xml)**
-  - 차단된 사용자 목록을 표시하는 화면의 레이아웃을 정의합니다.
-
-#### 백엔드 처리
-
-- **[views.py](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/Kiri_app/views.py)**
-  - 차단 목록 요청을 처리하는 Django 뷰를 정의합니다.
-- **[models.py](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/Kiri_app/models.py)**
-  - 차단 목록 관련 모델을 정의합니다.
-- **[serializers.py](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/Kiri_app/serializers.py)**
-  - 차단 목록 요청 데이터를 직렬화/역직렬화하는 시리얼라이저를 정의합니다.
-- **[urls.py](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/Kiri_app/urls.py)**
-  - 차단 목록 관련 엔드포인트를 정의합니다.
-
-### 참고한 원천 코딩
-- 새로운 코딩: [BlockListActivity.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/websocket/BlockListActivity.kt)
-- 참고한 원천 코딩: [펀칭 프로젝트 BlockListActivity.kt](https://github.com/punching-project-url/path/to/BlockListActivity.kt)
-
----
-
-## 9. 로그아웃 기능
+## 8. 로그아웃 기능
 
 ### 개요
 로그아웃 기능은 사용자가 현재 세션을 종료하고, 로그인 화면으로 돌아가는 기능을 포함합니다. 주요 연계성은 다음과 같습니다:
@@ -502,7 +432,7 @@
 
 #### 서버와의 통신
 
-- **[ApiFactory.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/entity/ApiFactory.kt)**
+- **[ApiFactory.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/entitiy/ApiFactory.kt)**
   - Retrofit을 사용하여 로그아웃 API와 통신합니다. 다양한 서비스 객체들을 생성 및 관리합니다.
 - **[KiriService.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/service/KiriService.kt)**
   - 로그아웃 관련 Retrofit 인터페이스를 정의합니다.
@@ -525,4 +455,4 @@
 
 ### 참고한 원천 코딩
 - 새로운 코딩: [MainActivity.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/MainActivity.kt)
-- 참고한 원천 코딩: [펀칭 프로젝트 MainActivity.kt](https://github.com/punching-project-url/path/to/MainActivity.kt)
+- 참고한 원천 코딩: [펀칭 프로젝트 MainActivity.kt](https://github.com/CSID-DGU/2023-1-OSSP1-criminal6-1/blob/main/app/src/main/java/com/example/testapplication/MainActivity.kt)

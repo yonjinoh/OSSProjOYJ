@@ -26,13 +26,13 @@
 ##### chat
 - **[BlockUserActivity.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/chat/BlockUserActivity.kt)**
   - 다른 사용자를 차단할 수 있는 실질적인 로직이 있는 코드.
-- **[ChatActivity.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/chat/ChatActivity.kt), [ChatHistory.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/chat/ChatHistory.kt)**
+- **[ChatActivity.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/chat/ChatActivity.kt), [ChatHistoryFragment.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/chat/ChatHistoryFragment.kt)**
   - 사용자 간의 채팅을 위한 코드. 메시지를 보내고, 받은 메시지를 확인할 수 있음.
 - **[ReportUserActivity.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/chat/ReportUserActivity.kt)**
   - 사용자 간의 신고를 위한 코드. 신고 대상 사용자의 ID를 받아와서 해당 사용자를 신고.
 
 ##### entity
-- **[ApiFactory.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/entity/ApiFactory.kt)**
+- **[ApiFactory.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/entitiy/ApiFactory.kt)**
   - Retrofit 라이브러리를 사용하여 RESTful API와 통신하는 서비스 객체들을 생성하고 관리하는 코드.
   - 참고: 프로젝트 ['펀칭' 구조](https://github.com/CSID-DGU/2023-1-OSSP1-criminal6-1/blob/main/app/src/main/java/com/example/testapplication/entity/ApiFactory.kt) 참고 및 수정
 
@@ -47,7 +47,7 @@
   - 사용자 정보 조회, 매칭 요청 전송, WebSocket 연결을 통한 실시간 메시지 전송을 위한 코드.
 
 ##### model
-- **[request.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/model/request.kt), [response.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/model/response.kt)**
+- **[request](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/tree/main/app/src/main/java/com/example/mytestapp/model/request), [response](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/tree/main/app/src/main/java/com/example/mytestapp/model/response)**
   - 서버에 정보를 전달하거나 요청을 위한 데이터 클래스들을 정의.
   - 참고: 프로젝트 ['펀칭' 구조](https://github.com/CSID-DGU/2023-1-OSSP1-criminal6-1/tree/main/app/src/main/java/com/example/testapplication/model) 참고 및 수정
 
@@ -73,14 +73,12 @@
 ##### viewmodel
 - **[MatchingViewModel.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/viewmodel/MatchingViewModel.kt)**
   - 매칭 프로필 목록을 관리하는 뷰모델 정의
-- **[ChatHistoryViewModel.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/viewmodel/ChatHistoryViewModel.kt), [ChatRoomViewModel.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/viewmodel/ChatRoomViewModel.kt)**
+- **[ChatHistoryViewModel.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/viewmodel/ChatHistotyViewModel.kt), [ChatRoomViewModel.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/viewmodel/ChatRoomViewModel.kt)**
   - 채팅 기능 관련 뷰모델 정의
 
 ##### websocket
-- **[WebsockerManager.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/websocket/WebsockerManager.kt)**
+- **[WebsockerManager.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/websocket/WebsocketManager.kt)**
   - 앱에서 WebSocket을 사용하여 실시간 통신(채팅)을 구현하는 코드.
-- **[BlockListActivity.kt](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/main/java/com/example/mytestapp/websocket/BlockListActivity.kt)**
-  - 차단 목록을 표시하는 화면을 위한 코드. 차단된 사용자 목록을 확인하고, 필요에 따라 차단을 해제.
 
 
 ##### res (앱의 화면 구성을 위한 디렉토리)
@@ -129,7 +127,7 @@
   - Django의 테스트 케이스를 정의하기 위한 파일
 - **[urls.py](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/Kiri_app/urls.py)**
   - Django 앱의 URL 설정을 관리 및 API 엔드포인트와 Swagger 문서를 설정
-- **[view.py](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/Kiri_app/view.py)**
+- **[views.py](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/Kiri_app/views.py)**
   - 사용자 등록 및 로그인, 채팅 관련 기능, 사용자 프로필 관리, 매칭 기능, 신고 및 차단 기능 등 백엔드 로직 구현
 
 #### Kiri_prj
