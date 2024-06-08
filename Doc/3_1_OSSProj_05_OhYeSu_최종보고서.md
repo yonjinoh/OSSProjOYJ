@@ -199,7 +199,7 @@
         <br>
 * **소스 코드 overview**
     - 구현한 코드에 대한 자세한 설명은 하단 링크에 수록<br>
-    [오픈소스 Overview](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/overview.md)
+    [소스 코드 및 오픈 소스 Overview](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/overveiw.md)
     <br><br>
 *  **배포 방법**
 
