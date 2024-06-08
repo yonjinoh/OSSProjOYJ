@@ -39,7 +39,8 @@ class MatchmakingActivity : AppCompatActivity() {
 
         // WebSocketManager 초기화 및 연결
         webSocketManager = WebSocketManager(
-            onMessageReceived = {},
+            chatRoomId = null,
+            onMessageReceived = { /* 메시지 수신 처리 */ },
             onConnectionFailed = { error -> runOnUiThread {
                 Toast.makeText(this, "WebSocket 연결 실패: $error", Toast.LENGTH_LONG).show() // 수정
                 Log.e("MatchmakingAc", "웹소켓 연결 실패: $error")

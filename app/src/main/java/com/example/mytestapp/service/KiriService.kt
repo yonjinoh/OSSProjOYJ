@@ -2,6 +2,7 @@ package com.example.mytestapp.service
 
 import com.example.mytestapp.model.request.*
 import com.example.mytestapp.model.response.*
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -32,20 +33,21 @@ interface RoommateService {
 }
 
 interface ChatService {
-    @GET("messages/")
-    fun getMessages(
-        @Query("currentUserId") currentUserId: String,
-        @Query("targetUserId") targetUserId: String
-    ): Call<List<ChatMessage>>
+    @POST("chatroomcreate/")
+    fun createChatRoom(@Body request: ChatRoomRequest): Call<ChatRoomResponse>
 
-    @POST("messages/")
-    fun postMessage(@Body message: ChatMessage): Call<ChatMessage>
+    @GET("chatroomlist/")
+    fun getChatRoomList(@Query("userID") userID: String): Call<List<ChatRoom>>
+
+    @POST("savemessage/")
+    fun saveMessage(@Body request: ChatMessageRequest): Call<ResponseBody>
+
+    @GET("getchathistory/")
+    fun getChatHistory(@Query("CHistoryID") CHistoryID: String): Call<List<ChatMessage>>
 
     @POST("blockuser/")
     fun blockUser(@Body blockData: BlockData): Call<BlockResponse>
 
-    @GET("chat-history/")
-    fun getChatHistory(@Query("user_id") userId: String): Call<List<ChatHistory>>
 }
 
 interface ReportService {

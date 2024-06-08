@@ -1,86 +1,69 @@
 package com.example.mytestapp.websocket
 
-import android.os.Handler
-import android.os.Looper
-import com.example.mytestapp.model.request.ChatMessage
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.WebSocket
-import okhttp3.WebSocketListener
+import android.util.Log
+import com.example.mytestapp.model.response.ChatMessage
+import okhttp3.*
+import okio.ByteString
 import org.json.JSONObject
 
 class WebSocketManager(
-    private val onMessageReceived: (ChatMessage) -> Unit,
+    private val chatRoomId: Int?,
+    private val onMessageReceived: (ChatMessage?) -> Unit,
     private val onConnectionFailed: (String) -> Unit
 ) {
     private lateinit var webSocket: WebSocket
     private val client = OkHttpClient()
-    private val handler = Handler(Looper.getMainLooper())
-    private var isConnected = false
-
-    companion object {
-        private const val NORMAL_CLOSURE_STATUS = 1000
-        private const val WEBSOCKET_URL = "ws://127.0.0.1/ws/chat/"
-    }
+    private val serverUrl = "ws://your_server_address/ws/chat/${chatRoomId ?: ""}/"
 
     fun connect() {
-        val request = Request.Builder().url(WEBSOCKET_URL).build()
+        val request = Request.Builder().url(serverUrl).build()
         webSocket = client.newWebSocket(request, object : WebSocketListener() {
-            override fun onOpen(webSocket: WebSocket, response: okhttp3.Response) {
-                isConnected = true
+            override fun onOpen(webSocket: WebSocket, response: Response) {
+                Log.d("WebSocket", "Connected to server")
             }
 
             override fun onMessage(webSocket: WebSocket, text: String) {
-                handler.post {
-                    val jsonObject = JSONObject(text)
-                    val chatMessage = ChatMessage(
-                        messageId = jsonObject.getString("messageId"),
-                        receiverId = jsonObject.getString("receiverId"),
-                        senderId = jsonObject.getString("senderId"),
-                        content = jsonObject.getString("content"),
-                        timestamp = jsonObject.getString("timestamp"),
-                        formattedTimestamp = jsonObject.getString("formattedTimestamp"),
-                        senderName = jsonObject.getString("senderName")
+                val jsonObject = JSONObject(text)
+                val chatMessage = if (jsonObject.has("CHistoryID")) {
+                    ChatMessage(
+                        CHistoryID = jsonObject.getString("CHistoryID"),
+                        senderID = jsonObject.getString("senderID"),
+                        receiverID = jsonObject.getString("receiverID"),
+                        content = jsonObject.getString("content")
                     )
-                    onMessageReceived(chatMessage)
+                } else {
+                    null
                 }
+                onMessageReceived(chatMessage)
             }
 
-            override fun onFailure(webSocket: WebSocket, t: Throwable, response: okhttp3.Response?) {
-                isConnected = false
-                handler.post {
-                    onConnectionFailed(t.message ?: "Unknown error")
+            override fun onMessage(webSocket: WebSocket, bytes: ByteString) {
+                val text = bytes.utf8()
+                val jsonObject = JSONObject(text)
+                val chatMessage = if (jsonObject.has("CHistoryID")) {
+                    ChatMessage(
+                        CHistoryID = jsonObject.getString("CHistoryID"),
+                        senderID = jsonObject.getString("senderID"),
+                        receiverID = jsonObject.getString("receiverID"),
+                        content = jsonObject.getString("content")
+                    )
+                } else {
+                    null
                 }
-                reconnect()
+                onMessageReceived(chatMessage)
             }
 
-            override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
-                webSocket.close(NORMAL_CLOSURE_STATUS, null)
-            }
-
-            override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
-                isConnected = false
+            override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
+                onConnectionFailed(t.message ?: "Unknown error")
             }
         })
     }
 
-    private fun reconnect() {
-        handler.postDelayed({
-            if (!isConnected) {
-                connect()
-            }
-        }, 5000)
-    }
-
     fun sendMessage(message: String) {
-        if (isConnected) {
-            webSocket.send(message)
-        }
+        webSocket.send(message)
     }
 
     fun disconnect() {
-        if (isConnected) {
-            webSocket.close(NORMAL_CLOSURE_STATUS, "Goodbye")
-        }
+        webSocket.close(1000, "Closing connection")
     }
 }
