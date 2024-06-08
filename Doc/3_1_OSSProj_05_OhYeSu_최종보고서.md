@@ -93,6 +93,7 @@
 * **개념설계**
     - 사례와 기존의 프로젝트들 분석을 통해 룸메이트 매칭 서비스에 대한 수요와 타당성 확보
     - 사용자의 요구사항을 분석 및 추정한 내용을 기반으로 요구사항명세서 작성
+      <br>
     **요구사항명세서**
 
         [요구사항명세서.pdf](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/files/15218854/default.pdf)
@@ -100,19 +101,22 @@
     <br>
     
     - 요구사항 명세서를 바탕으로 주요 기능을 산정 및 유스케이스 다이어그램 작성
+      <br>
     **유스케이스 다이어그램**
         ![유스케이스1 drawio](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/413c4b5f-277c-41c7-bd4a-a6a71c313743)
         <br>  
 
 * **상세설계**
     - 대안 비교를 통해 사용할 플랫폼을 결정하고 앱의 구조를 설계
+      <br>
     **시스템 구조 설계**
     ![시스템 구조도](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/bc6d45b7-436e-44be-81b9-0487dd78977d) 
-    <br>
+      <br>
     **전체 시스템 블록다이어그램**
     ![블록다이어그램](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/d0b7b29f-7541-4e12-ad45-6db26643324c)
-    <br>
+      <br>
     - 데이터베이스 구조 결정 후 DB 명세서와 ERD 설계도 작성
+      <br>
     **DB 명세서**
 
        [KIRIKIRI_DB 명세서.pdf](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/files/15218855/KIRIKIRI_DB.pdf)
@@ -127,7 +131,8 @@
        ![Kiri (2)](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/bd28a217-6ed0-4875-9a4e-d42b7c7277b9)
         <br>
 
-    - 클라이언트와 서버 간의 상호작용에 필요한 API들을 분석 후 API 명세서 작성  
+    - 클라이언트와 서버 간의 상호작용에 필요한 API들을 분석 후 API 명세서 작성
+      <br>
     **API 명세서**
 
        [API 명세서](https://meadow-cast-ab6.notion.site/API-ba20f04456da4df4b0f3a824b6be7885?pvs=4)  
