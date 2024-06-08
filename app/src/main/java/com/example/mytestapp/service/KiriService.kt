@@ -33,6 +33,7 @@ interface RoommateService {
 }
 
 interface ChatService {
+
     @POST("chatroomcreate/")
     fun createChatRoom(@Body request: ChatRoomRequest): Call<ChatRoomResponse>
 

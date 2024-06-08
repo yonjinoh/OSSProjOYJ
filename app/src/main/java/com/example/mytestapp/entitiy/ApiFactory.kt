@@ -38,4 +38,3 @@ object KiriServicePool {
 //    val enterroomService = ApiFactory.create<EnterRoomlistService>()
 }
 
-

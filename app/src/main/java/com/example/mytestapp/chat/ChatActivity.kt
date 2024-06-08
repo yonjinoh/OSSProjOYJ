@@ -56,7 +56,7 @@ class ChatActivity : AppCompatActivity() {
         val chatRoomId = intent.getIntExtra("chatRoomId", -1)
 
         val sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
-        currentUserId = sharedPreferences.getString("userId", "defaultUserId") ?: "defaultUserId"
+        currentUserId = sharedPreferences.getString("UserID", "defaultUserId") ?: "defaultUserId"
         currentUserName = sharedPreferences.getString("userName", "defaultUserName") ?: "defaultUserName"
 
         initializeComponents()

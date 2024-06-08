@@ -13,6 +13,7 @@ class WebSocketManager(
 ) {
     private lateinit var webSocket: WebSocket
     private val client = OkHttpClient()
+
     private val serverUrl = "ws://your_server_address/ws/chat/${chatRoomId ?: ""}/"
 
     fun connect() {
