@@ -21,7 +21,7 @@
 
 * 지도교수: 융합SW교육원 이길섭 교수님, 박효순 교수님       
 
-## Team
+### Team
 |<img src="https://avatars.githubusercontent.com/u/143872214?v=4" width="150" height="150"/>|<img src="https://avatars.githubusercontent.com/u/144208568?v=4" width="150" height="150"/>|<img src="https://avatars.githubusercontent.com/u/144078388?v=4" width="150" height="150"/>|
 |:-:|:-:|:-:|
 |오연진[@yonjinoh](https://github.com/yonjinoh) |김수현[@SuHyunKKim](https://github.com/SuHyunKKim)|조예림[@YeRimmm-Cho](https://github.com/YeRimmm-Cho)|
@@ -48,9 +48,24 @@
 #### 1.3 최종결과물  
 
 ![README-001](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/b5b5acd9-d33c-422c-a8a4-c71c4d89f875)
-- *프로젝트를 통해 개발된 최종 결과물에 대한 설명을 기술*  
-- *그림 또는 사진을 제시하고 설명을 기술*  
-- *필요한 경우 중간제목을 추가 가능*  
+
+- 프로필 생성 기능  
+    ![프로필생성](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/144078388/f457610f-4d1d-4677-8d62-6c246bd97003) 
+
+- 룸메이트에 대한 선호 정보 입력 기능
+    ![룸메선호정보](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/144078388/67c7b411-2903-429b-955b-4a093f870fce)  
+
+- 매칭 알고리즘을 통한 룸메이트 추천 기능
+    ![매칭목록](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/144078388/6b491dff-fba8-4a14-b739-8d97e50e834f)  
+
+- 채팅 기능  
+    ![매칭하기](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/144078388/ef11a97d-9769-49d6-928f-3252db3bafd8)  
+
+- 차단 기능  
+    ![차단하기](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/144078388/4b6927f6-164c-4de3-8d21-8bc4ebd89e0d)   
+  
+- 이외의 구현 기능은 최종보고서 부록에 기재 <br>[최종보고서 부록](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/Doc/3_3_OSSProj_05_OhYeSu_최종보고서부록.md)
+
 
 #### 1.4 기대 효과  
 
@@ -84,20 +99,23 @@
 
 #### 2.2 프로젝트 구현내용  
 
-- *프로젝트 설계, 구현 등 구현과 관련된 내용을 기술*  
+- 안드로이드 스튜디오 활용
+
+
+| **구성 요소**   | **설명** |
+|----------------|----------|
+| **사용자 인터페이스 (Frontend)** | - UI 리소스: `drawable` 디렉토리<br>- 레이아웃 정의: `layout` 디렉토리의 XML 파일<br>- 동작 처리: `Activity.kt` 파일<br>- 데이터 클래스: 요청 및 응답을 JSON으로 직렬화<br>- API 통신: Retrofit 라이브러리 사용 |
+| **서버 (Backend)** | - 웹 프레임워크: Django (Python)<br>- 데이터베이스: MySQL<br>- RESTful API: Django REST Framework (DRF)<br>- 실시간 채팅: Django Channels<br>- 매칭 알고리즘: 자카드 유사도, 유클리드 거리 계산 |
+| **데이터베이스 (DB)** | - 사용자 정보 및 매칭 데이터 저장<br>- 데이터베이스 테이블로 차단 기능 구현 |
 
 ### 3. 프로젝트 자료  
 
 #### 3.1 프로젝트 OSS 구성  
 
-- *프로젝트 오픈소스 구성내역과 상세안내자료 링크를 제시*  
-
+[![OVERVEIW](https://img.shields.io/badge/OVERVEIW-81DAF5?style=for-the-badge&logo=Github&logoColor=black)](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/overveiw.md) [![FileLinkage](https://img.shields.io/badge/소스코드_연계성-81DAF5?style=for-the-badge&logo=Github&logoColor=black)](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/Doc/4_4_OSSProj_05_OhYeSu_%EB%B6%80%EB%A1%9D_%EC%86%8C%EC%8A%A4%EC%BD%94%EB%93%9C%EC%97%B0%EA%B3%84%EC%84%B1.md)
 #### 3.2 프로젝트 주요 문서
 
-- [![수행계획서](https://img.shields.io/badge/수행계획서-D5D8F9?style=for-the-badge&logo=Github&logoColor=black)](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/Doc/1_1_OSSProj_05_OhYeSu_%EC%88%98%ED%96%89%EA%B3%84%ED%9A%8D%EC%84%9C.md) [![제안발표자료](https://img.shields.io/badge/제안발표자료-D5D8F9?style=for-the-badge&logo=Github&logoColor=black)](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/Doc/1_2_OSSProj_05_OhYeSu_%EC%A0%9C%EC%95%88%EB%B0%9C%ED%91%9C%EC%9E%90%EB%A3%8C.pptx)
-- [![중간보고서](https://img.shields.io/badge/중간보고서-D0FA58?style=for-the-badge&logo=Github&logoColor=black)](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/Doc/2_1_OSSProj_05_OhYeSu_%EC%A4%91%EA%B0%84%EB%B3%B4%EA%B3%A0%EC%84%9C.md) [![중간발표자료](https://img.shields.io/badge/중간발표자료-D0FA58?style=for-the-badge&logo=Github&logoColor=black)](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/Doc/2_2_OSSProj_05_OhYeSu_%EC%A4%91%EA%B0%84%EB%B0%9C%ED%91%9C%EC%9E%90%EB%A3%8C.pptx)
-- [![최종보고서](https://img.shields.io/badge/최종보고서-F7BE81?style=for-the-badge&logo=Github&logoColor=black)](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/Doc/3_1_OSSProj_05_OhYeSu_%EC%B5%9C%EC%A2%85%EB%B3%B4%EA%B3%A0%EC%84%9C.md) [![최종발표자료](https://img.shields.io/badge/최종발표자료-F7BE81?style=for-the-badge&logo=Github&logoColor=black)](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/Doc/2_2_OSSProj_05_OhYeSu_%EC%A4%91%EA%B0%84%EB%B0%9C%ED%91%9C%EC%9E%90%EB%A3%8C.pptx)
-- [![범위일정이슈관리](https://img.shields.io/badge/범위_일정_이슈관리-81DAF5?style=for-the-badge&logo=Github&logoColor=black)](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/Doc/2_1_OSSProj_05_OhYeSu_%EC%A4%91%EA%B0%84%EB%B3%B4%EA%B3%A0%EC%84%9C.md) [![회의록](https://img.shields.io/badge/회의록-81DAF5?style=for-the-badge&logo=Github&logoColor=black)](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/Doc/2_2_OSSProj_05_OhYeSu_%EC%A4%91%EA%B0%84%EB%B0%9C%ED%91%9C%EC%9E%90%EB%A3%8C.pptx) [![제품구성배포운영자료](https://img.shields.io/badge/제품_구성_배포_운영_자료-81DAF5?style=for-the-badge&logo=Github&logoColor=black)](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/Doc/2_2_OSSProj_05_OhYeSu_%EC%A4%91%EA%B0%84%EB%B0%9C%ED%91%9C%EC%9E%90%EB%A3%8C.pptx) [![OVERVEIW](https://img.shields.io/badge/OVERVEIW-81DAF5?style=for-the-badge&logo=Github&logoColor=black)](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/overveiw.md)
+[![수행계획서](https://img.shields.io/badge/수행계획서-D5D8F9?style=for-the-badge&logo=Github&logoColor=black)](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/Doc/1_1_OSSProj_05_OhYeSu_%EC%88%98%ED%96%89%EA%B3%84%ED%9A%8D%EC%84%9C.md) [![제안발표자료](https://img.shields.io/badge/제안발표자료-D5D8F9?style=for-the-badge&logo=Github&logoColor=black)](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/Doc/1_2_OSSProj_05_OhYeSu_%EC%A0%9C%EC%95%88%EB%B0%9C%ED%91%9C%EC%9E%90%EB%A3%8C.pptx) <br/> [![중간보고서](https://img.shields.io/badge/중간보고서-D0FA58?style=for-the-badge&logo=Github&logoColor=black)](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/Doc/2_1_OSSProj_05_OhYeSu_%EC%A4%91%EA%B0%84%EB%B3%B4%EA%B3%A0%EC%84%9C.md) [![중간발표자료](https://img.shields.io/badge/중간발표자료-D0FA58?style=for-the-badge&logo=Github&logoColor=black)](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/Doc/2_2_OSSProj_05_OhYeSu_%EC%A4%91%EA%B0%84%EB%B0%9C%ED%91%9C%EC%9E%90%EB%A3%8C.pptx) <br/> [![최종보고서](https://img.shields.io/badge/최종보고서-F7BE81?style=for-the-badge&logo=Github&logoColor=black)](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/Doc/3_1_OSSProj_05_OhYeSu_%EC%B5%9C%EC%A2%85%EB%B3%B4%EA%B3%A0%EC%84%9C.md) [![최종발표자료](https://img.shields.io/badge/최종발표자료-F7BE81?style=for-the-badge&logo=Github&logoColor=black)](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/Doc/2_2_OSSProj_05_OhYeSu_%EC%A4%91%EA%B0%84%EB%B0%9C%ED%91%9C%EC%9E%90%EB%A3%8C.pptx) <br/> [![범위일정이슈관리](https://img.shields.io/badge/범위_일정_이슈관리-81DAF5?style=for-the-badge&logo=Github&logoColor=black)](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/Doc/2_1_OSSProj_05_OhYeSu_%EC%A4%91%EA%B0%84%EB%B3%B4%EA%B3%A0%EC%84%9C.md) [![회의록](https://img.shields.io/badge/회의록-81DAF5?style=for-the-badge&logo=Github&logoColor=black)](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/Doc/2_2_OSSProj_05_OhYeSu_%EC%A4%91%EA%B0%84%EB%B0%9C%ED%91%9C%EC%9E%90%EB%A3%8C.pptx) [![제품구성배포운영자료](https://img.shields.io/badge/제품_구성_배포_운영_자료-81DAF5?style=for-the-badge&logo=Github&logoColor=black)](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/Doc/2_2_OSSProj_05_OhYeSu_%EC%A4%91%EA%B0%84%EB%B0%9C%ED%91%9C%EC%9E%90%EB%A3%8C.pptx) 
 
 
 #### 3.3 참고자료  
