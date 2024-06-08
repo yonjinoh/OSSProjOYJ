@@ -54,8 +54,8 @@ class ChatHistoryFragment : Fragment() {
         chatRecyclerView.adapter = chatAdapter
 
         // 데이터 로드
-        val sharedPreferences = requireContext().getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
-        val currentUserId = sharedPreferences.getString("userId", "") ?: ""
+        val sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        val currentUserId = sharedPreferences.getString("UserID", "") ?: ""
         chatHistoryViewModel.loadChatHistories(currentUserId)
 
         chatHistoryViewModel.chatHistories.observe(viewLifecycleOwner) { chatHistories ->
