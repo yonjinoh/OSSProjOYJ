@@ -154,19 +154,19 @@
 ## 6. 시작 가이드(사용 방법)
 ***
 
-#### Requirements
+### Requirements
 로컬 환경에서 어플리케이션을 빌드하고 실행하려면 다음이 필요함:
 ```
 * Android Studio
 * MySql 8.0
 * Ngrok 0.81
 ```
-#### Installation
+### Installation
 ```
 > git clone https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05.git Kiri
 > cd Kiri
 ```
-#### Backend
+### Backend
 
 가상환경 생성 및 의존성 패키지 설치 -> DB 구성 -> DB 원격 접속 허용 -> Django에 구성한 DB 정보 입력
 
@@ -227,7 +227,7 @@ DATABASES = {
 
 
 
-#### Frontend
+### Frontend
 Django 서버 주소 외부로 포워딩 -> 포워딩 주소를 API 호출에 사용할 객체가 전달될 주소로 할당
 
 
@@ -257,7 +257,7 @@ object ApiFactory {
 }
 ```
 
-#### Build
+### Build
 ![image](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/144208568/8fccba47-025c-452c-972c-326ac2b66646)
 ```
 1. 맨 오른쪽의 망치 모양 버튼 클릭 -> app build 시작
