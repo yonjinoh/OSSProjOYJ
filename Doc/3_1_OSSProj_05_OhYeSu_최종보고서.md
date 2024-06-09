@@ -66,7 +66,7 @@
     ![매칭목록](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/144078388/6b491dff-fba8-4a14-b739-8d97e50e834f)  
 
     - 채팅 기능  
-    ![채팅하기 최종](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/144078388/478a598d-de15-4373-afb5-2f32e225d464)  
+    ![채팅하기](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/144078388/8afd6c1c-f799-476f-8da2-95eb16c94af0)  
 
     - 신고 기능  
     ![신고하기](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/144078388/6738ef9a-25a5-4d63-959a-1b0c69db6d12)  
