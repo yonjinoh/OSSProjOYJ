@@ -39,7 +39,7 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var imageMenu: ImageView
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var btnBack: Button
-    private lateinit var textTitle: TextView
+    //private lateinit var textTitle: TextView
     private lateinit var chatNickname: TextView
     private lateinit var currentUserId: String
     private lateinit var currentUserName: String
@@ -102,10 +102,10 @@ class ChatActivity : AppCompatActivity() {
         imageMenu = findViewById(R.id.imageMenu)
         drawerLayout = findViewById(R.id.drawerLayout)
         btnBack = findViewById(R.id.btn_back)
-        textTitle = findViewById(R.id.textTitle)
+        //textTitle = findViewById(R.id.textTitle)
         chatNickname = findViewById(R.id.chat_nickname)
 
-        textTitle.text = targetUserName
+        //textTitle.text = targetUserName
         chatNickname.text = targetUserName
     }
 
