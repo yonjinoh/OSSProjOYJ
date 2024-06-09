@@ -89,16 +89,18 @@ class MatchingViewModel : ViewModel() {
             override fun onResponse(call: Call<ChatRoomResponse>, response: Response<ChatRoomResponse>) {
                 if (response.isSuccessful) {
                     val chatRoom = response.body()?.chatRoom
-                    if (chatRoom != null) {
-                        // 채팅방 생성에 성공한 경우 바로 채팅 액티비티로 이동
-                        moveToChatActivity(view, chatRoom, null, targetUserName)
-                    } else {
-                        Toast.makeText(context, "채팅방을 생성하지 못했습니다.", Toast.LENGTH_SHORT).show()
-                    }
-                } else {
-                    // 채팅방이 이미 존재하는 경우 채팅 내역 불러오기
-                    val chatRoom = response.body()?.chatRoom
                     fetchChatHistory(view, currentUserId, userID2, targetUserName, chatRoom!!)
+//                    if (chatRoom != null) {
+//                        // 채팅방 생성에 성공한 경우 바로 채팅 액티비티로 이동
+//                        moveToChatActivity(view, chatRoom, null, targetUserName)
+//                    } else {
+//                        Toast.makeText(context, "채팅방을 생성하지 못했습니다.", Toast.LENGTH_SHORT).show()
+//                    }
+                } else {
+                      Toast.makeText(context, "채팅방을 생성하지 못했습니다.", Toast.LENGTH_SHORT).show()
+                    // 채팅방이 이미 존재하는 경우 채팅 내역 불러오기
+//                    val chatRoom = response.body()?.chatRoom
+//                    fetchChatHistory(view, currentUserId, userID2, targetUserName, chatRoom!!)
                 }
             }
 
@@ -133,6 +135,7 @@ class MatchingViewModel : ViewModel() {
             }
 
             override fun onFailure(call: Call<ChatRoomFetchResponse>, t: Throwable) {
+                Log.e("MatchingViewModel", "Failed to fetch chat history", t)
                 Toast.makeText(context, "네트워크 오류", Toast.LENGTH_SHORT).show()
             }
         })

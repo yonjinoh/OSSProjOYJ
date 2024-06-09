@@ -13,9 +13,14 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ("__all__")
 
 class ChatSerializer(serializers.ModelSerializer):
+    CHistoryID = serializers.CharField()
+    senderID = serializers.CharField()
+    receiverID = serializers.CharField()
+    content = serializers.CharField()
+
     class Meta:
         model = Chat
-        fields = ("__all__")
+        fields = ['CHistoryID', 'senderID', 'receiverID', 'content']
 
 class ChatRoomSerializer(serializers.ModelSerializer):
     HistoryID = serializers.CharField()

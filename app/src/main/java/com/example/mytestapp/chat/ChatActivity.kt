@@ -39,13 +39,13 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var imageMenu: ImageView
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var btnBack: Button
-    //private lateinit var textTitle: TextView
     private lateinit var chatNickname: TextView
     private lateinit var currentUserId: String
     private lateinit var currentUserName: String
     private lateinit var targetUserId: String
     private lateinit var targetUserName: String
     private lateinit var webSocketManager: WebSocketManager
+    private lateinit var chatRoomIdd: String
 
     private val chatRoomViewModel: ChatRoomViewModel by viewModels()
 
@@ -57,6 +57,8 @@ class ChatActivity : AppCompatActivity() {
         targetUserName = intent.getStringExtra("targetUserName") ?: "Unknown User"
         val chatRoomIdString = intent.getStringExtra("chatRoomId") ?: "-1"
         val chatRoomId = chatRoomIdString.toIntOrNull() ?: -1
+
+        chatRoomIdd = chatRoomIdString
 
         val sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
         currentUserId = sharedPreferences.getString("UserID", "defaultUserId") ?: "defaultUserId"
@@ -102,10 +104,8 @@ class ChatActivity : AppCompatActivity() {
         imageMenu = findViewById(R.id.imageMenu)
         drawerLayout = findViewById(R.id.drawerLayout)
         btnBack = findViewById(R.id.btn_back)
-        //textTitle = findViewById(R.id.textTitle)
         chatNickname = findViewById(R.id.chat_nickname)
 
-        //textTitle.text = targetUserName
         chatNickname.text = targetUserName
     }
 
@@ -157,7 +157,7 @@ class ChatActivity : AppCompatActivity() {
 
     private fun sendMessage(messageText: String) {
         val messageData = ChatMessage(
-            CHistoryID = "", // 서버에서 생성
+            CHistoryID = chatRoomIdd, // 서버에서 생성
             senderID = currentUserId,
             receiverID = targetUserId,
             content = messageText

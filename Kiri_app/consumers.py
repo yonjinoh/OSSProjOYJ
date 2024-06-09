@@ -1,28 +1,28 @@
 import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 from channels.db import database_sync_to_async
-from .models import ChatRoom, Chat, AppUser
 
 class ChatConsumer(AsyncWebsocketConsumer):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        from .models import ChatRoom, AppUser, Chat  # 여기에 모델 임포트
+
     async def connect(self):
         self.room_id = self.scope['url_route']['kwargs']['room_id']
         self.room_group_name = f'chat_{self.room_id}'
-
-        print(f"Connecting to WebSocket: room_id={self.room_id}, room_group_name={self.room_group_name}")
 
         await self.channel_layer.group_add(
             self.room_group_name,
             self.channel_name
         )
+
         await self.accept()
-        print(f"Connected to WebSocket: room_id={self.room_id}, room_group_name={self.room_group_name}")
 
     async def disconnect(self, close_code):
         await self.channel_layer.group_discard(
             self.room_group_name,
             self.channel_name
         )
-        print(f"Disconnected from WebSocket: room_id={self.room_id}, room_group_name={self.room_group_name}")
 
     async def receive(self, text_data):
         print(f"Received message: {text_data}")
@@ -54,9 +54,10 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
     @database_sync_to_async
     def save_message(self, CHistoryID, senderID, receiverID, content):
+        from .models import ChatRoom, AppUser, Chat  # 여기에 모델 임포트
         chat_room = ChatRoom.objects.get(HistoryID=CHistoryID)
         sender = AppUser.objects.get(iD=senderID)
-        receiver = AppUser.objects.get(iD=receiverID)
+        receiver = AppUser.objects.get(userID=receiverID)
         chat = Chat.objects.create(
             CHistoryID=chat_room,
             senderID=sender,
@@ -64,4 +65,3 @@ class ChatConsumer(AsyncWebsocketConsumer):
             content=content
         )
         chat.save()
-        print(f"Message saved: {chat}")

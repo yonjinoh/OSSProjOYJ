@@ -127,7 +127,7 @@ class ChatRoomListViewSet(viewsets.ModelViewSet):
                 Q(userID=user1, userID2=user2) | Q(userID=user2, userID2=user1)
             )
             serialized_chatroom = ChatRoomSerializer(chatroom)
-            return Response({'success': False, 'chatRoom': serialized_chatroom.data}, status=status.HTTP_200_OK)
+            return Response({'success': True, 'chatRoom': serialized_chatroom.data}, status=status.HTTP_200_OK)
 
         except ChatRoom.DoesNotExist:
             room_count = ChatRoom.objects.count() + 1
@@ -142,16 +142,25 @@ class ChatRoomListViewSet(viewsets.ModelViewSet):
 
     @api_view(['GET'])
     def getchathistory(request):
-        userID = request.data.get('userID')
-        userID2 = request.data.get('userID2')
+        userID = request.query_params.get('userID')
+        userID2 = request.query_params.get('userID2')
 
-        userID = AppUser.objects.get(iD=userID)
-        userID2 = AppUser.objects.get(iD=userID2)
+        if not userID or not userID2:
+            return Response({"error": "Missing userID or userID2 parameter"}, status=status.HTTP_400_BAD_REQUEST)
 
-        chats = Chat.objects.filter(Q(senderID=userID, receiverID=userID2)
-                                    | Q(senderID=userID2, receiverID=userID)).order_by('timestamp')
+        try:
+            user1 = AppUser.objects.get(iD=userID)
+            user2 = AppUser.objects.get(userID=userID2)
+        except AppUser.DoesNotExist:
+            return Response({"error": "User not found"}, status=status.HTTP_404_NOT_FOUND)
 
-        return Response(ChatSerializer(chats, many=True).data, status=status.HTTP_200_OK)
+        chats = Chat.objects.filter(
+            Q(senderID=user1, receiverID=user2) | Q(senderID=user2, receiverID=user1)
+        ).order_by('timestamp')
+
+        serialized_chats = ChatSerializer(chats, many=True).data
+        print(serialized_chats)
+        return Response({"chatMessages": serialized_chats}, status=status.HTTP_200_OK)
 
     @api_view(['GET'])
     def chatroomlist(request):
@@ -203,19 +212,6 @@ class ChatViewSet(viewsets.ModelViewSet):
                             status=status.HTTP_201_CREATED)
         else:
             return Response({'success': False}, status=status.HTTP_400_BAD_REQUEST)
-
-    @api_view(['GET'])
-    def getchathistory(request):
-        CHistoryID = request.data.get('CHistoryID')
-        if CHistoryID is None:
-            return Response({'success': False}, status=status.HTTP_400_BAD_REQUEST)
-
-        try:
-            chat_history = Chat.objects.filter(CHistoryID = CHistoryID).order_by('timestamp')
-            serializer = ChatSerializer(chat_history, many=True)
-            return Response(serializer.data)
-        except Chat.DoesNotExist:
-            return Response({'success': False}, status=status.HTTP_404_NOT_FOUND)
 
 
 

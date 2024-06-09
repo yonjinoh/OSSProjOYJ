@@ -69,7 +69,6 @@ if settings.DEBUG:
         path('getchathistory/', views.ChatRoomListViewSet.getchathistory, name='getchathistory'),
 
         path('savemessage/', views.ChatViewSet.savemessage, name='savemessage'),
-        path('getchathistory/', views.ChatViewSet.getchathistory, name='getchathistory'),
 
 
         # KSH: ProfileViewSet 추가
@@ -97,9 +96,9 @@ if settings.DEBUG:
         # path('ws', include(routing.websocket_urlpatterns))
     ]
 
-# from django.urls import re_path
-# from Kiri_app import routing as chat_routing
-#
-# websocket_urlpatterns = chat_routing.websocket_urlpatterns
-#
-# urlpatterns += websocket_urlpatterns
+from django.urls import re_path
+from Kiri_app import routing as chat_routing
+
+websocket_urlpatterns = chat_routing.websocket_urlpatterns
+
+urlpatterns += websocket_urlpatterns
