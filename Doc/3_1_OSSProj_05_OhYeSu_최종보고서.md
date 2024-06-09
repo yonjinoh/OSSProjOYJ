@@ -218,6 +218,7 @@
 * **소스 코드 overview**
     - 구현한 코드에 대한 자세한 설명은 하단 링크에 수록<br>
     [소스 코드 및 오픈 소스 Overview](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/overveiw.md)
+    [소스 코드 간의 기능별 연계성 설명](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/Doc/4_4_OSSProj_05_OhYeSu_%EB%B6%80%EB%A1%9D_%EC%86%8C%EC%8A%A4%EC%BD%94%EB%93%9C%EC%97%B0%EA%B3%84%EC%84%B1.md)
     <br>
 - **주요 기능에 대한 시퀀스 다이어그램**
       
