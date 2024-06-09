@@ -225,6 +225,8 @@
     매칭 입력 시퀀스 다이어그램
 
   ![매칭 입력 시퀀스 다이어그램](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/8e098f6b-30f4-465f-a4ab-f344a3ec6eb2)<br>
+  매칭 신청/거절 시퀀스 다이어그램
+  ![매칭 신청/거절 시퀀스 다이어그램](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/3353aa0f-4798-4c41-9a01-3e09c6a698eb)
 *  **배포 방법**
     - AWS(amazon web service)의 EC2와 RDS를 이용하였음
     - EC2상에 Django 서버를 구축하고, RDS로 데이터베이스 구축하여 연동 후, 어플리케이션에 EC2 DNS를 할당하여 http 통신을 구현함
