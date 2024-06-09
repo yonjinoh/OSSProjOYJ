@@ -28,8 +28,6 @@ from .models import AppUser, Match, Profile, UserPref
 import logging
 logger = logging.getLogger(__name__)
 
-# from django.contrib.auth import authenticate
-
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = AppUser.objects.all()
@@ -502,7 +500,7 @@ class MatchViewSet(viewsets.ModelViewSet):
         # 사용자 iD로 사용자 객체 가져옴
         user = AppUser.objects.get(iD=userId)
         userId = user.userID
-        # 사용자 선호도 객체 가져옴(
+        # 사용자 선호도 객체 가져옴
         user_pref = UserPref.objects.get(UuserId=user.userID)
 
         # 조건에 맞는 사용자 리스트 가져옴
@@ -532,7 +530,7 @@ class MatchViewSet(viewsets.ModelViewSet):
             return jaccard_score(user_pref_data, profile_data, average='weighted')  # average 파라미터를 추가
 
 
-    # 유클리드 유사도를 계산하는 함수
+        # 유클리드 유사도를 계산하는 함수
         def calculate_euclidean_similarity(user_pref, profile, Ucontinuous_fields, continuous_fields):
             user_pref_data = [getattr(user_pref, field) for field in Ucontinuous_fields]  # user_pref 객체의 continuous_fields 필드 값을 가져옴
             profile_data = [getattr(profile, field) for field in continuous_fields]  # profile 객체의 continuous_fields 필드 값을 가져옴
@@ -609,8 +607,6 @@ class MatchViewSet(viewsets.ModelViewSet):
             user3 = AppUser.objects.get(userID=match_result.userId3)
             user4 = AppUser.objects.get(userID=match_result.userId4)
             user5 = AppUser.objects.get(userID=match_result.userId5)
-
-            # 반환 정보 수정 필요
 
             response = [{
                 'matchId': str(match_result.matchId), 'userId': str(userId),
