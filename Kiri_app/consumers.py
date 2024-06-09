@@ -66,7 +66,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         from .models import ChatRoom, AppUser, Chat  # 여기에 모델 임포트
         chat_room = ChatRoom.objects.get(HistoryID=CHistoryID)
         sender = AppUser.objects.get(iD=senderID)
-        receiver = AppUser.objects.get(iD=receiverID)
+        receiver = AppUser.objects.get(userID=receiverID)
         Chat.objects.create(
             CHistoryID=chat_room,
             senderID=sender,
