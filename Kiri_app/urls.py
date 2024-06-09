@@ -10,28 +10,25 @@ from .views import ChatRoomListViewSet, ChatViewSet, UserViewSet
 #API 명세서 자동 생성 drf-yasg
 #swagger 정보 설정, 관련 엔드 포인트 추가
 #swagger 엔드포인트는 DEBUG Mode에서만 노출
+
 schema_view = get_schema_view(
     openapi.Info(
-        title="Criminal6 Project",
+        title="Kiri API",
         default_version='v1',
-        description="Criminal6-project API 문서",
+        description="Kiri API",
         terms_of_service="https://www.google.com/policies/terms/",
-        contact=openapi.Contact(email="contact@snippets.local"),
+        contact=openapi.Contact(email="kimsteven728@gmail.com"),
         license=openapi.License(name="BSD License"),
-    ),
-    validators=['flex', 'ssv'],
-    public=True,
-    permission_classes=(permissions.AllowAny,),
+    )
 )
 
 router = routers.DefaultRouter()
-#DefaultRouter를 설정
 router.register('AppUser', views.UserViewSet)
-# #itemviewset 과 item이라는 router 등록
 router.register('ChatRoom', views.ChatRoomListViewSet)
 # KSH: 채팅방 라우터 추가
 router.register('Chat', views.ChatViewSet)
 # KSH: 채팅 라우터 추가
+
 
 # KSH: ProfileViewSet 추가
 router.register('Profile', views.ProfileViewSet)
