@@ -71,15 +71,15 @@ interface MatchingService {
     fun getMatchingProfiles(@Query("userId") userId: String): Call<List<MatchingProfile>>
 
     // 매칭 요청
-    @POST("request-match/")
+    @POST("matchrequest/")
     fun requestMatch(@Body matchRequest: MatchRequest): Call<MatchResponse>
 
     // 매칭 수락
-    @POST("api/matchaccept/")
+    @POST("matchaccept/")
     fun acceptMatch(@Body matchRequest: MatchRequest): Call<MatchResponse>
 
     // 매칭 거절
-    @POST("api/matchreject/")
+    @POST("matchreject/")
     fun rejectMatch(@Body matchRequest: MatchRequest): Call<MatchResponse>
 }
 

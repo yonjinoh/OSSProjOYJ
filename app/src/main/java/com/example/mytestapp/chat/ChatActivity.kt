@@ -72,6 +72,7 @@ class ChatActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         chatRoomViewModel.chatMessages.observe(this, Observer<List<ChatMessage>> { messages ->
+            Log.d("ChatActivity", "Observed messages: $messages")
             adapter.submitList(messages)
             recyclerView.scrollToPosition(messages.size - 1)
         })
@@ -84,8 +85,9 @@ class ChatActivity : AppCompatActivity() {
 
         webSocketManager = WebSocketManager(
             chatRoomId = chatRoomId,
-            onMessageReceived = { message: ChatMessage? -> runOnUiThread {
-                message?.let { chatRoomViewModel.addMessage(it) }
+            onMessageReceived = { messages: List<ChatMessage> -> runOnUiThread {
+                Log.d("ChatActivity", "Received messages: $messages")
+                chatRoomViewModel.addMessages(messages)
             }},
             onConnectionFailed = { error: String -> runOnUiThread {
                 Toast.makeText(this, "WebSocket 연결 실패: $error", Toast.LENGTH_LONG).show()
@@ -94,7 +96,6 @@ class ChatActivity : AppCompatActivity() {
         )
 
         webSocketManager.connect()
-        chatRoomViewModel.loadMessages(currentUserId, targetUserId)
     }
 
     private fun initializeComponents() {
@@ -175,7 +176,7 @@ class ChatActivity : AppCompatActivity() {
 
     // 수락 버튼 클릭 이벤트 처리 메서드
     private fun onAcceptClick(chatMessage: ChatMessage) {
-        val matchRequest = MatchRequest(userId = currentUserId)
+        val matchRequest = MatchRequest(userId = currentUserId, userId2 = targetUserId)
 
         KiriServicePool.matchingService.acceptMatch(matchRequest).enqueue(object :
             Callback<MatchResponse> {
@@ -185,7 +186,7 @@ class ChatActivity : AppCompatActivity() {
                         if (it.success) {
                             sendMatchAcceptedMessage(chatMessage)
                         } else {
-                            showError("매칭 수락에 실패했습니다: ${it.message}")
+                            showError("매칭 수락에 실패했습니다")
                         }
                     }
                 } else {
@@ -222,7 +223,8 @@ class ChatActivity : AppCompatActivity() {
 
     // 거절 버튼 클릭 이벤트 처리 메서드
     private fun onRejectClick(chatMessage: ChatMessage) {
-        val matchRequest = MatchRequest(userId = currentUserId)
+        val matchRequest = MatchRequest(userId = currentUserId,
+                    userId2 = targetUserId)
 
         KiriServicePool.matchingService.rejectMatch(matchRequest).enqueue(object : Callback<MatchResponse> {
             override fun onResponse(call: Call<MatchResponse>, response: Response<MatchResponse>) {
@@ -231,7 +233,7 @@ class ChatActivity : AppCompatActivity() {
                         if (it.success) {
                             sendMatchRejectedMessage(chatMessage)
                         } else {
-                            showError("매칭 거절에 실패했습니다: ${it.message}")
+                            showError("매칭 거절에 실패했습니다.")
                         }
                     }
                 } else {

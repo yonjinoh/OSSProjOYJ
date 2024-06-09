@@ -85,7 +85,7 @@ class UserViewSet(viewsets.ModelViewSet):
         else:
             return Response({'success': False}, status=status.HTTP_400_BAD_REQUEST)
 
-    @api_view(['POST'])
+    @api_view(['GET'])
     def get_user_id(request):
         # 세션에서 사용자 ID 가져오기
         user_id = request.session.get('user_id')
@@ -94,6 +94,7 @@ class UserViewSet(viewsets.ModelViewSet):
             return Response({'user_id': user_id}, status=status.HTTP_200_OK)
         else:
             return Response({'success': False}, status=status.HTTP_404_NOT_FOUND)
+
 
     # KSH : 로그아웃 기능 구현 예정
     @api_view(['POST'])
@@ -632,63 +633,75 @@ class MatchViewSet(viewsets.ModelViewSet):
     @api_view(['POST'])
     def matchrequest(request):
         userId = request.data.get('userId')
-        Muser = ChatRoom.objects.get(user1=userId)
-        MuserId = Muser.user2
+        userId2 = request.data.get('userId2')
 
         try:
-            match_result = Match.objects.get(userId=userId)
-            match_result.matchStatus = 'matching'
+            user1 = AppUser.objects.get(iD=userId)
+            user2 = AppUser.objects.get(userID=userId2)
 
-            Mmatch_result = Match.objects.get(userId=MuserId)
-            Mmatch_result.matchStatus = 'matching'
+            user1.matchStatus = 'matching'
+            user2.matchStatus = 'matching'
 
-            match_result.save()
-            Mmatch_result.save()
+            user1.save()
+            user2.save()
 
             return Response({'success': True}, status=status.HTTP_200_OK)
-        except Match.DoesNotExist:
+        except AppUser.DoesNotExist:
             return Response({'success': False}, status=status.HTTP_404_NOT_FOUND)
+
+
+        # Muser = ChatRoom.objects.get(user1=userId)
+        # MuserId = Muser.user2
+        #
+        # try:
+        #     match_result = Match.objects.get(userId=userId)
+        #     match_result.matchStatus = 'matching'
+        #
+        #     Mmatch_result = Match.objects.get(userId=MuserId)
+        #     Mmatch_result.matchStatus = 'matching'
+        #
+        #     match_result.save()
+        #     Mmatch_result.save()
 
     # KSH : 매칭 수락 기능 추가
     @api_view(['POST'])
     def matchaccept(request):
         userId = request.data.get('userId')
-        Muser = ChatRoom.objects.get(user1=userId)
-        MuserId = Muser.user2
+        userId2 = request.data.get('userId2')
 
         try:
-            match_result = Match.objects.get(userId=userId)
-            match_result.matchStatus = 'accepted'
+            user1 = AppUser.objects.get(iD=userId)
+            user2 = AppUser.objects.get(userID=userId2)
 
-            Mmatch_result = Match.objects.get(userId=MuserId)
-            Mmatch_result.matchStatus = 'accepted'
+            user1.matchStatus = 'accepted'
+            user2.matchStatus = 'accepted'
 
-            match_result.save()
-            Mmatch_result.save()
+            user1.save()
+            user2.save()
 
             return Response({'success': True}, status=status.HTTP_200_OK)
-        except Match.DoesNotExist:
+        except AppUser.DoesNotExist:
             return Response({'success': False}, status=status.HTTP_404_NOT_FOUND)
+
 
     # KSH : 매칭 거절 기능 추가
     @api_view(['POST'])
     def matchreject(request):
         userId = request.data.get('userId')
-        Muser = ChatRoom.objects.get(user1=userId)
-        MuserId = Muser.user2
+        userId2 = request.data.get('userId2')
 
         try:
-            match_result = Match.objects.get(userId=userId)
-            match_result.matchStatus = 'pending'
+            user1 = AppUser.objects.get(iD=userId)
+            user2 = AppUser.objects.get(userID=userId2)
 
-            Mmatch_result = Match.objects.get(userId=MuserId)
-            Mmatch_result.matchStatus = 'pending'
+            user1.matchStatus = 'pending'
+            user2.matchStatus = 'pending'
 
-            match_result.save()
-            Mmatch_result.save()
+            user1.save()
+            user2.save()
 
             return Response({'success': True}, status=status.HTTP_200_OK)
-        except Match.DoesNotExist:
+        except AppUser.DoesNotExist:
             return Response({'success': False}, status=status.HTTP_404_NOT_FOUND)
 
 
