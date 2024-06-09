@@ -14,7 +14,7 @@ class WebSocketManager(
     private lateinit var webSocket: WebSocket
     private val client = OkHttpClient()
 
-    private val serverUrl = "ws://your_server_address/ws/chat/${chatRoomId ?: ""}/"
+    private val serverUrl = "ws://fbda-58-140-213-197.ngrok-free.app/ws/chat/$chatRoomId/"
 
     fun connect() {
         val request = Request.Builder().url(serverUrl).build()

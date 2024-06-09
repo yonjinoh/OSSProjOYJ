@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ChatRoomResponse(
+data class MessageDataResponse(
     @SerialName("success")
     val success: Boolean,
     @SerialName("chatroom")

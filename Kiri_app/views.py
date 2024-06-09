@@ -28,6 +28,8 @@ from .models import AppUser, Match, Profile, UserPref
 import logging
 logger = logging.getLogger(__name__)
 
+from django.db.models import Q
+
 # from django.contrib.auth import authenticate
 
 
@@ -109,15 +111,14 @@ class ChatRoomListViewSet(viewsets.ModelViewSet):
 
     @api_view(['POST'])
     def chatroomcreate(request):
+        logger.warning(f"Received data: {request.data}")
+
         userID = request.data.get('userID')
         userID2 = request.data.get('userID2')
 
-        userID = AppUser.objects.get(iD = userID)
-        userID2 = AppUser.objects.get(iD = userID2)
-
         try:
             user1 = AppUser.objects.get(iD=userID)
-            user2 = AppUser.objects.get(iD=userID2)
+            user2 = AppUser.objects.get(userID=userID2)
         except AppUser.DoesNotExist:
             return Response({'success': False, 'error': 'One or both users do not exist'}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -125,7 +126,8 @@ class ChatRoomListViewSet(viewsets.ModelViewSet):
             chatroom = ChatRoom.objects.get(
                 Q(userID=user1, userID2=user2) | Q(userID=user2, userID2=user1)
             )
-            return Response({'success': False}, status=status.HTTP_400_BAD_REQUEST)
+            serialized_chatroom = ChatRoomSerializer(chatroom)
+            return Response({'success': False, 'chatRoom': serialized_chatroom.data}, status=status.HTTP_200_OK)
 
         except ChatRoom.DoesNotExist:
             room_count = ChatRoom.objects.count() + 1
@@ -135,15 +137,16 @@ class ChatRoomListViewSet(viewsets.ModelViewSet):
                 userID2=user2
             )
             chatroom.save()
-            return Response({'success': True}, status=status.HTTP_201_CREATED)
+            serialized_chatroom = ChatRoomSerializer(chatroom)
+            return Response({'success': True, 'chatRoom': serialized_chatroom.data}, status=status.HTTP_201_CREATED)
 
     @api_view(['GET'])
     def getchathistory(request):
         userID = request.data.get('userID')
         userID2 = request.data.get('userID2')
 
-        userID = AppUser.objects.get(iD = userID)
-        userID2 = AppUser.objects.get(iD = userID2)
+        userID = AppUser.objects.get(iD=userID)
+        userID2 = AppUser.objects.get(iD=userID2)
 
         chats = Chat.objects.filter(Q(senderID=userID, receiverID=userID2)
                                     | Q(senderID=userID2, receiverID=userID)).order_by('timestamp')
@@ -709,7 +712,7 @@ class ReportViewSet(viewsets.ModelViewSet):
         reason = request.data.get('reason')
 
         reportedId = request.data.get('reportedId')
-        reportedId = AppUser.objects.get(userID = reportedId)
+        reportedId = AppUser.objects.get(iD = reportedId)
 
 
 
@@ -739,7 +742,7 @@ class BlockViewSet(viewsets.ModelViewSet):
             blockedId = request.data.get('blockedID')
 
             blocker = AppUser.objects.get(iD = blockerId)
-            blocked = AppUser.objects.get(userID = blockedId)
+            blocked = AppUser.objects.get(iD = blockedId)
 
 
             if blocker and blocked:

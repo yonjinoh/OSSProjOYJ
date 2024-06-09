@@ -39,6 +39,8 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var imageMenu: ImageView
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var btnBack: Button
+    private lateinit var textTitle: TextView
+    private lateinit var chatNickname: TextView
     private lateinit var currentUserId: String
     private lateinit var currentUserName: String
     private lateinit var targetUserId: String
@@ -53,7 +55,8 @@ class ChatActivity : AppCompatActivity() {
 
         targetUserId = intent.getStringExtra("targetUserId") ?: "Unknown User"
         targetUserName = intent.getStringExtra("targetUserName") ?: "Unknown User"
-        val chatRoomId = intent.getIntExtra("chatRoomId", -1)
+        val chatRoomIdString = intent.getStringExtra("chatRoomId") ?: "-1"
+        val chatRoomId = chatRoomIdString.toIntOrNull() ?: -1
 
         val sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
         currentUserId = sharedPreferences.getString("UserID", "defaultUserId") ?: "defaultUserId"
@@ -99,11 +102,10 @@ class ChatActivity : AppCompatActivity() {
         imageMenu = findViewById(R.id.imageMenu)
         drawerLayout = findViewById(R.id.drawerLayout)
         btnBack = findViewById(R.id.btn_back)
+        textTitle = findViewById(R.id.textTitle)
+        chatNickname = findViewById(R.id.chat_nickname)
 
-        val textTitle = findViewById<TextView>(R.id.textTitle)
         textTitle.text = targetUserName
-
-        val chatNickname = findViewById<TextView>(R.id.chat_nickname)
         chatNickname.text = targetUserName
     }
 

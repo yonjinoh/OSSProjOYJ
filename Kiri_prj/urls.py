@@ -22,3 +22,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("",include('Kiri_app.urls')), #api/urls.py 사용
 ]
+

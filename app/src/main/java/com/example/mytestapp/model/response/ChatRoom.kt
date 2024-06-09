@@ -5,8 +5,8 @@ import kotlinx.serialization.Serializable
 // 채팅 메시지 저장 요청을 위한 데이터 모델
 @Serializable
 data class ChatRoom(
-    @SerialName("CHistoryID")
-    val CHistoryID: String,
+    @SerialName("HistoryID")
+    val HistoryID: String,
     @SerialName("userID")
     val userID: String,
     @SerialName("userID2")

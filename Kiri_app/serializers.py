@@ -18,6 +18,10 @@ class ChatSerializer(serializers.ModelSerializer):
         fields = ("__all__")
 
 class ChatRoomSerializer(serializers.ModelSerializer):
+    HistoryID = serializers.CharField()
+    userID = serializers.CharField()
+    userID2 = serializers.CharField()
+
     class Meta:
         model = ChatRoom
         fields = ("__all__")

@@ -4,8 +4,6 @@ import com.example.mytestapp.model.request.*
 import com.example.mytestapp.model.response.*
 import okhttp3.ResponseBody
 import retrofit2.Call
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -35,10 +33,11 @@ interface RoommateService {
 interface ChatService {
 
     @POST("chatroomcreate/")
-    fun createChatRoom(@Body request: ChatRoomRequest): Call<ChatRoom>
+    fun createChatRoom(@Body request: ChatRoomRequest): Call<ChatRoomResponse>
 
     @GET("getchathistory/")
-    fun getChatHistory(@Query("CHistoryID") CHistoryID: String): Call<List<ChatMessage>>
+    fun getChatHistory(@Query("userID") userID: String,
+                       @Query("userID2") userID2: String): Call<ChatRoomFetchResponse>
 
     @GET("chatroomlist/")
     fun getChatRoomList(@Query("userID") userID: String): Call<List<ChatRoom>>
