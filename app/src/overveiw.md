@@ -142,6 +142,6 @@
 
 ## 소스 코드 간의 연계성
 
-- **[기능별 소스 코드 간의 연계성](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/Doc/4_5_OSSProj_05_OhYeSu_fileLinkages.md)**
+- **[기능별 소스 코드 간의 연계성](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/Doc/4_4_OSSProj_05_OhYeSu_%EB%B6%80%EB%A1%9D_%EC%86%8C%EC%8A%A4%EC%BD%94%EB%93%9C%EC%97%B0%EA%B3%84%EC%84%B1.md)**
  해당 링크를 통해 각 기능별 소스 코드 간의 연계성 확인 가능
 
