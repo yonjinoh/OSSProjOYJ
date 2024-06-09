@@ -48,13 +48,13 @@ class MyPageFragment : Fragment() {
             startActivity(intent)
         }
 
-        // 차단 목록 관리 버튼 클릭 시
-        view.findViewById<Button>(R.id.blockListButton).setOnClickListener {
-            // TODO: 차단 목록 관리 버튼 클릭 시 동작 구현
-            // 차단 목록 액티비티를 열거나 프래그먼트 내에서 차단 목록을 관리하는 기능
-            val intent = Intent(requireContext(), BlockListActivity::class.java)
-            startActivity(intent)
-        }
+//        // 차단 목록 관리 버튼 클릭 시
+//        view.findViewById<Button>(R.id.blockListButton).setOnClickListener {
+//            // TODO: 차단 목록 관리 버튼 클릭 시 동작 구현
+//            // 차단 목록 액티비티를 열거나 프래그먼트 내에서 차단 목록을 관리하는 기능
+//            val intent = Intent(requireContext(), BlockListActivity::class.java)
+//            startActivity(intent)
+//        }
 
         // 로그아웃 버튼 클릭 시
         view.findViewById<Button>(R.id.logout).setOnClickListener {
