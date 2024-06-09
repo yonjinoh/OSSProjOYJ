@@ -277,4 +277,7 @@ class ChatActivity : AppCompatActivity() {
         super.onDestroy()
         webSocketManager.disconnect()
     }
+
+
+
 }

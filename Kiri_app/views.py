@@ -721,7 +721,7 @@ class ReportViewSet(viewsets.ModelViewSet):
         reason = request.data.get('reason')
 
         reportedId = request.data.get('reportedId')
-        reportedId = AppUser.objects.get(iD = reportedId)
+        reportedId = AppUser.objects.get(userID = reportedId)
 
 
 
@@ -751,7 +751,7 @@ class BlockViewSet(viewsets.ModelViewSet):
             blockedId = request.data.get('blockedID')
 
             blocker = AppUser.objects.get(iD = blockerId)
-            blocked = AppUser.objects.get(iD = blockedId)
+            blocked = AppUser.objects.get(userID = blockedId)
 
 
             if blocker and blocked:
