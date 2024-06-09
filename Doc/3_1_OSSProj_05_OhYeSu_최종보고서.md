@@ -66,10 +66,10 @@
     ![매칭목록](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/144078388/6b491dff-fba8-4a14-b739-8d97e50e834f)  
 
     - 채팅 기능  
-    ![매칭하기](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/144078388/ef11a97d-9769-49d6-928f-3252db3bafd8)  
+    ![채팅하기 최종](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/144078388/478a598d-de15-4373-afb5-2f32e225d464)  
 
-    - 차단 기능  
-    ![차단하기](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/144078388/4b6927f6-164c-4de3-8d21-8bc4ebd89e0d)   
+    - 신고 기능  
+    ![신고하기](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/144078388/6738ef9a-25a5-4d63-959a-1b0c69db6d12)  
   
     - 이외의 구현 기능은 최종보고서 부록에 기재 <br>
     [최종보고서 부록](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/Doc/3_3_OSSProj_05_OhYeSu_최종보고서부록.md)
