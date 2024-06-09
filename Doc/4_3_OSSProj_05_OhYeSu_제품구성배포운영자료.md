@@ -4,7 +4,8 @@
 
 ## 1. 프로젝트 제품 구성
 
-- *프로젝트 제품의 구성과 배치 내역을 그림과 글로 설명*  
+- [소스 코드 Overview](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/app/src/overveiw.md)<br>
+- [소스 코드 간의 기능별 연계성 설명](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/Doc/4_4_OSSProj_05_OhYeSu_%EB%B6%80%EB%A1%9D_%EC%86%8C%EC%8A%A4%EC%BD%94%EB%93%9C%EC%97%B0%EA%B3%84%EC%84%B1.md)
   
 ## 2. 프로젝트 제품 배포 방법  
 
@@ -15,3 +16,9 @@
 
 - *프로젝트 제품의 시연을 위한 환경구성 및 운영방법 설명*
 - *프로젝트 제품의 시연 시나리오 제시*  
+- 시퀀스 다이어그램
+    - 매칭 입력 시퀀스 다이어그램    
+    ![매칭 입력 시퀀스 다이어그램](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/8e098f6b-30f4-465f-a4ab-f344a3ec6eb2)
+    - 매칭 신청/거절 시퀀스 다이어그램
+    ![매칭 신청/거절 시퀀스 다이어그램](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/143872214/3353aa0f-4798-4c41-9a01-3e09c6a698eb)
+<br></br>
