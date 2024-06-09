@@ -18,7 +18,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
 
     async def disconnect(self, close_code):
-        # Leave room group
         await self.channel_layer.group_discard(
             self.room_group_name,
             self.channel_name
@@ -32,10 +31,10 @@ class ChatConsumer(AsyncWebsocketConsumer):
         receiverID = data['receiverID']
         content = data['content']
 
-        # Save message to database
+        # 데이터베이스에 메세지 저장
         await self.save_message(CHistoryID, senderID, receiverID, content)
 
-        # Send message to receiver
+        # receiver에게 메세지 전송
         await self.send(text_data=json.dumps({
             'CHistoryID': CHistoryID,
             'message': content,

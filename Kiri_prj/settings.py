@@ -15,14 +15,12 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-ttqah)3dl(795v%q%ux0=@!o+abh!7tf%8cv9ep7sm&2s$k#*)'
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 # KSH: 모든 호스트 장고 접속 가능
@@ -156,7 +154,6 @@ STATICFILES_DIRS = []
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 # DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
 
 ASGI_APPLICATION = 'Kiri_prj.asgi.application'
 
