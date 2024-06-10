@@ -256,32 +256,57 @@ class ProfileViewSet(viewsets.ModelViewSet):
 
 
         if all(field is not None for field in required_fields):
-            user_count = Profile.objects.count() + 1
-            user_profile = Profile.objects.create(profileId = user_count, userId = userId,
-                                                  Embti = Embti,
-                                                  Smbti = Smbti,
-                                                  Tmbti = Tmbti,
-                                                  Jmbti = Jmbti,
-                                                  firstLesson = firstLesson,
-                                                  smoke = smoke,
-                                                  sleepHabit = sleepHabit,
-                                                  grade = grade,
-                                                  shareNeeds = shareNeeds,
-                                                  inComm = inComm,
-                                                  heatSens = heatSens,
-                                                  coldSens = coldSens,
-                                                  drinkFreq = drinkFreq,
-                                                  cleanliness = cleanliness,
-                                                  noiseSens = noiseSens,
-                                                  sleepSche = sleepSche,
-                                                  upSche = upSche)
-            user_profile.save()
+            if Profile.objects.filter(userId = userId).exists():
+                user_profile = Profile.objects.get(userId = userId)
+                user_profile.Embti = Embti
+                user_profile.Smbti = Smbti
+                user_profile.Tmbti = Tmbti
+                user_profile.Jmbti = Jmbti
+                user_profile.firstLesson = firstLesson
+                user_profile.smoke = smoke
+                user_profile.sleepHabit = sleepHabit
+                user_profile.grade = grade
+                user_profile.shareNeeds = shareNeeds
+                user_profile.inComm = inComm
+                user_profile.heatSens = heatSens
+                user_profile.coldSens = coldSens
+                user_profile.drinkFreq = drinkFreq
+                user_profile.cleanliness = cleanliness
+                user_profile.noiseSens = noiseSens
+                user_profile.sleepSche = sleepSche
+                user_profile.upSche = upSche
+                user_profile.save()
 
-            user = AppUser.objects.get(iD = userId)
-            user.isProfile = True
-            user.save()
+                return Response({'success': True}, status=status.HTTP_200_OK)
 
-            return Response({'success': True}, status=status.HTTP_201_CREATED)
+            else:
+
+                user_count = Profile.objects.count() + 1
+                user_profile = Profile.objects.create(profileId = user_count, userId = userId,
+                                                      Embti = Embti,
+                                                      Smbti = Smbti,
+                                                      Tmbti = Tmbti,
+                                                      Jmbti = Jmbti,
+                                                      firstLesson = firstLesson,
+                                                      smoke = smoke,
+                                                      sleepHabit = sleepHabit,
+                                                      grade = grade,
+                                                      shareNeeds = shareNeeds,
+                                                      inComm = inComm,
+                                                      heatSens = heatSens,
+                                                      coldSens = coldSens,
+                                                      drinkFreq = drinkFreq,
+                                                      cleanliness = cleanliness,
+                                                      noiseSens = noiseSens,
+                                                      sleepSche = sleepSche,
+                                                      upSche = upSche)
+                user_profile.save()
+
+                user = AppUser.objects.get(iD = userId)
+                user.isProfile = True
+                user.save()
+
+                return Response({'success': True}, status=status.HTTP_201_CREATED)
         else:
             return Response({'success': False}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -671,7 +696,7 @@ class MatchViewSet(viewsets.ModelViewSet):
 
         try:
             user1 = AppUser.objects.get(iD=userId)
-            user2 = AppUser.objects.get(userID=userId2)
+            user2 = AppUser.objects.get(iD=userId2)
 
             user1.matchStatus = 'accepted'
             user2.matchStatus = 'accepted'
@@ -692,7 +717,7 @@ class MatchViewSet(viewsets.ModelViewSet):
 
         try:
             user1 = AppUser.objects.get(iD=userId)
-            user2 = AppUser.objects.get(userID=userId2)
+            user2 = AppUser.objects.get(iD=userId2)
 
             user1.matchStatus = 'pending'
             user2.matchStatus = 'pending'

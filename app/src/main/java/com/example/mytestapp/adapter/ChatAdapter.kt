@@ -18,9 +18,9 @@ class ChatAdapter(
     companion object {
         private const val VIEW_TYPE_MESSAGE = 1
         private const val VIEW_TYPE_MATCH_REQUEST = 2
+        private const val MATCH_REQUEST_KEYWORD = "매칭을 요청했습니다" // 매칭 요청 메시지를 구분하는 키워드
     }
 
-    // 채팅 메시지를 위한 뷰홀더 클래스
     inner class ChatViewHolder(private val binding: ChatMessageItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(message: ChatMessage) {
             binding.chatMessage = message
@@ -36,26 +36,32 @@ class ChatAdapter(
         }
     }
 
-    // 매칭 요청 메시지를 위한 뷰홀더 클래스
     inner class MatchRequestViewHolder(private val binding: ChatMessageItemMatchRequestBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(message: ChatMessage) {
-            binding.executePendingBindings()
-
-            binding.acceptButton.setOnClickListener { onAcceptClick(message) }
-            binding.rejectButton.setOnClickListener { onRejectClick(message) }
+            // A가 보낸 메시지에는 버튼을 비활성화
+            if (message.senderID == currentUserId) {
+                binding.acceptButton.visibility = View.GONE
+                binding.rejectButton.visibility = View.GONE
+            } else {
+                binding.acceptButton.visibility = View.VISIBLE
+                binding.rejectButton.visibility = View.VISIBLE
+                binding.acceptButton.setOnClickListener { onAcceptClick(message) }
+                binding.rejectButton.setOnClickListener { onRejectClick(message) }
+            }
         }
     }
 
-    // 각 메시지의 뷰 타입을 반환하는 함수
+
+
+
     override fun getItemViewType(position: Int): Int {
-        return if (messages[position].isMatchRequest) {
+        return if (messages[position].content.contains(MATCH_REQUEST_KEYWORD)) {
             VIEW_TYPE_MATCH_REQUEST
         } else {
             VIEW_TYPE_MESSAGE
         }
     }
 
-    // 뷰홀더를 생성하는 함수
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         return when (viewType) {
@@ -71,7 +77,8 @@ class ChatAdapter(
         }
     }
 
-    // 뷰홀더에 데이터를 바인딩하는 함수
+
+
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder.itemViewType) {
             VIEW_TYPE_MATCH_REQUEST -> (holder as MatchRequestViewHolder).bind(messages[position])
@@ -79,10 +86,8 @@ class ChatAdapter(
         }
     }
 
-    // 아이템의 총 개수를 반환하는 함수
     override fun getItemCount(): Int = messages.size
 
-    // 새로운 메시지 리스트를 설정하고 갱신하는 함수
     fun submitList(newMessages: List<ChatMessage>) {
         messages = newMessages
         notifyDataSetChanged()

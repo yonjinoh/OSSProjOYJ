@@ -82,7 +82,7 @@ class Profile(models.Model):
     upSche = models.IntegerField()
 
     def __str__(self):
-        return self.userId
+        return str(self.userId)
 
 # KSH: UserPref 모델 정의 추가
 class UserPref(models.Model):
