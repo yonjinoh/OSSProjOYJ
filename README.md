@@ -59,10 +59,11 @@
     ![매칭목록](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/144078388/6b491dff-fba8-4a14-b739-8d97e50e834f)  
 
 - 채팅 기능  
-    ![매칭하기](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/144078388/ef11a97d-9769-49d6-928f-3252db3bafd8)  
+    ![채팅하기](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/144078388/8afd6c1c-f799-476f-8da2-95eb16c94af0)
 
-- 차단 기능  
-    ![차단하기](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/144078388/4b6927f6-164c-4de3-8d21-8bc4ebd89e0d)   
+- 신고 기능  
+    ![신고하기](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/144078388/6738ef9a-25a5-4d63-959a-1b0c69db6d12)
+   
   
 - 이외의 구현 기능은 최종보고서 부록에 기재 <br>[최종보고서 부록](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/blob/main/Doc/3_3_OSSProj_05_OhYeSu_최종보고서부록.md)
 
@@ -151,7 +152,116 @@
 
 
 
-## 6. 사용 방법
-(배포 후 작성)
+## 6. 시작 가이드(사용 방법)
+***
+
+### Requirements
+로컬 환경에서 어플리케이션을 빌드하고 실행하려면 다음이 필요함:
+```
+* Android Studio
+* MySql 8.0
+* Ngrok 0.81
+```
+### Installation
+```
+> git clone https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05.git Kiri
+> cd Kiri
+```
+### Backend
+
+가상환경 생성 및 의존성 패키지 설치 -> DB 구성 -> DB 원격 접속 허용 -> Django에 구성한 DB 정보 입력
+
+```
+# virtual env composing
+
+> python -m venv [venv-name]
+> ./[venv-name]/Scripts/activate
+> pip install -r requirements.txt
+> pip install setuptools
+```
+
+```
+# DB composing
+
+# mysql workbench에서 데이터베이스 생성 (create database 명령어; 아래사진 참고)
+```
+![image](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/144208568/3c9ef722-80f5-490e-8c0c-da2fdcf2198f)
+
+```
+# 아래 링크 참조하여 MySql 원격 접속 설정
+https://blife.tistory.com/19
+
+< 참고 >
+CREATE USER '<계정명>'@'%' IDENTIFIED BY '<패스워드>';
+예) CREATE USER ‘kim’@’%’ IDENTIFIED BY ‘oooooooo’;
+
+GRANT ALL PRIVILEGES ON <데이터베이스명>.* TO '<계정명>'@'%';
+- MYSQL에서 생성한 connection 내의 schema(=database)를 데이터베이스명에 입력
+- 계정명에는 위 명령어로 생성한 계정명 입력 예) kim
+
+FLUSH PRIVILEGES;
+```
+
+```
+# Kiri_prj/settings.py에 아래와 같은 형식으로 DB 정보 입력
+
+DATABASES = {
+    "default": {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': '[DB table 명]',
+        'USER': '[DB 사용자명]',
+        'PASSWORD':'[DB 암호]',
+        'HOST': '127.0.0.1',
+        'PORT':'3306',
+        'OPTIONS':{
+            'init_command' : "SET sql_mode='STRICT_TRANS_TABLES'"
+        }
+    }
+}
+
+# 가상환경 상에서 아래 코드 실행
+
+> python manage.py makemigrations
+> python manage.py migrate
+> python manage.py runserver
+```
 
 
+
+### Frontend
+Django 서버 주소 외부로 포워딩 -> 포워딩 주소를 API 호출에 사용할 객체가 전달될 주소로 할당
+
+
+```
+# Ngrok 설치 ( 아래 링크 참조 )
+https://yunwoong.tistory.com/131
+
+아래 명령어 ngrok 터미널에서 실행 ( Django 서버는 8000 포트가 default )
+> ngrok http 8000
+```
+
+```
+# Django와 Retrofit 객체 라우팅
+
+# app\src\main\java\com\example\mytestapp\entitiy\ApiFactory.kt
+# 아래 baseUrl [ngrok 실행후 포워딩 된 주소] 로 수정
+
+object ApiFactory {
+    val retrofit: Retrofit by lazy {
+        Retrofit.Builder()
+            .baseUrl("[ngrok 실행후 포워딩 된 주소]")
+            .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
+            .build()
+    }
+
+    inline fun <reified T> create(): T = retrofit.create(T::class.java)
+}
+```
+
+### Build
+![image](https://github.com/CSID-DGU/2024-1-OSSProj-OhYeSu-05/assets/144208568/8fccba47-025c-452c-972c-326ac2b66646)
+```
+1. 맨 오른쪽의 망치 모양 버튼 클릭 -> app build 시작
+2. build 완료 후 중간의 재생 버튼 클릭 -> 안드로이드 에뮬레이터 시작
+3. 어플 자동 설치 후 실행 됨
+```
